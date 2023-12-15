@@ -25,3 +25,5 @@
 启动应用(ios):
 
 `npm run ios`
+
+对于Windows平台开发安卓的用户可以直接运行`start.ps1`完成上述操作
