@@ -1,7 +1,8 @@
 module.exports = {
   project: {
     ios: {
-      automaticPodsInstallation: true
-    }
-  }
-}
+      automaticPodsInstallation: true,
+    },
+  },
+  assets: ['node_modules/@ant-design/icons-react-native/fonts'],
+};

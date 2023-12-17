@@ -7,6 +7,7 @@
 
 import React from 'react';
 import type {PropsWithChildren} from 'react';
+import {Button, Icon} from '@ant-design/react-native';
 import {
   SafeAreaView,
   ScrollView,
@@ -77,7 +78,9 @@ function App(): React.JSX.Element {
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
           <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> test test
+            Edit <Text style={styles.highlight}>App.tsx</Text>
+            <Button>test button</Button>
+            <Icon name="account-book" size="md" color="red" />
           </Section>
           <Section title="See Your Changes">
             <ReloadInstructions />
