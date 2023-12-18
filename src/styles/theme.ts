@@ -3,6 +3,9 @@ const COLORS = {
   SIDE_COLOR: '#1CA2E1',
   IGNORE_COLOR: '#6A7174',
   BACKGROUND_COLOR: '#f2f4fb',
+  DANGER: '#d64828',
+  SUCCESS: '#19d929',
+  INFO: '#1888d8',
 };
 
 export default COLORS;
