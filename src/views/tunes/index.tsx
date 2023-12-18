@@ -1,38 +1,21 @@
-import React, {useRef} from 'react';
-import {getTunesCatalog} from '../../api/tunes';
-import {View, WhiteSpace} from '@ant-design/react-native';
-import Container from '../../components/container';
-import {ScrollView, Text} from 'react-native';
-import {Title, WFull, catalogStyles} from '../../styles';
+import React from 'react';
+import Catalog from './catalog';
+import Tune from './tune';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import FillPoem from './fillPoem';
+
+const Stack = createNativeStackNavigator();
 
 function Tunes(): React.JSX.Element {
-  const tuneNames = useRef(getTunesCatalog());
-  const tuneKeys = useRef(['平韵格', '仄韵格', '平仄韵转换格', '平仄韵通叶格']);
   return (
-    <Container>
-      <ScrollView style={WFull}>
-        {tuneKeys.current.map((item, index) => {
-          return (
-            <View key={index}>
-              <Text style={Title}>{item}</Text>
-              <WhiteSpace />
-              <View style={catalogStyles.container}>
-                {tuneNames.current[item].map((obj, key) => {
-                  return (
-                    <View key={`${index}-${key}`}>
-                      <Text style={catalogStyles.textItem}>{obj.name}</Text>
-                      <Text style={catalogStyles.noteText}>{obj.tunes}</Text>
-                    </View>
-                  );
-                })}
-              </View>
-              <WhiteSpace />
-            </View>
-          );
-        })}
-      </ScrollView>
-    </Container>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Catalog">
+        <Stack.Screen name="Catalog" component={Catalog} />
+        <Stack.Screen name="Tune" component={Tune} />
+        <Stack.Screen name="FillPoem" component={FillPoem} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
 export default Tunes;
