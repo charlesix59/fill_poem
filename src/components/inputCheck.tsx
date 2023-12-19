@@ -33,10 +33,14 @@ function InputCheck({
   const [char, setChar] = useState('');
   const inputRef = useRef<any>();
   const value = useContext(StrContext);
-  /** 真正处理逻辑 */
+  /** 真正处理输入的逻辑 */
   const setInputValue = useCallback(
     (str: string) => {
-      if (str && !verifyCharIsChinese(str)) {
+      if (!str) {
+        setChar('');
+        return;
+      }
+      if (!verifyCharIsChinese(str)) {
         return;
       }
       let displayChar = str.substring(0, 1);
@@ -66,6 +70,19 @@ function InputCheck({
   const TextInputHandler = (inputChar: string) => {
     setInputValue(inputChar);
   };
+  /** 监听键盘事件，处理退格事件 */
+  const backSpaceHandler = (keyName: string) => {
+    if (keyName === 'Backspace' && !char) {
+      setBackCommand();
+    }
+  };
+  const setBackCommand = () => {
+    const command: CheckInputCommand = {
+      name: 'back',
+      callarIndex: index,
+    };
+    setCommand(command);
+  };
   if (rhythm) {
     return (
       <View style={fillPoemStyle.inline}>
@@ -91,6 +108,9 @@ function InputCheck({
         value={char}
         onChange={e => {
           TextInputHandler(e.nativeEvent.text);
+        }}
+        onKeyPress={e => {
+          backSpaceHandler(e.nativeEvent.key);
         }}
         ref={inputRef}
       />

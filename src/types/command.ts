@@ -1,10 +1,10 @@
 interface BaseCommand {
   name: string;
-  value: unknown;
+  value?: unknown;
 }
 
 interface CheckInputCommand extends BaseCommand {
-  value: string | undefined;
+  value?: string | undefined;
   callarIndex: number;
 }
 

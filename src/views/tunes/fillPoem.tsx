@@ -34,10 +34,18 @@ function FillPoem({route}: any): React.JSX.Element {
   /** 监听command变化 */
   useEffect(() => {
     if (command && command.name === 'input') {
+      if (command.callarIndex === format.tunes.length - 1) {
+        return;
+      }
       setFoucsElement(command.callarIndex + 1);
       setChars(command.value || '');
+    } else if (command && command.name === 'back') {
+      if (command.callarIndex === 0) {
+        return;
+      }
+      setFoucsElement(command.callarIndex - 1);
     }
-  }, [command]);
+  }, [command, format.tunes.length]);
   if (tunes.length === 0) {
     return <Loading />;
   }
