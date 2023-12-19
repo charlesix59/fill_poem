@@ -3,4 +3,14 @@ const number2Chinese = (num: number): string => {
   return chineseNumbers[num - 1];
 };
 
-export {number2Chinese};
+// 中文匹配正则
+const reg = /^[\u4E00-\u9FA5]+$/;
+
+const verifyCharIsChinese = (char: string) => {
+  if (reg.test(char)) {
+    return true;
+  }
+  return false;
+};
+
+export {number2Chinese, verifyCharIsChinese};

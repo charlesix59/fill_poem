@@ -22,6 +22,7 @@ interface CiFormat {
 interface CiTuneItem {
   tune: string;
   rhythm?: string;
+  index?: number;
 }
 
 export type {TunesCatalog, CiTuneType, CiFormat, CiTuneItem};
