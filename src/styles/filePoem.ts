@@ -27,8 +27,9 @@ const fillPoemStyle = StyleSheet.create({
     flexDirection: 'row',
   },
   warp: {
-    flexBasis: 10000,
+    flexBasis: '50%',
     flexShrink: 0,
+    textAlign: 'left',
   },
 });
 

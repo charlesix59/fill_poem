@@ -24,4 +24,4 @@ interface CiTuneItem {
   rhythm?: string;
 }
 
-export type {TunesCatalog, CiTuneType, CiFormat};
+export type {TunesCatalog, CiTuneType, CiFormat, CiTuneItem};
