@@ -118,7 +118,7 @@ function InputCheck({
         <View style={fillPoemStyle.centerContainer}>
           <Text>{tune}</Text>
           <TextInput
-            style={fillPoemStyle.textInput}
+            style={TuneStyle}
             value={char}
             onChange={e => {
               TextInputHandler(e.nativeEvent.text);
