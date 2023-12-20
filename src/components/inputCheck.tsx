@@ -13,6 +13,13 @@ import fillPoemStyle from '../styles/filePoem';
 import {CheckInputCommand} from '../types/command';
 import {verifyCharIsChinese} from '../utils/comman';
 import {StrContext} from '../views/tunes/fillPoem';
+import {checkTune} from '../api/check';
+
+const str2styleName = {
+  success: fillPoemStyle.successInput,
+  error: fillPoemStyle.errorInput,
+  info: fillPoemStyle.infoInput,
+};
 
 type propsType = {
   tune: string;
@@ -23,6 +30,7 @@ type propsType = {
   value?: string;
 };
 
+// TODO: 那天把那个input框和这个组件再解耦一下
 function InputCheck({
   tune,
   rhythm,
@@ -31,8 +39,24 @@ function InputCheck({
   focus,
 }: propsType): React.JSX.Element {
   const [char, setChar] = useState('');
+  const [TuneStyle, setTuneStyle] = useState(fillPoemStyle.textInput);
   const inputRef = useRef<any>();
   const value = useContext(StrContext);
+  const check = useCallback(async () => {
+    // TODO: 处理韵律，通过Command模式发送命令到上层然后上层通过参数传递
+    // if (rhythm) {
+    //   if (!firstRhyme) {
+    //     setFirstRhyme(char);
+    //   }
+    //   checkRhyme(char, firstRhyme);
+    // }
+    if (!char) {
+      setTuneStyle(fillPoemStyle.textInput);
+      return;
+    }
+    const res = await checkTune(char, tune);
+    setTuneStyle((str2styleName as any)[res]);
+  }, [char, tune]);
   /** 真正处理输入的逻辑 */
   const setInputValue = useCallback(
     (str: string) => {
@@ -56,6 +80,10 @@ function InputCheck({
     },
     [index, setCommand],
   );
+  /** 监听char变化 */
+  useEffect(() => {
+    check();
+  }, [char, check]);
   /** 自动移动字符 */
   useEffect(() => {
     if (focus) {
@@ -109,7 +137,7 @@ function InputCheck({
     <View style={fillPoemStyle.centerContainer}>
       <Text>{tune}</Text>
       <TextInput
-        style={fillPoemStyle.textInput}
+        style={TuneStyle}
         value={char}
         onChange={e => {
           TextInputHandler(e.nativeEvent.text);

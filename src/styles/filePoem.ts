@@ -1,6 +1,18 @@
 import {StyleSheet} from 'react-native';
 import COLORS from './theme';
 
+const baseStyle = StyleSheet.create({
+  input: {
+    width: 30,
+    height: 30,
+    borderStyle: 'solid',
+    borderWidth: 2,
+    borderRadius: 3,
+    padding: 2,
+    textAlign: 'center',
+  },
+});
+
 const fillPoemStyle = StyleSheet.create({
   container: {
     width: '100%',
@@ -14,14 +26,20 @@ const fillPoemStyle = StyleSheet.create({
     alignItems: 'center',
   },
   textInput: {
-    width: 30,
-    height: 30,
-    borderStyle: 'solid',
+    ...baseStyle.input,
     borderColor: COLORS.IGNORE_COLOR,
-    borderWidth: 2,
-    borderRadius: 3,
-    padding: 2,
-    textAlign: 'center',
+  },
+  successInput: {
+    ...baseStyle.input,
+    borderColor: COLORS.SUCCESS,
+  },
+  errorInput: {
+    ...baseStyle.input,
+    borderColor: COLORS.ERROR,
+  },
+  infoInput: {
+    ...baseStyle.input,
+    borderColor: COLORS.INFO,
   },
   inline: {
     flexDirection: 'row',

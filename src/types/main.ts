@@ -25,4 +25,16 @@ interface CiTuneItem {
   index?: number;
 }
 
-export type {TunesCatalog, CiTuneType, CiFormat, CiTuneItem};
+interface CilinWord {
+  tune: string;
+  rhyme: string;
+}
+
+enum ReturnType {
+  SUCCESS = 'success',
+  ERROR = 'error',
+  INFO = 'info',
+}
+
+export type {TunesCatalog, CiTuneType, CiFormat, CiTuneItem, CilinWord};
+export {ReturnType};
