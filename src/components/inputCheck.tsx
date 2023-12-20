@@ -76,6 +76,7 @@ function InputCheck({
       setBackCommand();
     }
   };
+  /** 发送退格命令 */
   const setBackCommand = () => {
     const command: CheckInputCommand = {
       name: 'back',
@@ -91,9 +92,13 @@ function InputCheck({
           <TextInput
             style={fillPoemStyle.textInput}
             value={char}
-            onTextInput={e => {
-              console.log(e.nativeEvent);
+            onChange={e => {
+              TextInputHandler(e.nativeEvent.text);
             }}
+            onKeyPress={e => {
+              backSpaceHandler(e.nativeEvent.key);
+            }}
+            ref={inputRef}
           />
         </View>
         <Text style={fillPoemStyle.warp}>{rhythm}</Text>
