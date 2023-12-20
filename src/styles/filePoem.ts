@@ -44,11 +44,6 @@ const fillPoemStyle = StyleSheet.create({
   inline: {
     flexDirection: 'row',
   },
-  warp: {
-    flexBasis: '50%',
-    flexShrink: 0,
-    textAlign: 'left',
-  },
 });
 
 export default fillPoemStyle;

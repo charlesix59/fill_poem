@@ -13,9 +13,6 @@ const getWord = async (char: string): Promise<CilinWord> => {
  */
 const checkTune = async (char: string, tar: string): Promise<string> => {
   const wordInfo = await getWord(char);
-  console.log('___________________________');
-  console.log(wordInfo);
-  console.log(tar);
   if (!wordInfo) {
     return ReturnType.INFO;
   }
@@ -37,6 +34,8 @@ const checkTune = async (char: string, tar: string): Promise<string> => {
 const checkRhyme = async (char: string, tar: string) => {
   const wordInfo = await getWord(char);
   const tarInfo = await getWord(tar);
+  console.log('-------------------------');
+  console.log(char, tar);
   if (!(wordInfo && tarInfo)) {
     return ReturnType.INFO;
   }

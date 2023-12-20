@@ -16,6 +16,7 @@ function FillPoem({route}: any): React.JSX.Element {
   const [command, setCommand] = useState<CheckInputCommand>();
   const [foucsElement, setFoucsElement] = useState(0);
   const [chars, setChars] = useState('');
+  const [rhymeWord, setRhymeWord] = useState(''); // 韵脚
 
   /** 提供可换行的词韵数组 */
   useEffect(() => {
@@ -44,6 +45,13 @@ function FillPoem({route}: any): React.JSX.Element {
         return;
       }
       setFoucsElement(command.callarIndex - 1);
+    } else if (command && command.name === 'rhythm') {
+      setRhymeWord(e => {
+        if (!e) {
+          return command.value || '';
+        }
+        return e;
+      });
     }
   }, [command, format.tunes.length]);
   if (tunes.length === 0) {
@@ -67,6 +75,7 @@ function FillPoem({route}: any): React.JSX.Element {
                         setCommand={setCommand}
                         index={item.index as number}
                         focus={foucsElement === item.index}
+                        rhymeWord={rhymeWord}
                       />
                     );
                   })}
