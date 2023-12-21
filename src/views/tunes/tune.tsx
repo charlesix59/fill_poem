@@ -1,9 +1,9 @@
-import React, {useRef} from 'react';
-import {ScrollView, Text} from 'react-native';
-import {getTuneByName} from '../../api/tunes';
-import Container from '../../components/container';
-import TuneCard from '../../components/tuneCard';
-import {Title} from '../../styles';
+import React, {useRef} from "react";
+import {ScrollView, Text} from "react-native";
+import {getTuneByName} from "../../api/tunes";
+import Container from "../../components/container";
+import TuneCard from "../../components/tuneCard";
+import {Title} from "../../styles";
 
 function Tune({route, navigation}: any): React.JSX.Element {
   const {name} = route.params;

@@ -1,9 +1,9 @@
-import React from 'react';
-import Catalog from './catalog';
-import Tune from './tune';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import FillPoem from './fillPoem';
+import React from "react";
+import Catalog from "./catalog";
+import Tune from "./tune";
+import {NavigationContainer} from "@react-navigation/native";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import FillPoem from "./fillPoem";
 
 const Stack = createNativeStackNavigator();
 

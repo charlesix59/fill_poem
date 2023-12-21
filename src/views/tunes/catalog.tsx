@@ -1,16 +1,16 @@
-import React, {useRef} from 'react';
-import {getTunesCatalog} from '../../api/tunes';
-import {View, WhiteSpace} from '@ant-design/react-native';
-import Container from '../../components/container';
-import {ScrollView, Text} from 'react-native';
-import {Title, WFull, catalogStyles} from '../../styles';
+import React, {useRef} from "react";
+import {getTunesCatalog} from "../../api/tunes";
+import {View, WhiteSpace} from "@ant-design/react-native";
+import Container from "../../components/container";
+import {ScrollView, Text} from "react-native";
+import {Title, WFull, catalogStyles} from "../../styles";
 
 function Catalog({navigation}: any): React.JSX.Element {
   const tuneNames = useRef(getTunesCatalog());
-  const tuneKeys = useRef(['平韵格', '仄韵格', '平仄韵转换格', '平仄韵通叶格']);
+  const tuneKeys = useRef(["平韵格", "仄韵格", "平仄韵转换格", "平仄韵通叶格"]);
 
   const pressHandler = (ciName: string) => {
-    navigation.navigate('Tune', {name: ciName});
+    navigation.navigate("Tune", {name: ciName});
   };
   return (
     <Container>

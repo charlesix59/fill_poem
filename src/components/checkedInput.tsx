@@ -1,4 +1,4 @@
-import {TextInput} from 'react-native';
+import {TextInput} from "react-native";
 import React, {
   Dispatch,
   SetStateAction,
@@ -7,12 +7,12 @@ import React, {
   useEffect,
   useRef,
   useState,
-} from 'react';
-import fillPoemStyle from '../styles/filePoem';
-import {CheckInputCommand} from '../types/command';
-import {verifyCharIsChinese} from '../utils/comman';
-import {StrContext} from '../views/tunes/fillPoem';
-import {checkTune} from '../api/check';
+} from "react";
+import fillPoemStyle from "../styles/filePoem";
+import {CheckInputCommand} from "../types/command";
+import {verifyCharIsChinese} from "../utils/comman";
+import {StrContext} from "../views/tunes/fillPoem";
+import {checkTune} from "../api/check";
 
 const str2styleName = {
   success: fillPoemStyle.successInput,
@@ -29,7 +29,6 @@ type propsType = {
   setRhymeChar?: Dispatch<SetStateAction<string>>;
 };
 
-// TODO: 那天把那个input框和这个组件再解耦一下
 function CheckedInput({
   tune,
   setCommand,
@@ -38,7 +37,7 @@ function CheckedInput({
   rhythm,
   setRhymeChar,
 }: propsType): React.JSX.Element {
-  const [char, setChar] = useState('');
+  const [char, setChar] = useState("");
   const [TuneStyle, setTuneStyle] = useState(fillPoemStyle.textInput);
   const inputRef = useRef<any>();
   const value = useContext(StrContext);
@@ -55,8 +54,8 @@ function CheckedInput({
   );
   /** 韵律检查 */
   const check = useCallback(async () => {
-    if (rhythm && rhythm === '韵') {
-      sendCommand('rhythm', char);
+    if (rhythm && rhythm === "韵") {
+      sendCommand("rhythm", char);
     }
     if (!char) {
       setTuneStyle(fillPoemStyle.textInput);
@@ -69,7 +68,7 @@ function CheckedInput({
   const setInputValue = useCallback(
     (str: string) => {
       if (!str) {
-        setChar('');
+        setChar("");
         return;
       }
       if (!verifyCharIsChinese(str)) {
@@ -79,7 +78,7 @@ function CheckedInput({
       let commandStr = str.substring(1);
       setChar(displayChar);
       // 发送命令
-      sendCommand('input', commandStr);
+      sendCommand("input", commandStr);
     },
     [sendCommand],
   );
@@ -107,8 +106,8 @@ function CheckedInput({
   };
   /** 监听键盘事件，处理退格事件 */
   const backSpaceHandler = (keyName: string) => {
-    if (keyName === 'Backspace' && !char) {
-      sendCommand('back');
+    if (keyName === "Backspace" && !char) {
+      sendCommand("back");
     }
   };
   return (

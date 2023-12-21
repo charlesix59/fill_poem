@@ -1,22 +1,22 @@
-import {StyleProp, StyleSheet} from 'react-native';
-import COLORS from './theme';
+import {StyleProp, StyleSheet} from "react-native";
+import COLORS from "./theme";
 
 const WFull: StyleProp<any> = {
-  width: '100%',
+  width: "100%",
 };
 
 const Title: StyleProp<any> = {
   fontSize: 24,
   color: COLORS.PRIMARY_COLOR,
-  alignSelf: 'center',
+  alignSelf: "center",
 };
 
 const catalogStyles = StyleSheet.create({
   container: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
   },
   textItem: {
     width: 140,
@@ -28,15 +28,15 @@ const catalogStyles = StyleSheet.create({
 
 const formatStyles = StyleSheet.create({
   container: {
-    width: '80%',
-    marginLeft: '10%',
+    width: "80%",
+    marginLeft: "10%",
     marginTop: 12,
     padding: 12,
     backgroundColor: COLORS.BACKGROUND_COLOR,
   },
   inline: {
-    display: 'flex',
-    flexDirection: 'row',
+    display: "flex",
+    flexDirection: "row",
   },
   line: {
     marginTop: 8,

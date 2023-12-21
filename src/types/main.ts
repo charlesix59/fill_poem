@@ -31,9 +31,9 @@ interface CilinWord {
 }
 
 enum ReturnType {
-  SUCCESS = 'success',
-  ERROR = 'error',
-  INFO = 'info',
+  SUCCESS = "success",
+  ERROR = "error",
+  INFO = "info",
 }
 
 export type {TunesCatalog, CiTuneType, CiFormat, CiTuneItem, CilinWord};

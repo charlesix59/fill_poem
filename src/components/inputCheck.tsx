@@ -1,12 +1,12 @@
-import {Icon, View} from '@ant-design/react-native';
-import {Text} from 'react-native';
-import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
-import fillPoemStyle from '../styles/filePoem';
-import {CheckInputCommand} from '../types/command';
-import CheckedInput from './checkedInput';
-import {checkRhyme} from '../api/check';
-import {ReturnType} from '../types/main';
-import COLORS from '../styles/theme';
+import {Icon, View} from "@ant-design/react-native";
+import {Text} from "react-native";
+import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
+import fillPoemStyle from "../styles/filePoem";
+import {CheckInputCommand} from "../types/command";
+import CheckedInput from "./checkedInput";
+import {checkRhyme} from "../api/check";
+import {ReturnType} from "../types/main";
+import COLORS from "../styles/theme";
 
 type propsType = {
   tune: string;
@@ -18,6 +18,7 @@ type propsType = {
   rhymeWord?: string;
 };
 
+// TODO: 优化一下样式，可以不用flex 的 space around
 function InputCheck({
   tune,
   rhythm,
@@ -26,14 +27,14 @@ function InputCheck({
   focus,
   rhymeWord,
 }: propsType): React.JSX.Element {
-  const [rhymeChar, setRhymeChar] = useState('');
-  const [rhymeState, setRhtmeState] = useState('');
+  const [rhymeChar, setRhymeChar] = useState("");
+  const [rhymeState, setRhtmeState] = useState("");
   useEffect(() => {
     if (!rhymeWord) {
       return;
     }
     async function check() {
-      const state = await checkRhyme(rhymeChar, rhymeWord || '');
+      const state = await checkRhyme(rhymeChar, rhymeWord || "");
       setRhtmeState(state);
     }
     check();
@@ -53,7 +54,7 @@ function InputCheck({
           />
         </View>
         <Text>{rhythm}</Text>
-        {rhythm === '韵' && rhymeChar ? (
+        {rhythm === "韵" && rhymeChar ? (
           <StateIcon state={rhymeState} />
         ) : (
           <></>

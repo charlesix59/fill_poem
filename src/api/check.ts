@@ -1,5 +1,5 @@
-import word from '../data/Ci_Word_Tune.json';
-import {CilinWord, ReturnType} from '../types/main';
+import word from "../data/Ci_Word_Tune.json";
+import {CilinWord, ReturnType} from "../types/main";
 
 const getWord = async (char: string): Promise<CilinWord> => {
   return (word as any)[char] as CilinWord;
@@ -16,7 +16,7 @@ const checkTune = async (char: string, tar: string): Promise<string> => {
   if (!wordInfo) {
     return ReturnType.INFO;
   }
-  if (wordInfo.tune === '多') {
+  if (wordInfo.tune === "多") {
     return ReturnType.INFO;
   }
   if (wordInfo.tune === tar) {
@@ -34,12 +34,10 @@ const checkTune = async (char: string, tar: string): Promise<string> => {
 const checkRhyme = async (char: string, tar: string) => {
   const wordInfo = await getWord(char);
   const tarInfo = await getWord(tar);
-  console.log('-------------------------');
-  console.log(char, tar);
   if (!(wordInfo && tarInfo)) {
     return ReturnType.INFO;
   }
-  if (wordInfo.rhyme === '多' || tarInfo.rhyme === '多') {
+  if (wordInfo.rhyme === "多" || tarInfo.rhyme === "多") {
     return ReturnType.INFO;
   }
   if (wordInfo.rhyme === tarInfo.rhyme) {

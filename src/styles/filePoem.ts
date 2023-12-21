@@ -1,29 +1,29 @@
-import {StyleSheet} from 'react-native';
-import COLORS from './theme';
+import {StyleSheet} from "react-native";
+import COLORS from "./theme";
 
 const baseStyle = StyleSheet.create({
   input: {
     width: 30,
     height: 30,
-    borderStyle: 'solid',
+    borderStyle: "solid",
     borderWidth: 2,
     borderRadius: 3,
     padding: 2,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });
 
 const fillPoemStyle = StyleSheet.create({
   container: {
-    width: '100%',
+    width: "100%",
   },
   inlineContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    justifyContent: "space-around",
+    flexWrap: "wrap",
   },
   centerContainer: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   textInput: {
     ...baseStyle.input,
@@ -42,7 +42,7 @@ const fillPoemStyle = StyleSheet.create({
     borderColor: COLORS.INFO,
   },
   inline: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
 });
 
