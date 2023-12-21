@@ -5,8 +5,8 @@
  * @format
  */
 
-import React from 'react';
-import Layout from './src/layout';
+import React from "react";
+import Layout from "./src/layout";
 
 function App(): React.JSX.Element {
   return <Layout />;

@@ -31,7 +31,6 @@ function Layout(): React.JSX.Element {
       <TabBar.Item
         icon={<Icon name="book" />}
         title="词谱"
-        badge={2}
         selected={selectTab === "secondTab"}
         onPress={() => onChangeTab("secondTab")}>
         <Tunes />
