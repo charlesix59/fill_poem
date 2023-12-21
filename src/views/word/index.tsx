@@ -1,11 +1,14 @@
 import React from "react";
-import {Text, View} from "@ant-design/react-native";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import WordMenu from "./menu";
+
+const Stack = createNativeStackNavigator();
 
 function Word(): React.JSX.Element {
   return (
-    <View>
-      <Text>字典</Text>
-    </View>
+    <Stack.Navigator initialRouteName="Menu">
+      <Stack.Screen name="Menu" component={WordMenu} />
+    </Stack.Navigator>
   );
 }
 export default Word;
