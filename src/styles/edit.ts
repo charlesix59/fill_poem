@@ -4,6 +4,8 @@ import COLORS from "./theme";
 const editStyle = StyleSheet.create({
   bottonLine: {
     marginBottom: 8,
+    width: 200,
+    color: COLORS.SIDE_COLOR,
   },
   lineInput: {
     width: "100%",

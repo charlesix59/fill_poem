@@ -1,20 +1,18 @@
-import {Button} from "@ant-design/react-native";
 import React from "react";
 import Container from "../../components/container";
-import editStyle from "../../styles/edit";
+import ButtonItem from "../../components/buttonItem";
 
 function EditMenu({navigation}: any): React.JSX.Element {
   return (
     <Container>
-      <Button
-        style={editStyle.bottonLine}
+      <ButtonItem
         onPress={() => {
           navigation.navigate("Inspect");
         }}>
         韵律检查
-      </Button>
-      <Button style={editStyle.bottonLine}>草稿箱</Button>
-      <Button style={editStyle.bottonLine}>自定韵律</Button>
+      </ButtonItem>
+      <ButtonItem>草稿箱</ButtonItem>
+      <ButtonItem>自定韵律</ButtonItem>
     </Container>
   );
 }
