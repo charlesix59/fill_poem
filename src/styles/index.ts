@@ -15,6 +15,8 @@ const Title: StyleProp<any> = {
 const HVCenter: StyleProp<any> = {
   alignItems: "center",
   justifyContent: "center",
+  width: "100%",
+  height: "100%",
 };
 
 const catalogStyles = StyleSheet.create({
