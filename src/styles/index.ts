@@ -11,6 +11,12 @@ const Title: StyleProp<any> = {
   alignSelf: "center",
 };
 
+// 水平垂直居中
+const HVCenter: StyleProp<any> = {
+  alignItems: "center",
+  justifyContent: "center",
+};
+
 const catalogStyles = StyleSheet.create({
   container: {
     display: "flex",
@@ -48,4 +54,4 @@ const formatStyles = StyleSheet.create({
   },
 });
 
-export {WFull, catalogStyles, Title, formatStyles};
+export {WFull, catalogStyles, Title, formatStyles, HVCenter};

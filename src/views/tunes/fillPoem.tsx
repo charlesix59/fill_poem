@@ -64,7 +64,7 @@ function FillPoem({route}: any): React.JSX.Element {
         <View>
           {tunes.map((arr, index) => {
             return (
-              <StrContext.Provider value={chars}>
+              <StrContext.Provider key={index} value={chars}>
                 <View style={fillPoemStyle.inlineContainer} key={index}>
                   {arr.map((item, key) => {
                     return (

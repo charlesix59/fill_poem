@@ -2,7 +2,7 @@ import catalog from "../data/Pingshui_Catalog.json";
 import tunes from "../data/Ci_Tunes.json";
 import {CiTuneType, TunesCatalog} from "../types/main";
 
-const getTunesCatalog = (): TunesCatalog => {
+const getTunesCatalog = async (): Promise<TunesCatalog> => {
   return catalog as TunesCatalog;
 };
 
