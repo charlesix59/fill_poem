@@ -18,7 +18,7 @@ function Layout(): React.JSX.Element {
       <Tab.Navigator
         initialRouteName="Edit"
         screenOptions={{
-          tabBarActiveTintColor: "#e91e63",
+          tabBarActiveTintColor: COLORS.PRIMARY_COLOR,
           headerShown: false,
         }}>
         <Tab.Screen

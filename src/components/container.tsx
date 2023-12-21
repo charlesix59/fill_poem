@@ -2,7 +2,9 @@ import {View} from "@ant-design/react-native";
 import React from "react";
 import {ViewStyle} from "react-native";
 
-function Container(props: {children: React.JSX.Element}): React.JSX.Element {
+function Container(props: {
+  children: React.JSX.Element | Array<React.JSX.Element>;
+}): React.JSX.Element {
   const containerStyle: ViewStyle = {
     flex: 1,
     width: "100%",

@@ -1,11 +1,16 @@
 import React from "react";
-import {Text, View} from "@ant-design/react-native";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import EditMenu from "./menu";
+import Inspect from "./inspect";
+
+const Stack = createNativeStackNavigator();
 
 function Edit(): React.JSX.Element {
   return (
-    <View>
-      <Text>创作</Text>
-    </View>
+    <Stack.Navigator initialRouteName="Menu">
+      <Stack.Screen name="Menu" component={EditMenu} />
+      <Stack.Screen name="Inspect" component={Inspect} />
+    </Stack.Navigator>
   );
 }
 export default Edit;
