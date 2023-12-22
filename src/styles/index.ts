@@ -19,6 +19,11 @@ const HVCenter: StyleProp<any> = {
   height: "100%",
 };
 
+// marginTop: 24
+const mt24: StyleProp<any> = {
+  marginTop: 24,
+};
+
 const catalogStyles = StyleSheet.create({
   container: {
     display: "flex",
@@ -56,4 +61,4 @@ const formatStyles = StyleSheet.create({
   },
 });
 
-export {WFull, catalogStyles, Title, formatStyles, HVCenter};
+export {WFull, catalogStyles, Title, formatStyles, HVCenter, mt24};

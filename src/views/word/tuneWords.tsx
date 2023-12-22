@@ -3,7 +3,7 @@ import {ScrollView, Text} from "react-native";
 import {getWordsByPart} from "../../api/word";
 import Container from "../../components/container";
 import {View} from "@ant-design/react-native";
-import {WFull, catalogStyles} from "../../styles";
+import {WFull, catalogStyles, mt24} from "../../styles";
 import COLORS from "../../styles/theme";
 import wordStyles from "../../styles/word";
 import Word from "./components/word";
@@ -31,8 +31,10 @@ function TuneWords({route}: any): React.JSX.Element {
             </Text>
           ))}
         </View>
+        <View style={mt24}>
+          {selectedWord ? <Word word={selectedWord} /> : <></>}
+        </View>
       </ScrollView>
-      {selectedWord ? <Word word={selectedWord} /> : <></>}
     </Container>
   );
 }
