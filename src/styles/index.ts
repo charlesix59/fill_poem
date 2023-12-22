@@ -24,7 +24,7 @@ const catalogStyles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   textItem: {
     width: 140,

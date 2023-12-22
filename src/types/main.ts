@@ -36,5 +36,22 @@ enum ReturnType {
   INFO = "info",
 }
 
-export type {TunesCatalog, CiTuneType, CiFormat, CiTuneItem, CilinWord};
+interface WordCatalogType {
+  [key: string]: Array<string>;
+}
+
+interface WordMeaning {
+  pronunciation: string;
+  explains: Array<string>;
+}
+
+export type {
+  TunesCatalog,
+  CiTuneType,
+  CiFormat,
+  CiTuneItem,
+  CilinWord,
+  WordCatalogType,
+  WordMeaning,
+};
 export {ReturnType};
