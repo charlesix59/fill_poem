@@ -15,6 +15,20 @@ const wordStyles = StyleSheet.create({
     marginLeft: "5%",
     padding: 8,
   },
+  searchContainer: {
+    flexDirection: "row",
+    marginLeft: "10%",
+    marginBottom: 8,
+    width: "80%",
+  },
+  searchInput: {
+    width: 48,
+    flexGrow: 1,
+    borderStyle: "solid",
+    borderColor: COLORS.IGNORE_COLOR,
+    borderWidth: 1,
+  },
+  searchBotton: {height: 50, borderRadius: 0},
 });
 
 export default wordStyles;
