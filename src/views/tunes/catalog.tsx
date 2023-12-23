@@ -1,15 +1,17 @@
-import React, {useEffect, useRef, useState} from "react";
-import {getTunesCatalog} from "../../api/tunes";
-import {View, WhiteSpace} from "@ant-design/react-native";
+import React, {useEffect, useState} from "react";
+import {getTunesCatalog, searchTuneName} from "../../api/tunes";
+import {Button, Icon, View, WhiteSpace} from "@ant-design/react-native";
 import Container from "../../components/container";
 import {ScrollView, Text} from "react-native";
 import {Title, WFull, catalogStyles} from "../../styles";
 import {TunesCatalog} from "../../types/main";
 import Loading from "../../components/loading";
+import wordStyles from "../../styles/word";
+import Input from "@ant-design/react-native/lib/input-item/Input";
 
 function Catalog({navigation}: any): React.JSX.Element {
   const [tuneNames, setTuneName] = useState<TunesCatalog>();
-  const tuneKeys = useRef(["平韵格", "仄韵格", "平仄韵转换格", "平仄韵通叶格"]);
+  const [searchText, setSearchText] = useState<string>();
 
   useEffect(() => {
     const getData = async () => {
@@ -26,10 +28,33 @@ function Catalog({navigation}: any): React.JSX.Element {
   const pressHandler = (ciName: string) => {
     navigation.navigate("Tune", {name: ciName});
   };
+  const searchHandler = () => {
+    const res = searchTuneName(searchText);
+    setTuneName(res);
+  };
+
   return (
     <Container>
       <ScrollView style={WFull}>
-        {tuneKeys.current.map((item, index) => {
+        <View style={wordStyles.searchContainer}>
+          <Input
+            style={wordStyles.searchInput}
+            value={searchText}
+            onChange={e => {
+              setSearchText(e.nativeEvent.text);
+            }}
+            placeholder="搜索词牌"
+          />
+          <Button
+            onPress={() => {
+              searchHandler();
+            }}
+            style={wordStyles.searchBotton}
+            type="primary">
+            <Icon name="search" />
+          </Button>
+        </View>
+        {Object.keys(tuneNames).map((item, index) => {
           return (
             <View key={index}>
               <Text style={Title}>{item}</Text>

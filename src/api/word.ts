@@ -43,4 +43,25 @@ const getWordMeanings = async (word: string): Promise<WordMeaning[]> => {
   return (words as any)[word];
 };
 
-export {getPingshuiCatalog, getCilinCatalog, getWordsByPart, getWordMeanings};
+const searchWord = async (type: string, word: string): Promise<string[][]> => {
+  const wordSet = type === "shi" ? pingshui : cilin;
+  const res: Array<Array<string>> = [];
+  for (let part1 in wordSet) {
+    for (let part2 in (wordSet as any)[part1]) {
+      for (let char of (wordSet as any)[part1][part2]) {
+        if (char === word) {
+          res.push([part1, part2]);
+        }
+      }
+    }
+  }
+  return res;
+};
+
+export {
+  getPingshuiCatalog,
+  getCilinCatalog,
+  getWordsByPart,
+  getWordMeanings,
+  searchWord,
+};

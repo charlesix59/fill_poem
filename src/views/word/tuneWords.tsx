@@ -9,10 +9,15 @@ import wordStyles from "../../styles/word";
 import Word from "./components/word";
 
 function TuneWords({route}: any): React.JSX.Element {
-  const {type, part1, part2}: {type: string; part1: string; part2: string} =
+  const {
+    type,
+    part1,
+    part2,
+    searchWord,
+  }: {type: string; part1: string; part2: string; searchWord?: string} =
     route.params;
   const wordsRef = useRef(getWordsByPart(type, part1, part2));
-  const [selectedWord, setSelectedWord] = useState<string>("");
+  const [selectedWord, setSelectedWord] = useState<string>(searchWord || "");
   return (
     <Container>
       <ScrollView style={WFull}>
