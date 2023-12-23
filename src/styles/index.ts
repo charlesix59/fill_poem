@@ -24,6 +24,11 @@ const mt24: StyleProp<any> = {
   marginTop: 24,
 };
 
+const inline: StyleProp<any> = {
+  display: "flex",
+  flexDirection: "row",
+};
+
 const catalogStyles = StyleSheet.create({
   container: {
     display: "flex",
@@ -61,4 +66,4 @@ const formatStyles = StyleSheet.create({
   },
 });
 
-export {WFull, catalogStyles, Title, formatStyles, HVCenter, mt24};
+export {WFull, catalogStyles, Title, formatStyles, HVCenter, mt24, inline};
