@@ -28,7 +28,6 @@ const searchTuneName = (text: string | undefined): TunesCatalog => {
       res[tuneKey] = arr;
     }
   }
-  console.log(res);
   return res;
 };
 

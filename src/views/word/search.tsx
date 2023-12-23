@@ -4,6 +4,8 @@ import {searchWord} from "../../api/word";
 import Container from "../../components/container";
 import {View} from "@ant-design/react-native";
 import Loading from "../../components/loading";
+import {formatStyles} from "../../styles";
+import COLORS from "../../styles/theme";
 
 function WordSearch({route, navigation}: any): React.JSX.Element {
   const {type, word}: {type: string; word: string} = route.params;
@@ -23,8 +25,9 @@ function WordSearch({route, navigation}: any): React.JSX.Element {
       {result.map((item, key) => {
         const [part1, part2] = item;
         return (
-          <View key={key}>
+          <View style={formatStyles.container} key={key}>
             <Text
+              style={{color: COLORS.SIDE_COLOR}}
               onPress={() => {
                 navigation.navigate("TuneWords", {
                   type: type,
