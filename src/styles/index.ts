@@ -29,6 +29,10 @@ const inline: StyleProp<any> = {
   flexDirection: "row",
 };
 
+const pdy16: StyleProp<any> = {
+  paddingVertical: 20,
+};
+
 const catalogStyles = StyleSheet.create({
   container: {
     display: "flex",
@@ -66,4 +70,13 @@ const formatStyles = StyleSheet.create({
   },
 });
 
-export {WFull, catalogStyles, Title, formatStyles, HVCenter, mt24, inline};
+export {
+  WFull,
+  catalogStyles,
+  Title,
+  formatStyles,
+  HVCenter,
+  mt24,
+  inline,
+  pdy16,
+};

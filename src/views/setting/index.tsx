@@ -1,39 +1,32 @@
 import React from "react";
-import {List, Provider, Switch, Toast} from "@ant-design/react-native";
-import {ScrollView} from "react-native";
-import Item from "@ant-design/react-native/lib/list/ListItem";
+import Realm, {ObjectSchema} from "realm";
+import {createRealmContext} from "@realm/react";
+import Setting from "./setting";
 
-function Setting(): React.JSX.Element {
-  const darkChangeHandler = () => {
-    console.log("test");
-    Toast.info({content: "开发中~(点也没用，哼)"});
+export class Settings extends Realm.Object<Settings> {
+  _id!: Realm.BSON.ObjectId;
+  name!: string;
+  value!: string;
+  static schema: ObjectSchema = {
+    name: "Settings",
+    properties: {
+      _id: "objectId",
+      name: "string",
+      value: "string",
+    },
+    primaryKey: "_id",
   };
+}
+const realmConfig: Realm.Configuration = {
+  schema: [Settings],
+};
+const {RealmProvider, useRealm, useQuery} = createRealmContext(realmConfig);
+
+function SettingWarp(): React.JSX.Element {
   return (
-    <Provider>
-      <ScrollView>
-        <List renderHeader="外观">
-          <Item>主颜色</Item>
-          <Item>副颜色</Item>
-          <Item
-            extra={
-              <Switch
-                onChange={() => {
-                  darkChangeHandler();
-                }}
-              />
-            }>
-            黑暗模式
-          </Item>
-        </List>
-        <List renderHeader="系统">
-          <Item extra={<Switch />}>彩虹词义</Item>
-          <Item>清除缓存</Item>
-        </List>
-        <List renderHeader="常规">
-          <Item>GitHub仓库</Item>
-        </List>
-      </ScrollView>
-    </Provider>
+    <RealmProvider>
+      <Setting useRealm={useRealm} useQuery={useQuery} />
+    </RealmProvider>
   );
 }
-export default Setting;
+export default SettingWarp;

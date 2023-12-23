@@ -6,8 +6,8 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import Edit from "../views/edit";
 import COLORS from "../styles/theme";
 import Word from "../views/word";
-import Setting from "../views/setting";
 import {NavigationContainer} from "@react-navigation/native";
+import SettingWarp from "../views/setting";
 const Tab = createBottomTabNavigator();
 
 function Layout(): React.JSX.Element {
@@ -49,7 +49,7 @@ function Layout(): React.JSX.Element {
         />
         <Tab.Screen
           name="setting"
-          component={Setting}
+          component={SettingWarp}
           options={{
             tabBarLabel: "设置",
             tabBarIcon: () => <Icon name="setting" color={color} size={size} />,
