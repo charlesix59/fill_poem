@@ -5,7 +5,7 @@ import Container from "../../components/container";
 import {View} from "@ant-design/react-native";
 import Loading from "../../components/loading";
 import {formatStyles} from "../../styles";
-import COLORS from "../../styles/theme";
+import {COLORS} from "../../styles/theme";
 
 function WordSearch({route, navigation}: any): React.JSX.Element {
   const {type, word}: {type: string; word: string} = route.params;

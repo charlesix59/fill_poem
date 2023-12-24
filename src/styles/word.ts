@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native";
 import {catalogStyles} from "./index";
-import COLORS from "./theme";
+import {COLORS} from "./theme";
 
 const wordStyles = StyleSheet.create({
   wordText: {

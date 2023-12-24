@@ -3,7 +3,7 @@ import {getWordMeanings} from "../../../api/word";
 import {WordMeaning} from "../../../types/main";
 import Loading from "../../../components/loading";
 import {Text, View} from "@ant-design/react-native";
-import COLORS from "../../../styles/theme";
+import {COLORS} from "../../../styles/theme";
 import {generateRandomHexColor} from "../../../utils/appearance";
 import wordStyles from "../../../styles/word";
 

@@ -6,7 +6,7 @@ import {CheckInputCommand} from "../types/command";
 import CheckedInput from "./checkedInput";
 import {checkRhyme} from "../api/check";
 import {ReturnType} from "../types/main";
-import COLORS from "../styles/theme";
+import {COLORS} from "../styles/theme";
 
 type propsType = {
   tune: string;

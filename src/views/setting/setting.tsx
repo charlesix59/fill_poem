@@ -10,23 +10,15 @@ import {
 import Item from "@ant-design/react-native/lib/list/ListItem";
 import React, {useState} from "react";
 import {ScrollView} from "react-native";
-import {Settings} from "./index";
 import ColorPicker from "./components/colorPicker";
-import COLORS from "../../styles/theme";
+import {COLORS, colors} from "../../styles/theme";
 import {pdy16} from "../../styles";
+import {Settings} from "../../types/setting";
+import {useQuery, useRealm} from "@realm/react";
 
-const colors = [
-  {colorHex: "#FFA07A", text: "默认主颜色"},
-  {colorHex: "#1CA2E1", text: "默认副颜色"},
-  {colorHex: "#66CCFF", text: "天依蓝"},
-  {colorHex: "#39C5BB", text: "初音绿"},
-  {colorHex: "#EE0000", text: "绫红"},
-  {colorHex: "#9999FF", text: "星紫"},
-];
-
-function Setting({useQuery, useRealm}: any): React.JSX.Element {
+function Setting(): React.JSX.Element {
   const realm = useRealm();
-  const data: Settings[] = useQuery(Settings);
+  const data = useQuery(Settings);
   const [visible, setVisible] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("设置主颜色");
   const [selectedColor, setSelectedColor] = useState<string>();
@@ -47,25 +39,6 @@ function Setting({useQuery, useRealm}: any): React.JSX.Element {
     setTitle(newTitle);
     setVisible(true);
   };
-  if (data.length === 0) {
-    realm.write(() => {
-      realm.create("Settings", {
-        _id: new Realm.BSON.ObjectId(),
-        name: "rainbowExplain",
-        value: "true",
-      });
-      realm.create("Settings", {
-        _id: new Realm.BSON.ObjectId(),
-        name: "primaryColor",
-        value: "#FFA07A",
-      });
-      realm.create("Settings", {
-        _id: new Realm.BSON.ObjectId(),
-        name: "sideColor",
-        value: "#1CA2E1",
-      });
-    });
-  }
   const darkChangeHandler = () => {
     Toast.info({content: "开发中~(点也没用，哼)", duration: 0.5});
   };

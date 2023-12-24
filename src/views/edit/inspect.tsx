@@ -11,7 +11,7 @@ import React, {useState} from "react";
 import Container from "../../components/container";
 import {ScrollView, TextInput} from "react-native";
 import editStyle from "../../styles/edit";
-import COLORS from "../../styles/theme";
+import {COLORS} from "../../styles/theme";
 import {inline} from "../../styles";
 
 function Inspect(): React.JSX.Element {

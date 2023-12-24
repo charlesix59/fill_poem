@@ -2,7 +2,7 @@ import {Button, View} from "@ant-design/react-native";
 import React, {ReactNode} from "react";
 import editStyle from "../styles/edit";
 import {GestureResponderEvent} from "react-native";
-import COLORS from "../styles/theme";
+import {COLORS} from "../styles/theme";
 
 type propsType = {
   onPress?: (event: GestureResponderEvent) => void;

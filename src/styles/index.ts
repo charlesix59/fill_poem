@@ -1,5 +1,5 @@
 import {StyleProp, StyleSheet} from "react-native";
-import COLORS from "./theme";
+import {COLORS} from "./theme";
 
 const WFull: StyleProp<any> = {
   width: "100%",

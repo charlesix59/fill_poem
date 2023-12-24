@@ -4,7 +4,7 @@ import React from "react";
 import Tunes from "../views/tunes";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import Edit from "../views/edit";
-import COLORS from "../styles/theme";
+import {COLORS} from "../styles/theme";
 import Word from "../views/word";
 import {NavigationContainer} from "@react-navigation/native";
 import SettingWarp from "../views/setting";

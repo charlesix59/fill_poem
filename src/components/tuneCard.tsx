@@ -1,7 +1,7 @@
 import React from "react";
 import {CiFormat} from "../types/main";
 import {Text, View} from "@ant-design/react-native";
-import COLORS from "../styles/theme";
+import {COLORS} from "../styles/theme";
 import {number2Chinese} from "../utils/comman";
 import {formatStyles} from "../styles";
 
