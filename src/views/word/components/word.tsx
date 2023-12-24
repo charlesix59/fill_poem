@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {getWordMeanings} from "../../../api/word";
 import {WordMeaning} from "../../../types/main";
 import Loading from "../../../components/loading";
 import {Text, View} from "@ant-design/react-native";
-import {COLORS} from "../../../styles/theme";
 import {generateRandomHexColor} from "../../../utils/appearance";
 import wordStyles from "../../../styles/word";
+import {ColorsContext} from "../../../../App";
 
 type PropsType = {
   word: string;
@@ -14,6 +14,7 @@ type PropsType = {
 function Word({word}: PropsType): React.JSX.Element {
   const [rainbowExplain] = useState(true);
   const [meanings, setMeanings] = useState<WordMeaning[] | string>();
+  const COLORS = useContext(ColorsContext);
   useEffect(() => {
     const getData = async () => {
       const data = await getWordMeanings(word);

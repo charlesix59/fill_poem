@@ -14,3 +14,10 @@ export class Settings extends Realm.Object<Settings> {
     primaryKey: "_id",
   };
 }
+
+export const settingOrder = {
+  RAINBOW_EXPLAIN: 0,
+  PRIMARY_COLOR: 1,
+  SIDE_COLOR: 2,
+  DARK_MODE: 3,
+};

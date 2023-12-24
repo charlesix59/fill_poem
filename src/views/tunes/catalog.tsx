@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {getTunesCatalog, searchTuneName} from "../../api/tunes";
 import {Button, Icon, View, WhiteSpace} from "@ant-design/react-native";
 import Container from "../../components/container";
@@ -8,10 +8,12 @@ import {TunesCatalog} from "../../types/main";
 import Loading from "../../components/loading";
 import wordStyles from "../../styles/word";
 import Input from "@ant-design/react-native/lib/input-item/Input";
+import {ColorsContext} from "../../../App";
 
 function Catalog({navigation}: any): React.JSX.Element {
   const [tuneNames, setTuneName] = useState<TunesCatalog>();
   const [searchText, setSearchText] = useState<string>();
+  const COLORS = useContext(ColorsContext);
 
   useEffect(() => {
     const getData = async () => {
@@ -57,14 +59,19 @@ function Catalog({navigation}: any): React.JSX.Element {
         {Object.keys(tuneNames).map((item, index) => {
           return (
             <View key={index}>
-              <Text style={Title}>{item}</Text>
+              <Text style={{...Title, color: COLORS.PRIMARY_COLOR}}>
+                {item}
+              </Text>
               <WhiteSpace />
               <View style={catalogStyles.container}>
                 {tuneNames[item].map((obj, key) => {
                   return (
                     <View key={`${index}-${key}`}>
                       <Text
-                        style={catalogStyles.textItem}
+                        style={{
+                          ...catalogStyles.textItem,
+                          color: COLORS.SIDE_COLOR,
+                        }}
                         onPress={() => pressHandler(obj.name)}>
                         {obj.name}
                       </Text>

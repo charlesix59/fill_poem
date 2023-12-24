@@ -1,12 +1,18 @@
 import {Icon, View} from "@ant-design/react-native";
 import {Text} from "react-native";
-import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import fillPoemStyle from "../styles/filePoem";
 import {CheckInputCommand} from "../types/command";
 import CheckedInput from "./checkedInput";
 import {checkRhyme} from "../api/check";
 import {ReturnType} from "../types/main";
-import {COLORS} from "../styles/theme";
+import {ColorsContext} from "../../App";
 
 type propsType = {
   tune: string;
@@ -76,6 +82,7 @@ function InputCheck({
 }
 
 function StateIcon({state}: {state: string}): React.JSX.Element {
+  const COLORS = useContext(ColorsContext);
   if (state === ReturnType.ERROR) {
     return <Icon name="close-circle" size="md" color={COLORS.ERROR} />;
   } else if (state === ReturnType.INFO) {

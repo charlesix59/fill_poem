@@ -1,9 +1,9 @@
-import React from "react";
+import React, {useContext} from "react";
 import {CiFormat} from "../types/main";
-import {Text, View} from "@ant-design/react-native";
-import {COLORS} from "../styles/theme";
 import {number2Chinese} from "../utils/comman";
 import {formatStyles} from "../styles";
+import {ColorsContext} from "../../App";
+import {Text, View} from "@ant-design/react-native";
 
 type propsType = {
   format: CiFormat;
@@ -15,6 +15,7 @@ function TuneCard({format, index, navigation}: propsType): React.JSX.Element {
   const pressHandler = (ciFormat: CiFormat) => {
     navigation.navigate("FillPoem", {format: ciFormat});
   };
+  const COLORS = useContext(ColorsContext);
   return (
     <View style={formatStyles.container}>
       <View>

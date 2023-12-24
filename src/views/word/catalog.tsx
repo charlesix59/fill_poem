@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {WordCatalogType} from "../../types/main";
 import Loading from "../../components/loading";
 import {getCilinCatalog, getPingshuiCatalog} from "../../api/word";
@@ -8,11 +8,13 @@ import {Button, Icon, View} from "@ant-design/react-native";
 import {Title, WFull, catalogStyles} from "../../styles";
 import Input from "@ant-design/react-native/lib/input-item/Input";
 import wordStyles from "../../styles/word";
+import {ColorsContext} from "../../../App";
 
 function WordCatalog({route, navigation}: any): React.JSX.Element {
   const {type}: {type: string} = route.params;
   const [catalog, setCatalog] = useState<WordCatalogType>();
   const [searchText, setSearchText] = useState<string>();
+  const COLORS = useContext(ColorsContext);
   useEffect(() => {
     const getData = async () => {
       let data: WordCatalogType;
@@ -58,7 +60,7 @@ function WordCatalog({route, navigation}: any): React.JSX.Element {
         {Object.keys(catalog).map((key, index) => {
           return (
             <View key={index}>
-              <Text style={Title}>{key}</Text>
+              <Text style={{...Title, color: COLORS.PRIMARY_COLOR}}>{key}</Text>
               <View style={catalogStyles.container}>
                 {catalog[key].map((str, no) => (
                   <Text
@@ -69,7 +71,10 @@ function WordCatalog({route, navigation}: any): React.JSX.Element {
                         part2: str,
                       });
                     }}
-                    style={catalogStyles.textItem}
+                    style={{
+                      ...catalogStyles.textItem,
+                      color: COLORS.SIDE_COLOR,
+                    }}
                     key={`${index}-${no}`}>
                     {str || ""}
                   </Text>

@@ -1,17 +1,18 @@
 /* eslint-disable react/no-unstable-nested-components */
 import {Icon} from "@ant-design/react-native";
-import React from "react";
+import React, {useContext} from "react";
 import Tunes from "../views/tunes";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import Edit from "../views/edit";
-import {COLORS} from "../styles/theme";
 import Word from "../views/word";
 import {NavigationContainer} from "@react-navigation/native";
 import SettingWarp from "../views/setting";
+import {ColorsContext} from "../../App";
 const Tab = createBottomTabNavigator();
 
 function Layout(): React.JSX.Element {
   const size = "sm";
+  const COLORS = useContext(ColorsContext);
   const color = COLORS.SIDE_COLOR;
   return (
     <NavigationContainer>

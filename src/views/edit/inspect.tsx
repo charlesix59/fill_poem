@@ -7,15 +7,16 @@ import {
   TextareaItem,
   View,
 } from "@ant-design/react-native";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import Container from "../../components/container";
 import {ScrollView, TextInput} from "react-native";
 import editStyle from "../../styles/edit";
-import {COLORS} from "../../styles/theme";
 import {inline} from "../../styles";
+import {ColorsContext} from "../../../App";
 
 function Inspect(): React.JSX.Element {
   const [inspected, setInspected] = useState(false);
+  const COLORS = useContext(ColorsContext);
   const questionPressHandler = () => {
     Modal.alert("关于词牌名", "目前只支持词律检查，诗律检查开发中", [
       {text: "明白啦"},

@@ -13,7 +13,7 @@ import {ScrollView} from "react-native";
 import ColorPicker from "./components/colorPicker";
 import {COLORS, colors} from "../../styles/theme";
 import {pdy16} from "../../styles";
-import {Settings} from "../../types/setting";
+import {Settings, settingOrder} from "../../types/setting";
 import {useQuery, useRealm} from "@realm/react";
 
 function Setting(): React.JSX.Element {
@@ -48,14 +48,14 @@ function Setting(): React.JSX.Element {
         <List renderHeader="外观">
           <Item
             onPress={() => {
-              setSelectedColor(data[1].value);
+              setSelectedColor(data[settingOrder.PRIMARY_COLOR].value);
               colorPressHandler("设置主颜色");
             }}>
             主颜色
           </Item>
           <Item
             onPress={() => {
-              setSelectedColor(data[2].value);
+              setSelectedColor(data[settingOrder.SIDE_COLOR].value);
               colorPressHandler("设置副颜色");
             }}>
             副颜色
@@ -77,10 +77,10 @@ function Setting(): React.JSX.Element {
               <Switch
                 onChange={e => {
                   realm.write(() => {
-                    data[0].value = String(e);
+                    data[settingOrder.RAINBOW_EXPLAIN].value = String(e);
                   });
                 }}
-                checked={data[0].value === "true"}
+                checked={data[settingOrder.RAINBOW_EXPLAIN].value === "true"}
               />
             }>
             彩虹词义

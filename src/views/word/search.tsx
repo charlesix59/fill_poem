@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Text} from "react-native";
 import {searchWord} from "../../api/word";
 import Container from "../../components/container";
 import {View} from "@ant-design/react-native";
 import Loading from "../../components/loading";
 import {formatStyles} from "../../styles";
-import {COLORS} from "../../styles/theme";
+import {ColorsContext} from "../../../App";
 
 function WordSearch({route, navigation}: any): React.JSX.Element {
+  const COLORS = useContext(ColorsContext);
   const {type, word}: {type: string; word: string} = route.params;
   const [result, setResult] = useState<string[][]>();
   useEffect(() => {

@@ -7,7 +7,6 @@ const WFull: StyleProp<any> = {
 
 const Title: StyleProp<any> = {
   fontSize: 24,
-  color: COLORS.PRIMARY_COLOR,
   alignSelf: "center",
 };
 
@@ -43,7 +42,6 @@ const catalogStyles = StyleSheet.create({
   textItem: {
     width: 140,
     marginTop: 8,
-    color: COLORS.SIDE_COLOR,
   },
   noteText: {fontSize: 12, color: COLORS.IGNORE_COLOR},
 });
