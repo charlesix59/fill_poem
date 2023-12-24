@@ -11,7 +11,12 @@ function EditMenu({navigation}: any): React.JSX.Element {
         }}>
         韵律检查
       </ButtonItem>
-      <ButtonItem>草稿箱</ButtonItem>
+      <ButtonItem
+        onPress={() => {
+          navigation.navigate("Darfts");
+        }}>
+        草稿箱
+      </ButtonItem>
       <ButtonItem>自定韵律</ButtonItem>
     </Container>
   );

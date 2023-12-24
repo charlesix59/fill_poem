@@ -13,4 +13,14 @@ const verifyCharIsChinese = (char: string) => {
   return false;
 };
 
-export {number2Chinese, verifyCharIsChinese};
+const extractDate = (date: Date): string => {
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+};
+
+const extractDateTime = (date: Date): string => {
+  return `${date.getFullYear()}-${
+    date.getMonth() + 1
+  }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+};
+
+export {number2Chinese, verifyCharIsChinese, extractDate, extractDateTime};
