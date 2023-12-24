@@ -61,6 +61,11 @@ function LayoutWarp(): React.JSX.Element {
           name: "sideColor",
           value: "#1CA2E1",
         });
+        realm.create("Settings", {
+          _id: new Realm.BSON.ObjectId(),
+          name: "darkMode",
+          value: "false",
+        });
       });
     }
   }, [data.length, realm]);

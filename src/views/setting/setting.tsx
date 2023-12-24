@@ -39,7 +39,10 @@ function Setting(): React.JSX.Element {
     setTitle(newTitle);
     setVisible(true);
   };
-  const darkChangeHandler = () => {
+  const darkChangeHandler = (e: boolean) => {
+    realm.write(() => {
+      data[settingOrder.DARK_MODE].value = String(e);
+    });
     Toast.info({content: "开发中~(点也没用，哼)", duration: 0.5});
   };
   return (
@@ -63,8 +66,8 @@ function Setting(): React.JSX.Element {
           <Item
             extra={
               <Switch
-                onChange={() => {
-                  darkChangeHandler();
+                onChange={e => {
+                  darkChangeHandler(e);
                 }}
               />
             }>
