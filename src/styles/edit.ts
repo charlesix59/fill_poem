@@ -18,6 +18,7 @@ const editStyle = StyleSheet.create({
   alignLeft: {alignSelf: "flex-start"},
   mb12: {marginBottom: 12},
   pd12: {padding: 12},
+  w48: {width: 48},
 });
 
 export default editStyle;

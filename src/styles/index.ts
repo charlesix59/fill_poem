@@ -32,6 +32,14 @@ const pdy16: StyleProp<any> = {
   paddingVertical: 20,
 };
 
+const pdb8: StyleProp<any> = {
+  paddingBottom: 8,
+};
+
+const pd8: StyleProp<any> = {
+  padding: 8,
+};
+
 const catalogStyles = StyleSheet.create({
   container: {
     display: "flex",
@@ -77,4 +85,6 @@ export {
   mt24,
   inline,
   pdy16,
+  pdb8,
+  pd8,
 };
