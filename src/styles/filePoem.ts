@@ -44,6 +44,7 @@ const fillPoemStyle = StyleSheet.create({
   inline: {
     flexDirection: "row",
   },
+  submitBtn: {marginTop: 24, width: 150, alignSelf: "center"},
 });
 
 export default fillPoemStyle;

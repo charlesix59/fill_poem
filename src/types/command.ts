@@ -5,6 +5,7 @@ interface BaseCommand {
 
 interface CheckInputCommand extends BaseCommand {
   value?: string | undefined;
+  additionalValue?: string;
   callarIndex: number;
 }
 

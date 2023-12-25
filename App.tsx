@@ -6,17 +6,12 @@ import React, {
 } from "react";
 import Layout from "./src/layout";
 import {Settings, settingOrder} from "./src/types/setting";
-import Realm from "realm";
-import {createRealmContext} from "@realm/react";
-
-const realmConfig: Realm.Configuration = {
-  schema: [Settings],
-};
-const {RealmProvider, useRealm, useQuery} = createRealmContext(realmConfig);
+import {Realm, RealmProvider, useQuery, useRealm} from "@realm/react";
+import {DarftSchema} from "./src/types/edit";
 
 function App(): React.JSX.Element {
   return (
-    <RealmProvider>
+    <RealmProvider schema={[DarftSchema, Settings]}>
       <LayoutWarp />
     </RealmProvider>
   );

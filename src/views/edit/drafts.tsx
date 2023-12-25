@@ -2,10 +2,11 @@ import React, {useContext} from "react";
 import Container from "../../components/container";
 import {ScrollView, Text} from "react-native";
 import {Card, View} from "@ant-design/react-native";
-import {DarftType} from "../../types/edit";
+import {DarftSchema, DarftType} from "../../types/edit";
 import {extractDate} from "../../utils/comman";
 import {ColorsContext} from "../../../App";
 import editStyle from "../../styles/edit";
+import {useQuery} from "@realm/react";
 
 function Darfts(): React.JSX.Element {
   const darfts: Array<DarftType> = [
@@ -26,6 +27,7 @@ function Darfts(): React.JSX.Element {
     },
   ];
   const COLORS = useContext(ColorsContext);
+  console.log(useQuery(DarftSchema));
   return (
     <Container>
       <ScrollView>

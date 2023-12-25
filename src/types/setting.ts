@@ -1,4 +1,4 @@
-import Realm, {ObjectSchema} from "realm";
+import {ObjectSchema} from "realm";
 
 export class Settings extends Realm.Object<Settings> {
   _id!: Realm.BSON.ObjectId;

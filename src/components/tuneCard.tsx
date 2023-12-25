@@ -6,14 +6,26 @@ import {ColorsContext} from "../../App";
 import {Text, View} from "@ant-design/react-native";
 
 type propsType = {
+  name: string;
   format: CiFormat;
   index: number;
   navigation: any;
+  keyIndex: number;
 };
 
-function TuneCard({format, index, navigation}: propsType): React.JSX.Element {
-  const pressHandler = (ciFormat: CiFormat) => {
-    navigation.navigate("FillPoem", {format: ciFormat});
+function TuneCard({
+  name,
+  format,
+  index,
+  navigation,
+  keyIndex,
+}: propsType): React.JSX.Element {
+  const pressHandler = () => {
+    navigation.navigate("FillPoem", {
+      format: format,
+      name: name,
+      key: keyIndex,
+    });
   };
   const COLORS = useContext(ColorsContext);
   return (
@@ -22,7 +34,7 @@ function TuneCard({format, index, navigation}: propsType): React.JSX.Element {
         <View style={formatStyles.inline}>
           <Text
             style={{color: COLORS.SIDE_COLOR}}
-            onPress={() => pressHandler(format)}>
+            onPress={() => pressHandler()}>
             {`格${number2Chinese(index)}`}
           </Text>
           <Text style={{color: COLORS.PRIMARY_COLOR}}> {format.author}</Text>

@@ -42,11 +42,12 @@ function CheckedInput({
   const inputRef = useRef<any>();
   const value = useContext(StrContext);
   const sendCommand = useCallback(
-    (name: string, commandValue?: string) => {
+    (name: string, commandValue?: string, additionalValue?: string) => {
       const command: CheckInputCommand = {
         name: name,
         value: commandValue,
         callarIndex: index,
+        additionalValue: additionalValue,
       };
       setCommand(command);
     },
@@ -78,7 +79,7 @@ function CheckedInput({
       let commandStr = str.substring(1);
       setChar(displayChar);
       // 发送命令
-      sendCommand("input", commandStr);
+      sendCommand("input", commandStr, displayChar);
     },
     [sendCommand],
   );

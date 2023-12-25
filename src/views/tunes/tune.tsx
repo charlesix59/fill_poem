@@ -19,10 +19,12 @@ function Tune({route, navigation}: any): React.JSX.Element {
           {ciRef.current.formats.map((format, index) => {
             return (
               <TuneCard
+                name={name}
                 format={format}
                 key={index}
                 index={index + 1}
                 navigation={navigation}
+                keyIndex={index}
               />
             );
           })}
