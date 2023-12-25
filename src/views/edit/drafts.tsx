@@ -1,7 +1,7 @@
-import React, {useContext, useState} from "react";
+import React, {useContext} from "react";
 import Container from "../../components/container";
 import {Easing, ScrollView, Text} from "react-native";
-import {Card, Popover, View} from "@ant-design/react-native";
+import {Card, Popover, Provider, Toast, View} from "@ant-design/react-native";
 import {DarftSchema} from "../../types/edit";
 import {extractDate} from "../../utils/comman";
 import {ColorsContext} from "../../../App";
@@ -9,14 +9,22 @@ import editStyle from "../../styles/edit";
 import {useQuery, useRealm} from "@realm/react";
 import {WFull, pd8} from "../../styles";
 
-function Darfts(): React.JSX.Element {
+function Darfts({navigation}: any): React.JSX.Element {
   const darfts = useQuery(DarftSchema);
   const COLORS = useContext(ColorsContext);
-  const [pressIndex, setPressIndex] = useState<number>(0);
   const realm = useRealm();
-  const deleteDarft = () => {
+  const deleteDarft = (index: number) => {
     realm.write(() => {
-      realm.delete(darfts[pressIndex]);
+      realm.delete(darfts[index]);
+    });
+    Toast.info("删除成功喵~");
+  };
+  const toPerview = (index: number) => {
+    const item = darfts[index];
+    navigation.navigate("Preview", {
+      title: item.name,
+      content: item.content,
+      createTime: item.createTime,
     });
   };
   const nameArr = [
@@ -29,53 +37,59 @@ function Darfts(): React.JSX.Element {
       <Text>{item.name}</Text>
     </Popover.Item>
   ));
+  if (!darfts || darfts.length === 0) {
+    return <Text>这里空空如也</Text>;
+  }
   return (
-    <Container>
-      <ScrollView style={WFull}>
-        {darfts.map((item, index) => {
-          return (
-            <Card style={editStyle.mb12} key={index}>
-              <Card.Header
-                title={
-                  <Text style={{color: COLORS.PRIMARY_COLOR}}>{item.name}</Text>
-                }
-                extra={extractDate(item.createTime)}
-              />
-              <Card.Body>
-                <View style={editStyle.pd12}>
-                  <Text>{item.content}</Text>
-                </View>
-              </Card.Body>
-              <Card.Footer
-                content={
-                  <View style={editStyle.w48}>
-                    <Popover
-                      overlay={overlay}
-                      useNativeDriver
-                      duration={200}
-                      onSelect={e => {
-                        setPressIndex(index);
-                        if (e === "preview") {
-                          console.log(e);
-                        } else if (e === "edit") {
-                          console.log(e);
-                        } else if (e === "delete") {
-                          deleteDarft();
-                        }
-                      }}
-                      easing={show =>
-                        show ? Easing.in(Easing.ease) : Easing.step0
-                      }>
-                      <Text style={pd8}>操作</Text>
-                    </Popover>
+    <Provider>
+      <Container>
+        <ScrollView style={WFull}>
+          {darfts.map((item, index) => {
+            return (
+              <Card style={editStyle.mb12} key={index}>
+                <Card.Header
+                  title={
+                    <Text style={{color: COLORS.PRIMARY_COLOR}}>
+                      {item.name}
+                    </Text>
+                  }
+                  extra={extractDate(item.createTime)}
+                />
+                <Card.Body>
+                  <View style={editStyle.pd12}>
+                    <Text>{item.content}</Text>
                   </View>
-                }
-              />
-            </Card>
-          );
-        })}
-      </ScrollView>
-    </Container>
+                </Card.Body>
+                <Card.Footer
+                  content={
+                    <View style={editStyle.w48}>
+                      <Popover
+                        overlay={overlay}
+                        useNativeDriver
+                        duration={200}
+                        onSelect={e => {
+                          if (e === "preview") {
+                            toPerview(index);
+                          } else if (e === "edit") {
+                            console.log(e);
+                          } else if (e === "delete") {
+                            deleteDarft(index);
+                          }
+                        }}
+                        easing={show =>
+                          show ? Easing.in(Easing.ease) : Easing.step0
+                        }>
+                        <Text style={pd8}>操作</Text>
+                      </Popover>
+                    </View>
+                  }
+                />
+              </Card>
+            );
+          })}
+        </ScrollView>
+      </Container>
+    </Provider>
   );
 }
 
