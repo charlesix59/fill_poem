@@ -19,11 +19,12 @@ const fillPoemStyle = StyleSheet.create({
   },
   inlineContainer: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "flex-start",
     flexWrap: "wrap",
   },
   centerContainer: {
     alignItems: "center",
+    marginLeft: 16,
   },
   textInput: {
     ...baseStyle.input,
@@ -43,6 +44,7 @@ const fillPoemStyle = StyleSheet.create({
   },
   inline: {
     flexDirection: "row",
+    alignItems: "center",
   },
   submitBtn: {marginTop: 24, width: 150, alignSelf: "center"},
 });

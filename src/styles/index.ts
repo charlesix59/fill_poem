@@ -19,6 +19,14 @@ const HVCenter: StyleProp<any> = {
   height: "100%",
 };
 
+const HCenter: StyleProp<any> = {
+  alignSelf: "center",
+};
+
+const mx8: StyleProp<any> = {
+  marginHorizontal: 8,
+};
+
 // marginTop: 24
 const mt24: StyleProp<any> = {
   marginTop: 24,
@@ -88,4 +96,6 @@ export {
   pdy16,
   pdb8,
   pd8,
+  HCenter,
+  mx8,
 };

@@ -13,6 +13,7 @@ import CheckedInput from "./checkedInput";
 import {checkRhyme} from "../api/check";
 import {ReturnType} from "../types/main";
 import {ColorsContext} from "../../App";
+import {mx8} from "../styles";
 
 type propsType = {
   tune: string;
@@ -59,7 +60,7 @@ function InputCheck({
             setRhymeChar={setRhymeChar}
           />
         </View>
-        <Text>{rhythm}</Text>
+        <Text style={mx8}>{rhythm}</Text>
         {rhythm === "韵" && rhymeChar ? (
           <StateIcon state={rhymeState} />
         ) : (

@@ -14,7 +14,7 @@ import {Button, Provider, Toast, View} from "@ant-design/react-native";
 import fillPoemStyle from "../../styles/filePoem";
 import Loading from "../../components/loading";
 import {CheckInputCommand} from "../../types/command";
-import {Title} from "../../styles";
+import {HCenter, Title} from "../../styles";
 import {RealmContext} from "../../../App";
 
 export const StrContext: Context<string> = createContext("");
@@ -119,7 +119,7 @@ function FillPoem({route}: any): React.JSX.Element {
       <Container>
         <ScrollView style={fillPoemStyle.container}>
           <Text style={Title}>{name}</Text>
-          <Text>{format.sketch}</Text>
+          <Text style={HCenter}>{format.sketch}</Text>
           <View>
             {tunes.map((arr, index) => {
               return (
