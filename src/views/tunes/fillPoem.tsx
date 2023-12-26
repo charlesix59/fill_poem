@@ -1,6 +1,7 @@
 import React, {
   Context,
   createContext,
+  useContext,
   useEffect,
   useRef,
   useState,
@@ -13,8 +14,8 @@ import {Button, Provider, Toast, View} from "@ant-design/react-native";
 import fillPoemStyle from "../../styles/filePoem";
 import Loading from "../../components/loading";
 import {CheckInputCommand} from "../../types/command";
-import {useRealm} from "@realm/react";
 import {Title} from "../../styles";
+import {RealmContext} from "../../../App";
 
 export const StrContext: Context<string> = createContext("");
 
@@ -27,6 +28,7 @@ function FillPoem({route}: any): React.JSX.Element {
   const [chars, setChars] = useState(""); // 多出的文字，自动填充到下一个block
   const [rhymeWord, setRhymeWord] = useState(""); // 韵脚
   const [content, setContent] = useState<Array<string>>([]); // 保存真正的内容
+  const {useRealm} = useContext(RealmContext);
   const realm = useRealm();
   const writeContentId = useRef<Realm.BSON.ObjectId>(new Realm.BSON.ObjectId());
 

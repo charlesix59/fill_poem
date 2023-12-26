@@ -4,12 +4,12 @@ import {Easing, ScrollView, Text} from "react-native";
 import {Card, Popover, Provider, Toast, View} from "@ant-design/react-native";
 import {DarftSchema} from "../../types/edit";
 import {extractDate} from "../../utils/comman";
-import {ColorsContext} from "../../../App";
+import {ColorsContext, RealmContext} from "../../../App";
 import editStyle from "../../styles/edit";
-import {useQuery, useRealm} from "@realm/react";
 import {WFull, pd8} from "../../styles";
 
 function Darfts({navigation}: any): React.JSX.Element {
+  const {useQuery, useRealm} = useContext(RealmContext);
   const darfts = useQuery(DarftSchema);
   const COLORS = useContext(ColorsContext);
   const realm = useRealm();

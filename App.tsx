@@ -6,16 +6,19 @@ import React, {
 } from "react";
 import Layout from "./src/layout";
 import {Settings, settingOrder} from "./src/types/setting";
-import {Realm, RealmProvider, useQuery, useRealm} from "@realm/react";
+import {createRealmContext} from "@realm/react";
 import {DarftSchema} from "./src/types/edit";
 
-function App(): React.JSX.Element {
-  return (
-    <RealmProvider schema={[DarftSchema, Settings]}>
-      <LayoutWarp />
-    </RealmProvider>
-  );
-}
+const config: Realm.Configuration = {
+  schema: [Settings, DarftSchema],
+  schemaVersion: 1,
+  onMigration: (oldRealm, newRealm) => {
+    newRealm.deleteAll();
+  },
+};
+
+const {RealmProvider, useRealm, useObject, useQuery} =
+  createRealmContext(config);
 
 export const ColorsContext = createContext({
   PRIMARY_COLOR: "#FFA07A",
@@ -26,6 +29,23 @@ export const ColorsContext = createContext({
   SUCCESS: "#19d929",
   INFO: "#1888d8",
 });
+
+export const RealmContext = createContext({
+  useRealm,
+  useObject,
+  useQuery,
+});
+
+function App(): React.JSX.Element {
+  return (
+    <RealmProvider>
+      <RealmContext.Provider value={{useRealm, useObject, useQuery}}>
+        <LayoutWarp />
+      </RealmContext.Provider>
+    </RealmProvider>
+  );
+}
+
 function LayoutWarp(): React.JSX.Element {
   const data = useQuery(Settings);
   const realm = useRealm();
@@ -42,22 +62,22 @@ function LayoutWarp(): React.JSX.Element {
     if (data.length === 0) {
       realm.write(() => {
         realm.create("Settings", {
-          _id: new Realm.BSON.ObjectId(),
+          _id: 1,
           name: "rainbowExplain",
           value: "true",
         });
         realm.create("Settings", {
-          _id: new Realm.BSON.ObjectId(),
+          _id: 2,
           name: "primaryColor",
           value: "#FFA07A",
         });
         realm.create("Settings", {
-          _id: new Realm.BSON.ObjectId(),
+          _id: 3,
           name: "sideColor",
           value: "#1CA2E1",
         });
         realm.create("Settings", {
-          _id: new Realm.BSON.ObjectId(),
+          _id: 4,
           name: "darkMode",
           value: "false",
         });
@@ -65,6 +85,9 @@ function LayoutWarp(): React.JSX.Element {
     }
   }, [data.length, realm]);
   useLayoutEffect(() => {
+    if (!data || data.length === 0) {
+      return;
+    }
     setColors({
       PRIMARY_COLOR: data[settingOrder.PRIMARY_COLOR].value,
       SIDE_COLOR: data[settingOrder.SIDE_COLOR].value,

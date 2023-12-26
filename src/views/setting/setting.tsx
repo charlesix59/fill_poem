@@ -8,20 +8,22 @@ import {
   Radio,
 } from "@ant-design/react-native";
 import Item from "@ant-design/react-native/lib/list/ListItem";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {ScrollView} from "react-native";
 import ColorPicker from "./components/colorPicker";
 import {COLORS, colors} from "../../styles/theme";
 import {pdy16} from "../../styles";
 import {Settings, settingOrder} from "../../types/setting";
-import {useQuery, useRealm} from "@realm/react";
+import {RealmContext} from "../../../App";
 
 function Setting(): React.JSX.Element {
+  const {useRealm, useQuery, useObject} = useContext(RealmContext);
   const realm = useRealm();
   const data = useQuery(Settings);
   const [visible, setVisible] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("设置主颜色");
   const [selectedColor, setSelectedColor] = useState<string>();
+  const signature = useObject(Settings, 5);
   const footerButtons = [
     {
       text: "我选好啦",
@@ -87,6 +89,19 @@ function Setting(): React.JSX.Element {
               />
             }>
             彩虹词义
+          </Item>
+          <Item
+            extra={
+              <Switch
+                onChange={e => {
+                  realm.write(() => {
+                    data[settingOrder.RAINBOW_EXPLAIN].value = String(e);
+                  });
+                }}
+                checked={data[settingOrder.RAINBOW_EXPLAIN].value === "true"}
+              />
+            }>
+            图片分享标识
           </Item>
           <Item>检查更新</Item>
           <Item>清除缓存</Item>

@@ -1,13 +1,14 @@
 import {ObjectSchema} from "realm";
+import Realm from "realm";
 
 export class Settings extends Realm.Object<Settings> {
-  _id!: Realm.BSON.ObjectId;
+  _id!: number;
   name!: string;
   value!: string;
   static schema: ObjectSchema = {
     name: "Settings",
     properties: {
-      _id: "objectId",
+      _id: "int",
       name: "string",
       value: "string",
     },
