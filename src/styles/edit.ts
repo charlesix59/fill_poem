@@ -19,6 +19,14 @@ const editStyle = StyleSheet.create({
   mb12: {marginBottom: 12},
   pd12: {padding: 12},
   w48: {width: 48},
+  textAreaInput: {
+    width: "100%",
+    borderStyle: "solid",
+    borderColor: COLORS.IGNORE_COLOR,
+    borderWidth: 1,
+    borderRadius: 5,
+    margin: 24,
+  },
 });
 
 export default editStyle;

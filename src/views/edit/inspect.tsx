@@ -4,7 +4,6 @@ import {
   Modal,
   Provider,
   Text,
-  TextareaItem,
   View,
 } from "@ant-design/react-native";
 import React, {useContext, useState} from "react";
@@ -35,9 +34,15 @@ function Inspect(): React.JSX.Element {
             }}
           />
         </View>
-        <TextInput style={editStyle.lineInput} />
+        <TextInput style={editStyle.lineInput} placeholder="词牌名或诗体" />
         <Text style={editStyle.alignLeft}>输入内容</Text>
-        <TextareaItem rows={4} placeholder="输入你的作品" autoHeight />
+        <TextInput
+          multiline={true}
+          textAlignVertical="top"
+          numberOfLines={4}
+          placeholder="请输入你的作品"
+          style={editStyle.textAreaInput}
+        />
         <Button
           onPress={() => {
             setInspected(true);

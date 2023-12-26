@@ -17,7 +17,12 @@ function EditMenu({navigation}: any): React.JSX.Element {
         }}>
         草稿箱
       </ButtonItem>
-      <ButtonItem>自定韵律</ButtonItem>
+      <ButtonItem
+        onPress={() => {
+          navigation.navigate("Custom");
+        }}>
+        自定韵律
+      </ButtonItem>
     </Container>
   );
 }
