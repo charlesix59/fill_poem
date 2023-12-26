@@ -17,7 +17,7 @@ function Darfts({navigation}: any): React.JSX.Element {
     realm.write(() => {
       realm.delete(darfts[index]);
     });
-    Toast.info("删除成功喵~");
+    Toast.info({content: "删除成功喵~", duration: 0.5});
   };
   const toPerview = (index: number) => {
     const item = darfts[index];

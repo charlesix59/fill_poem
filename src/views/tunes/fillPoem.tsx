@@ -15,7 +15,6 @@ import Loading from "../../components/loading";
 import {CheckInputCommand} from "../../types/command";
 import {useRealm} from "@realm/react";
 import {Title} from "../../styles";
-import {verifyCharIsChinese} from "../../utils/comman";
 
 export const StrContext: Context<string> = createContext("");
 
@@ -27,7 +26,7 @@ function FillPoem({route}: any): React.JSX.Element {
   const [foucsElement, setFoucsElement] = useState(0);
   const [chars, setChars] = useState(""); // 多出的文字，自动填充到下一个block
   const [rhymeWord, setRhymeWord] = useState(""); // 韵脚
-  const [content, setContent] = useState(""); // 保存真正的内容
+  const [content, setContent] = useState<Array<string>>([]); // 保存真正的内容
   const realm = useRealm();
   const writeContentId = useRef<Realm.BSON.ObjectId>(new Realm.BSON.ObjectId());
 
@@ -50,7 +49,6 @@ function FillPoem({route}: any): React.JSX.Element {
     /** 为添加内容添加后缀 */
     const addContentChar = (word: string, index: number): string => {
       const {rhythm} = format.tunes[index];
-      console.log(word, rhythm);
       if (rhythm) {
         if (rhythm === "韵") {
           return `${word} `;
@@ -60,28 +58,27 @@ function FillPoem({route}: any): React.JSX.Element {
       }
       return word;
     };
-    /** 正确删除添加后缀之后的内容 */
-    const deleteContentChar = (verifyContent: string): string => {
-      while (!verifyCharIsChinese(verifyContent[verifyContent.length - 1])) {
-        verifyContent = verifyContent.substring(0, verifyContent.length - 1);
-      }
-      return verifyContent.substring(0, verifyContent.length - 1);
-    };
     if (command && command.name === "input") {
       // 添加到内容
-      setContent(e =>
-        e.concat(
-          addContentChar(command.additionalValue || "", command.callarIndex),
-        ),
-      );
+      setContent(e => {
+        console.log(e);
+        e[command.callarIndex] = addContentChar(
+          command.additionalValue || "",
+          command.callarIndex,
+        );
+        return [...e];
+      });
       if (command.callarIndex === format.tunes.length - 1) {
         return;
       }
       setFoucsElement(command.callarIndex + 1);
       setChars(command.value || "");
     } else if (command && command.name === "back") {
-      // 删除的时候需要判断是否是中文
-      setContent(e => deleteContentChar(e));
+      setContent(e => {
+        console.log(e);
+        e[command.callarIndex] = "";
+        return [...e];
+      });
       if (command.callarIndex === 0) {
         return;
       }
@@ -102,7 +99,7 @@ function FillPoem({route}: any): React.JSX.Element {
         {
           _id: writeContentId.current,
           name: name,
-          content: content,
+          content: content.join(""),
           lastEditTime: new Date(),
           createTime: new Date(),
           ciFormat: key,
