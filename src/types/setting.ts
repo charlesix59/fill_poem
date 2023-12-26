@@ -21,4 +21,6 @@ export const settingOrder = {
   PRIMARY_COLOR: 1,
   SIDE_COLOR: 2,
   DARK_MODE: 3,
+  NO_SIGINATURE: 5,
+  AUTHOR: 6,
 };

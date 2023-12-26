@@ -15,12 +15,16 @@ import {COLORS, colors} from "../../styles/theme";
 import {pdy16} from "../../styles";
 import {Settings, settingOrder} from "../../types/setting";
 import {RealmContext} from "../../../App";
+import Input from "@ant-design/react-native/lib/input-item/Input";
+import settingStyles from "../../styles/setting";
 
 function Setting(): React.JSX.Element {
   const {useRealm, useQuery, useObject} = useContext(RealmContext);
   const realm = useRealm();
   const data = useQuery(Settings);
-  const [visible, setVisible] = useState<boolean>(false);
+  const [colorModelVisible, setColorModelVisible] = useState<boolean>(false);
+  const [nameModelVisible, setNamModelVisible] = useState<boolean>(false);
+  const [authorInput, setAuthorInput] = useState<string>("");
   const [title, setTitle] = useState<string>("设置主颜色");
   const [selectedColor, setSelectedColor] = useState<string>();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -35,13 +39,34 @@ function Setting(): React.JSX.Element {
           data[title === "设置主颜色" ? 1 : 2].value =
             `${selectedColor}` || COLORS.PRIMARY_COLOR;
         });
-        setVisible(false);
+        setColorModelVisible(false);
+      },
+    },
+  ];
+  const authorFooter = [
+    {
+      text: "取消",
+      onPress: () => {
+        setNamModelVisible(false);
+      },
+    },
+    {
+      text: "确认",
+      onPress: () => {
+        realm.write(() => {
+          realm.create(Settings, {
+            _id: settingOrder.AUTHOR,
+            name: "author",
+            value: authorInput,
+          });
+        });
+        setNamModelVisible(false);
       },
     },
   ];
   const colorPressHandler = (newTitle: string) => {
     setTitle(newTitle);
-    setVisible(true);
+    setColorModelVisible(true);
   };
   const darkChangeHandler = async (e: boolean) => {
     setSwitchFlash(status => !status);
@@ -89,7 +114,9 @@ function Setting(): React.JSX.Element {
                     data[settingOrder.RAINBOW_EXPLAIN].value = String(e);
                   });
                 }}
-                checked={data[settingOrder.RAINBOW_EXPLAIN].value === "true"}
+                defaultChecked={
+                  data[settingOrder.RAINBOW_EXPLAIN].value === "true"
+                }
               />
             }>
             彩虹词义
@@ -97,7 +124,7 @@ function Setting(): React.JSX.Element {
           <Item
             extra={
               <Switch
-                onChange={async e => {
+                onChange={e => {
                   setSwitchFlash(status => !status);
                   realm.write(() => {
                     realm.create(
@@ -120,15 +147,22 @@ function Setting(): React.JSX.Element {
           <Item>清除缓存</Item>
         </List>
         <List renderHeader="常规">
-          <Item>署名信息</Item>
+          <Item
+            onPress={() => {
+              setNamModelVisible(true);
+            }}>
+            署名信息
+          </Item>
+          <Item>意见与反馈</Item>
           <Item>GitHub仓库</Item>
           <Item>关于</Item>
         </List>
+        {/* 设置颜色的model */}
         <Modal
           title={title}
           transparent
           maskClosable
-          visible={visible}
+          visible={colorModelVisible}
           footer={footerButtons}>
           <View style={pdy16}>
             <Radio.Group
@@ -143,6 +177,22 @@ function Setting(): React.JSX.Element {
                 </Radio>
               ))}
             </Radio.Group>
+          </View>
+        </Modal>
+        {/* 设置作者署名的model */}
+        <Modal
+          title={"设置作者署名"}
+          transparent
+          maskClosable
+          visible={nameModelVisible}
+          footer={authorFooter}>
+          <View style={pdy16}>
+            <Input
+              style={settingStyles.settingInput}
+              onChange={e => {
+                setAuthorInput(e.nativeEvent.text);
+              }}
+            />
           </View>
         </Modal>
       </ScrollView>
