@@ -10,6 +10,7 @@ import editStyle from "../../styles/edit";
 import ViewShot from "react-native-view-shot";
 import {WFull} from "../../styles";
 import {CameraRoll} from "@react-native-camera-roll/camera-roll";
+import Clipboard from "@react-native-clipboard/clipboard";
 
 type PropsType = {
   title: string;
@@ -34,6 +35,12 @@ function Preview({route}: any): React.JSX.Element {
     await CameraRoll.save(uri);
     Toast.info({content: "保存成功喵~", duration: 0.5});
   };
+
+  const writeClipBoard = async () => {
+    Clipboard.setString(content.concat("\n", splitedContent.join("\n")));
+    Toast.info({content: "写入成功喵~", duration: 0.5});
+  };
+
   return (
     <Provider>
       <Container>
@@ -83,7 +90,10 @@ function Preview({route}: any): React.JSX.Element {
             style={fillPoemStyle.submitBtn}>
             保存图片
           </Button>
-          <Button type="primary" style={fillPoemStyle.submitBtn}>
+          <Button
+            onPress={writeClipBoard}
+            type="primary"
+            style={fillPoemStyle.submitBtn}>
             复制文字
           </Button>
         </View>
