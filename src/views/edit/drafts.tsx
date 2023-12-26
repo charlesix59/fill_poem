@@ -7,6 +7,7 @@ import {extractDate} from "../../utils/comman";
 import {ColorsContext, RealmContext} from "../../../App";
 import editStyle from "../../styles/edit";
 import {WFull, pd8} from "../../styles";
+import Empty from "../../components/empty";
 
 function Darfts({navigation}: any): React.JSX.Element {
   const {useQuery, useRealm} = useContext(RealmContext);
@@ -38,7 +39,7 @@ function Darfts({navigation}: any): React.JSX.Element {
     </Popover.Item>
   ));
   if (!darfts || darfts.length === 0) {
-    return <Text>这里空空如也</Text>;
+    return <Empty />;
   }
   return (
     <Provider>

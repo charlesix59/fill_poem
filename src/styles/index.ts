@@ -6,6 +6,7 @@ const WFull: StyleProp<any> = {
 };
 
 const Title: StyleProp<any> = {
+  marginTop: 8,
   fontSize: 24,
   alignSelf: "center",
 };
@@ -29,7 +30,7 @@ const inline: StyleProp<any> = {
 };
 
 const pdy16: StyleProp<any> = {
-  paddingVertical: 20,
+  paddingVertical: 16,
 };
 
 const pdb8: StyleProp<any> = {

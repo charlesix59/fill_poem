@@ -23,6 +23,8 @@ function Setting(): React.JSX.Element {
   const [visible, setVisible] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("设置主颜色");
   const [selectedColor, setSelectedColor] = useState<string>();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [switchFlash, setSwitchFlash] = useState(true);
   const signature = useObject(Settings, 5);
   const footerButtons = [
     {
@@ -41,7 +43,8 @@ function Setting(): React.JSX.Element {
     setTitle(newTitle);
     setVisible(true);
   };
-  const darkChangeHandler = (e: boolean) => {
+  const darkChangeHandler = async (e: boolean) => {
+    setSwitchFlash(status => !status);
     realm.write(() => {
       data[settingOrder.DARK_MODE].value = String(e);
     });
@@ -81,6 +84,7 @@ function Setting(): React.JSX.Element {
             extra={
               <Switch
                 onChange={e => {
+                  setSwitchFlash(status => !status);
                   realm.write(() => {
                     data[settingOrder.RAINBOW_EXPLAIN].value = String(e);
                   });
@@ -93,21 +97,32 @@ function Setting(): React.JSX.Element {
           <Item
             extra={
               <Switch
-                onChange={e => {
+                onChange={async e => {
+                  setSwitchFlash(status => !status);
                   realm.write(() => {
-                    data[settingOrder.RAINBOW_EXPLAIN].value = String(e);
+                    realm.create(
+                      "Settings",
+                      {
+                        _id: 5,
+                        name: "imageSignature",
+                        value: String(e),
+                      },
+                      true,
+                    );
                   });
                 }}
-                checked={data[settingOrder.RAINBOW_EXPLAIN].value === "true"}
+                defaultChecked={!!signature && signature.value === "true"}
               />
             }>
-            图片分享标识
+            关闭图片分享标识
           </Item>
           <Item>检查更新</Item>
           <Item>清除缓存</Item>
         </List>
         <List renderHeader="常规">
+          <Item>署名信息</Item>
           <Item>GitHub仓库</Item>
+          <Item>关于</Item>
         </List>
         <Modal
           title={title}
@@ -118,7 +133,6 @@ function Setting(): React.JSX.Element {
           <View style={pdy16}>
             <Radio.Group
               onChange={e => {
-                // console.log(e);
                 setSelectedColor(e.target.value as string);
               }}
               value={selectedColor}>
