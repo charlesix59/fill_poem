@@ -41,7 +41,11 @@ function TuneCard({
         </View>
         <Text style={formatStyles.line}>{format.sketch}</Text>
       </View>
-      <View style={{...formatStyles.inline, ...formatStyles.line}}>
+      <View
+        style={{
+          ...formatStyles.inline,
+          ...formatStyles.line,
+        }}>
         {format.tunes.map((item, key) => {
           if (item.rhythm) {
             return (

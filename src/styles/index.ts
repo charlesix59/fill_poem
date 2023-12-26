@@ -74,6 +74,7 @@ const formatStyles = StyleSheet.create({
   inline: {
     display: "flex",
     flexDirection: "row",
+    flexWrap: "wrap",
   },
   line: {
     marginTop: 8,
