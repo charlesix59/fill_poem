@@ -1,5 +1,6 @@
 import {StyleSheet} from "react-native";
 import {COLORS} from "./theme";
+import {inline} from ".";
 
 const editStyle = StyleSheet.create({
   bottonLine: {
@@ -26,6 +27,30 @@ const editStyle = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     margin: 24,
+  },
+  previewContainer: {
+    marginLeft: "10%",
+    width: "80%",
+    backgroundColor: COLORS.BACKGROUND_COLOR,
+    padding: 16,
+  },
+  previewBorder: {
+    borderWidth: 1,
+    borderStyle: "solid",
+    padding: 16,
+  },
+  previewTitle: {
+    alignSelf: "center",
+    color: "#000",
+    fontWeight: "bold",
+    marginBottom: 8,
+  },
+  previewContent: {color: "#000", marginBottom: 8},
+  inlineRight: {...inline, justifyContent: "flex-end"},
+  ml16: {marginLeft: 16},
+  appSignature: {
+    alignSelf: "center",
+    marginTop: 8,
   },
 });
 
