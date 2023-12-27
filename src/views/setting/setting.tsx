@@ -9,7 +9,7 @@ import {
 } from "@ant-design/react-native";
 import Item from "@ant-design/react-native/lib/list/ListItem";
 import React, {useContext, useState} from "react";
-import {ScrollView} from "react-native";
+import {Linking, ScrollView} from "react-native";
 import ColorPicker from "./components/colorPicker";
 import {COLORS, colors} from "../../styles/theme";
 import {pdy16} from "../../styles";
@@ -154,7 +154,17 @@ function Setting(): React.JSX.Element {
             署名信息
           </Item>
           <Item>意见与反馈</Item>
-          <Item>GitHub仓库</Item>
+          <Item
+            onPress={() => {
+              Linking.openURL("https://github.com/charlesix59/fill_poem").catch(
+                e => {
+                  console.log(e);
+                  Toast.info("打开外部浏览器失败了TAT", 1);
+                },
+              );
+            }}>
+            GitHub仓库
+          </Item>
           <Item>关于</Item>
         </List>
         {/* 设置颜色的model */}
