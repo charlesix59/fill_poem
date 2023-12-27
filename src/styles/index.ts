@@ -27,6 +27,10 @@ const mx8: StyleProp<any> = {
   marginHorizontal: 8,
 };
 
+const my8: StyleProp<any> = {
+  marginVertical: 8,
+};
+
 // marginTop: 24
 const mt24: StyleProp<any> = {
   marginTop: 24,
@@ -47,6 +51,10 @@ const pdb8: StyleProp<any> = {
 
 const pd8: StyleProp<any> = {
   padding: 8,
+};
+
+const colorBlack: StyleProp<any> = {
+  color: "#000",
 };
 
 const catalogStyles = StyleSheet.create({
@@ -99,4 +107,6 @@ export {
   pd8,
   HCenter,
   mx8,
+  my8,
+  colorBlack,
 };

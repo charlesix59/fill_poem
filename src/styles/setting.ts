@@ -16,6 +16,10 @@ const settingStyles = StyleSheet.create({
     borderLeftWidth: 1,
     margin: 8,
   },
+  colorLink: {
+    color: COLORS.INFO,
+  },
+  banner: {width: 300, height: 100, alignSelf: "center"},
 });
 
 export default settingStyles;

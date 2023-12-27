@@ -18,7 +18,7 @@ import {RealmContext} from "../../../App";
 import Input from "@ant-design/react-native/lib/input-item/Input";
 import settingStyles from "../../styles/setting";
 
-function Setting(): React.JSX.Element {
+function Setting({navigation}: any): React.JSX.Element {
   const {useRealm, useQuery, useObject} = useContext(RealmContext);
   const realm = useRealm();
   const data = useQuery(Settings);
@@ -165,7 +165,12 @@ function Setting(): React.JSX.Element {
             }}>
             GitHub仓库
           </Item>
-          <Item>关于</Item>
+          <Item
+            onPress={() => {
+              navigation.navigate("About");
+            }}>
+            关于
+          </Item>
         </List>
         {/* 设置颜色的model */}
         <Modal
