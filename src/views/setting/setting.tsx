@@ -29,7 +29,8 @@ function Setting({navigation}: any): React.JSX.Element {
   const [selectedColor, setSelectedColor] = useState<string>();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [switchFlash, setSwitchFlash] = useState(true);
-  const signature = useObject(Settings, 5);
+  const signature = useObject(Settings, settingOrder.NO_SIGNATURE);
+  const author = useObject(Settings, settingOrder.AUTHOR);
   const footerButtons = [
     {
       text: "我选好啦",
@@ -54,11 +55,15 @@ function Setting({navigation}: any): React.JSX.Element {
       text: "确认",
       onPress: () => {
         realm.write(() => {
-          realm.create(Settings, {
-            _id: settingOrder.AUTHOR,
-            name: "author",
-            value: authorInput,
-          });
+          realm.create(
+            Settings,
+            {
+              _id: settingOrder.AUTHOR,
+              name: "author",
+              value: authorInput,
+            },
+            true,
+          );
         });
         setNamModelVisible(false);
       },
@@ -144,7 +149,26 @@ function Setting({navigation}: any): React.JSX.Element {
             关闭图片分享标识
           </Item>
           <Item>检查更新</Item>
-          <Item>清除缓存</Item>
+          <Item
+            onPress={() => {
+              Modal.alert(
+                "警告",
+                "清除缓存将删除您的所有草稿与自定义设置，此行为不可逆，请确认是否要清除缓存",
+                [
+                  {text: "取消"},
+                  {
+                    text: "确认",
+                    onPress: () => {
+                      realm.write(() => {
+                        realm.deleteAll();
+                      });
+                    },
+                  },
+                ],
+              );
+            }}>
+            清除缓存
+          </Item>
         </List>
         <List renderHeader="常规">
           <Item
@@ -207,6 +231,7 @@ function Setting({navigation}: any): React.JSX.Element {
               onChange={e => {
                 setAuthorInput(e.nativeEvent.text);
               }}
+              defaultValue={author?.value}
             />
           </View>
         </Modal>
