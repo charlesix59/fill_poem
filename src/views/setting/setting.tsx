@@ -181,8 +181,7 @@ function Setting({navigation}: any): React.JSX.Element {
           <Item
             onPress={() => {
               Linking.openURL("https://github.com/charlesix59/fill_poem").catch(
-                e => {
-                  console.log(e);
+                () => {
                   Toast.info("打开外部浏览器失败了TAT", 1);
                 },
               );

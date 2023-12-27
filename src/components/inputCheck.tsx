@@ -1,19 +1,12 @@
-import {Icon, View} from "@ant-design/react-native";
+import {View} from "@ant-design/react-native";
 import {Text} from "react-native";
-import React, {
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
 import fillPoemStyle from "../styles/filePoem";
 import {CheckInputCommand} from "../types/command";
 import CheckedInput from "./checkedInput";
 import {checkRhyme} from "../api/check";
-import {ReturnType} from "../types/main";
-import {ColorsContext} from "../../App";
 import {mx8} from "../styles";
+import StateIcon from "./stateIcon";
 
 type propsType = {
   tune: string;
@@ -80,18 +73,6 @@ function InputCheck({
       />
     </View>
   );
-}
-
-function StateIcon({state}: {state: string}): React.JSX.Element {
-  const COLORS = useContext(ColorsContext);
-  if (state === ReturnType.ERROR) {
-    return <Icon name="close-circle" size="md" color={COLORS.ERROR} />;
-  } else if (state === ReturnType.INFO) {
-    return <Icon name="info-circle" size="md" color={COLORS.INFO} />;
-  } else if (state === ReturnType.SUCCESS) {
-    return <Icon name="check-circle" size="md" color={COLORS.SUCCESS} />;
-  }
-  return <></>;
 }
 
 export default InputCheck;

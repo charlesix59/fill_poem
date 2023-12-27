@@ -29,5 +29,13 @@ class DarftSchema extends Realm.Object<DarftSchema> {
   };
 }
 
-export type {DarftType};
+interface CheckedLetter {
+  letter: string;
+  tune: string;
+  match: string;
+  rhymeMatch?: string;
+  rhyme?: string;
+}
+
+export type {DarftType, CheckedLetter};
 export {DarftSchema};

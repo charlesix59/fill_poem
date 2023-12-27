@@ -1,4 +1,8 @@
 import {PermissionsAndroid, Platform} from "react-native";
+import {getTuneByName} from "../api/tunes";
+import {checkRhyme, checkTune} from "../api/check";
+import {ReturnType} from "../types/main";
+import {CheckedLetter} from "../types/edit";
 
 const chineseNumbers = ["一", "二", "三", "四", "五", "六", "七", "八", "九"];
 const number2Chinese = (num: number): string => {
@@ -8,6 +12,7 @@ const number2Chinese = (num: number): string => {
 // 中文匹配正则
 const reg = /^[\u4E00-\u9FA5]+$/;
 
+/** 检查是否是中文 */
 const verifyCharIsChinese = (char: string) => {
   if (reg.test(char)) {
     return true;
@@ -15,16 +20,19 @@ const verifyCharIsChinese = (char: string) => {
   return false;
 };
 
+/** 将Date转化为 yy-mm-dd 格式 */
 const extractDate = (date: Date): string => {
   return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 };
 
+/** 将Date转化为 yy-mm-dd hh:mm 格式  */
 const extractDateTime = (date: Date): string => {
   return `${date.getFullYear()}-${
     date.getMonth() + 1
   }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
 };
 
+/** 获取权限照片存储 */
 async function hasAndroidPermission() {
   const getCheckPermissionPromise = () => {
     if ((Platform.Version as number) >= 33) {
@@ -72,10 +80,65 @@ async function hasAndroidPermission() {
   return await getRequestPermissionPromise();
 }
 
+/**
+ * 词校验
+ * @param ciName 词牌名
+ * @param {string} content 包含标点符号的诗的内容
+ * @returns 解析的结果，会返回一个与最相似的词牌格式逐个校验后的数组，如果为空则说明没有匹配的词格
+ */
+const verifyCi = async (
+  ciName: string,
+  content: string,
+): Promise<CheckedLetter[]> => {
+  const ciFormat = getTuneByName(ciName);
+  const pureContent = content.replaceAll(/[，。,.]/g, "");
+  const contentArr = pureContent.split("");
+  let maxMatchResult: CheckedLetter[] = [];
+  let maxMatchChar = 0;
+  let targetRhythmLetter = "";
+  for (const format of ciFormat.formats) {
+    if (format.tunes.length !== contentArr.length) {
+      continue;
+    }
+    let matchNumber = 0;
+    let matchResult = [];
+    for (let index = 0; index < contentArr.length; index++) {
+      const letter = contentArr[index],
+        target = format.tunes[index];
+      // 检查平仄
+      const result = await checkTune(letter, target.tune);
+      const temp: CheckedLetter = {
+        letter: letter,
+        tune: target.tune,
+        match: result,
+        rhyme: target.rhythm,
+      };
+      if (result === ReturnType.SUCCESS) {
+        matchNumber++;
+      }
+      // 检查韵
+      if (target.rhythm === "韵") {
+        if (!targetRhythmLetter) {
+          targetRhythmLetter = letter;
+        }
+        const rhymeResult = await checkRhyme(letter, targetRhythmLetter);
+        temp.rhymeMatch = rhymeResult;
+      }
+      matchResult.push(temp);
+    }
+    if (matchNumber > maxMatchChar) {
+      maxMatchChar = matchNumber;
+      maxMatchResult = matchResult;
+    }
+  }
+  return maxMatchResult;
+};
+
 export {
   number2Chinese,
   verifyCharIsChinese,
   extractDate,
   extractDateTime,
   hasAndroidPermission,
+  verifyCi,
 };

@@ -57,6 +57,11 @@ const colorBlack: StyleProp<any> = {
   color: "#000",
 };
 
+const container: StyleProp<any> = {
+  width: "100%",
+  alignItems: "center",
+};
+
 const catalogStyles = StyleSheet.create({
   container: {
     display: "flex",
@@ -109,4 +114,5 @@ export {
   mx8,
   my8,
   colorBlack,
+  container,
 };
