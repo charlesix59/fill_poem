@@ -44,7 +44,6 @@ function Inspect(): React.JSX.Element {
         subArr = [];
       }
     }
-    console.log(arr);
     setInspectResult(arr);
   };
   return (

@@ -134,6 +134,11 @@ const verifyCi = async (
   return maxMatchResult;
 };
 
+const transIntoPureString = (str: string): string => {
+  const pureContent = str.replaceAll(/[，。,. ]/g, "");
+  return pureContent;
+};
+
 export {
   number2Chinese,
   verifyCharIsChinese,
@@ -141,4 +146,5 @@ export {
   extractDateTime,
   hasAndroidPermission,
   verifyCi,
+  transIntoPureString,
 };

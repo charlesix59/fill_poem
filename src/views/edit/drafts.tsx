@@ -8,18 +8,21 @@ import {ColorsContext, RealmContext} from "../../../App";
 import editStyle from "../../styles/edit";
 import {WFull, pd8} from "../../styles";
 import Empty from "../../components/empty";
+import {getCiFormat} from "../../api/tunes";
 
 function Darfts({navigation}: any): React.JSX.Element {
   const {useQuery, useRealm} = useContext(RealmContext);
   const darfts = useQuery(DarftSchema);
   const COLORS = useContext(ColorsContext);
   const realm = useRealm();
+  /** 删除草稿 */
   const deleteDarft = (index: number) => {
     realm.write(() => {
       realm.delete(darfts[index]);
     });
     Toast.info({content: "删除成功喵~", duration: 0.5});
   };
+  /** 跳转预览界面 */
   const toPerview = (index: number) => {
     const item = darfts[index];
     navigation.navigate("Preview", {
@@ -28,9 +31,20 @@ function Darfts({navigation}: any): React.JSX.Element {
       createTime: item.createTime,
     });
   };
+  const editDarft = async (index: number) => {
+    Toast.loading("加载中，请等待");
+    const item = darfts[index];
+    const format = await getCiFormat(item.name, item.ciFormat);
+    navigation.navigate("editPoem", {
+      name: item.name,
+      key: item.ciFormat,
+      format: format,
+      initValue: item.content,
+    });
+  };
   const nameArr = [
     {value: "preview", name: "预览"},
-    {value: "edut", name: "编辑"},
+    {value: "edit", name: "编辑"},
     {value: "delete", name: "删除"},
   ];
   const overlay = nameArr.map((item, index) => (
@@ -72,7 +86,7 @@ function Darfts({navigation}: any): React.JSX.Element {
                           if (e === "preview") {
                             toPerview(index);
                           } else if (e === "edit") {
-                            console.log(e);
+                            editDarft(index);
                           } else if (e === "delete") {
                             deleteDarft(index);
                           }

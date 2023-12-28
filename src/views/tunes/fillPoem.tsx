@@ -16,12 +16,19 @@ import Loading from "../../components/loading";
 import {CheckInputCommand} from "../../types/command";
 import {HCenter, Title} from "../../styles";
 import {RealmContext} from "../../../App";
+import {transIntoPureString} from "../../utils/comman";
 
 export const StrContext: Context<string> = createContext("");
 
+type PropsType = {
+  format: CiFormat; // 准确的词格
+  name: string; // 词牌名
+  key: number; // 第几词格
+  initValue?: string; // 初始值（从编辑界面进入）
+};
+
 function FillPoem({route}: any): React.JSX.Element {
-  const {format, name, key}: {format: CiFormat; name: string; key: number} =
-    route.params;
+  const {format, name, key, initValue}: PropsType = route.params;
   const [tunes, setTunes] = useState<Array<Array<CiTuneItem>>>([]);
   const [command, setCommand] = useState<CheckInputCommand>();
   const [foucsElement, setFoucsElement] = useState(0);
@@ -46,6 +53,17 @@ function FillPoem({route}: any): React.JSX.Element {
     });
     setTunes(res);
   }, [format.tunes]);
+  /** 如果传入initValue，则进行处理 */
+  useEffect(() => {
+    if (initValue) {
+      setCommand({
+        name: "input",
+        callarIndex: -1,
+        value: transIntoPureString(initValue),
+        additionalValue: "",
+      });
+    }
+  }, [initValue]);
   /** 监听command变化 */
   useEffect(() => {
     /** 为添加内容添加后缀 */
@@ -62,14 +80,15 @@ function FillPoem({route}: any): React.JSX.Element {
     };
     if (command && command.name === "input") {
       // 添加到内容
-      setContent(e => {
-        console.log(e);
-        e[command.callarIndex] = addContentChar(
-          command.additionalValue || "",
-          command.callarIndex,
-        );
-        return [...e];
-      });
+      if (command.callarIndex >= 0) {
+        setContent(e => {
+          e[command.callarIndex] = addContentChar(
+            command.additionalValue || "",
+            command.callarIndex,
+          );
+          return [...e];
+        });
+      }
       if (command.callarIndex === format.tunes.length - 1) {
         return;
       }
@@ -77,7 +96,6 @@ function FillPoem({route}: any): React.JSX.Element {
       setChars(command.value || "");
     } else if (command && command.name === "back") {
       setContent(e => {
-        console.log(e);
         e[command.callarIndex] = "";
         return [...e];
       });

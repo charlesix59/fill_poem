@@ -1,6 +1,6 @@
 import catalog from "../data/Pingshui_Catalog.json";
 import tunes from "../data/Ci_Tunes.json";
-import {CiTuneType, TunesCatalog} from "../types/main";
+import {CiFormat, CiTuneType, TunesCatalog} from "../types/main";
 
 const getTunesCatalog = async (): Promise<TunesCatalog> => {
   return catalog as TunesCatalog;
@@ -31,4 +31,11 @@ const searchTuneName = (text: string | undefined): TunesCatalog => {
   return res;
 };
 
-export {getTunesCatalog, getTuneByName, searchTuneName};
+const getCiFormat = async (
+  name: string,
+  formatkey: number,
+): Promise<CiFormat> => {
+  return (tunes as any)[name].formats[formatkey] as CiFormat;
+};
+
+export {getTunesCatalog, getTuneByName, searchTuneName, getCiFormat};

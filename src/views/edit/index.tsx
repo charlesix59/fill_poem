@@ -5,6 +5,7 @@ import Inspect from "./inspect";
 import Darfts from "./drafts";
 import Preview from "./preview";
 import Custom from "./custom";
+import FillPoem from "../tunes/fillPoem";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,7 @@ function Edit(): React.JSX.Element {
       <Stack.Screen name="Darfts" component={Darfts} />
       <Stack.Screen name="Preview" component={Preview} />
       <Stack.Screen name="Custom" component={Custom} />
+      <Stack.Screen name="editPoem" component={FillPoem} />
     </Stack.Navigator>
   );
 }
