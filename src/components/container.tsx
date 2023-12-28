@@ -11,7 +11,7 @@ function Container(props: {
     alignItems: "center",
     backgroundColor: "white",
     paddingTop: 24,
-    paddingBottom: 24,
+    paddingBottom: 12,
     paddingLeft: 12,
     paddingRight: 12,
   };

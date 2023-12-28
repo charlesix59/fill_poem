@@ -1,4 +1,4 @@
-import {Text, View} from "@ant-design/react-native";
+import {Text, View, WhiteSpace} from "@ant-design/react-native";
 import React from "react";
 import Container from "../../components/container";
 import {Image, Linking, ScrollView} from "react-native";
@@ -51,6 +51,7 @@ function About(): React.JSX.Element {
           style={settingStyles.banner}
         />
         <Text style={HCenter}>本软件属于 yoyo project</Text>
+        <WhiteSpace size="md" />
       </ScrollView>
     </Container>
   );
