@@ -8,7 +8,6 @@ const generateRandomHexColor = (): string => {
 
   // 组合成 HEX 颜色字符串
   var color = "#" + redHex + greenHex + blueHex;
-
   return color;
 };
 
@@ -23,4 +22,13 @@ const generateRandomNumber = (): {red: number; green: number; blue: number} => {
   return {red, green, blue};
 };
 
-export {generateRandomHexColor};
+/** 判断字符是否是Hex */
+function isHexColor(colorString: string): boolean {
+  // HEX 颜色的正则表达式
+  var hexColorRegExp = /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
+
+  // 使用正则表达式测试颜色字符串
+  return hexColorRegExp.test(colorString);
+}
+
+export {generateRandomHexColor, isHexColor};

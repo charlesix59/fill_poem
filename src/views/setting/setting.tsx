@@ -9,7 +9,7 @@ import {
 } from "@ant-design/react-native";
 import Item from "@ant-design/react-native/lib/list/ListItem";
 import React, {useContext, useState} from "react";
-import {Linking, ScrollView} from "react-native";
+import {Linking, ScrollView, TextInput} from "react-native";
 import ColorPicker from "./components/colorPicker";
 import {COLORS, colors} from "../../styles/theme";
 import {pdy16} from "../../styles";
@@ -17,6 +17,7 @@ import {Settings, settingOrder} from "../../types/setting";
 import {RealmContext} from "../../../App";
 import Input from "@ant-design/react-native/lib/input-item/Input";
 import settingStyles from "../../styles/setting";
+import {isHexColor} from "../../utils/appearance";
 
 function Setting({navigation}: any): React.JSX.Element {
   const {useRealm, useQuery, useObject} = useContext(RealmContext);
@@ -29,21 +30,36 @@ function Setting({navigation}: any): React.JSX.Element {
   const [selectedColor, setSelectedColor] = useState<string>();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [switchFlash, setSwitchFlash] = useState(true);
+  const [customColorInput, setCustomColorInput] = useState<string>("");
   const signature = useObject(Settings, settingOrder.NO_SIGNATURE);
   const author = useObject(Settings, settingOrder.AUTHOR);
+  /** 设置颜色dialog的footer */
   const footerButtons = [
     {
       text: "我选好啦",
       onPress: () => {
-        realm.write(() => {
-          // 1是主颜色，2是副颜色
-          data[title === "设置主颜色" ? 1 : 2].value =
-            `${selectedColor}` || COLORS.PRIMARY_COLOR;
-        });
+        // 如果时自定义颜色，则处理
+        if (selectedColor === "custom") {
+          if (isHexColor(customColorInput)) {
+            realm.write(() => {
+              data[title === "设置主颜色" ? 1 : 2].value =
+                customColorInput || COLORS.PRIMARY_COLOR;
+            });
+          } else {
+            Toast.info({content: "输入的颜色值不正确哦", duration: 1});
+          }
+        } else {
+          realm.write(() => {
+            // 1是主颜色，2是副颜色
+            data[title === "设置主颜色" ? 1 : 2].value =
+              `${selectedColor}` || COLORS.PRIMARY_COLOR;
+          });
+        }
         setColorModelVisible(false);
       },
     },
   ];
+  /** 设置作者Dialog的footer */
   const authorFooter = [
     {
       text: "取消",
@@ -69,8 +85,25 @@ function Setting({navigation}: any): React.JSX.Element {
       },
     },
   ];
-  const colorPressHandler = (newTitle: string) => {
-    setTitle(newTitle);
+  // 判断是否是自定义颜色
+  const isCustom = (colorHex: string): boolean => {
+    return !colors.map(item => item.colorHex).includes(colorHex);
+  };
+  // 处理颜色点击事件
+  const colorPressHandler = (type: string) => {
+    let color: string;
+    if (type === "primary") {
+      setTitle("设置主颜色");
+      color = data[settingOrder.PRIMARY_COLOR].value;
+    } else {
+      setTitle("设置副颜色");
+      color = data[settingOrder.SIDE_COLOR].value;
+    }
+    const custom = isCustom(color);
+    setSelectedColor(custom ? "custom" : color);
+    if (custom) {
+      setCustomColorInput(color);
+    }
     setColorModelVisible(true);
   };
   const darkChangeHandler = async (e: boolean) => {
@@ -86,15 +119,13 @@ function Setting({navigation}: any): React.JSX.Element {
         <List renderHeader="外观">
           <Item
             onPress={() => {
-              setSelectedColor(data[settingOrder.PRIMARY_COLOR].value);
-              colorPressHandler("设置主颜色");
+              colorPressHandler("primary");
             }}>
             主颜色
           </Item>
           <Item
             onPress={() => {
-              setSelectedColor(data[settingOrder.SIDE_COLOR].value);
-              colorPressHandler("设置副颜色");
+              colorPressHandler("side");
             }}>
             副颜色
           </Item>
@@ -214,6 +245,18 @@ function Setting({navigation}: any): React.JSX.Element {
                   <ColorPicker colorHex={item.colorHex} text={item.text} />
                 </Radio>
               ))}
+              <Radio value={"custom"}>自定义颜色</Radio>
+              <View>
+                <TextInput
+                  style={settingStyles.colorInput}
+                  placeholder="HEX值"
+                  onChange={e => {
+                    setCustomColorInput(e.nativeEvent.text);
+                    console.log(e.nativeEvent.text);
+                  }}
+                  value={customColorInput}
+                />
+              </View>
             </Radio.Group>
           </View>
         </Modal>
