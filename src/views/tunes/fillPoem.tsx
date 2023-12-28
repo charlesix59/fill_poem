@@ -10,7 +10,7 @@ import {ScrollView, Text} from "react-native";
 import {CiFormat, CiTuneItem} from "../../types/main";
 import Container from "../../components/container";
 import InputCheck from "../../components/inputCheck";
-import {Button, Provider, Toast, View} from "@ant-design/react-native";
+import {Button, Modal, Provider, Toast, View} from "@ant-design/react-native";
 import fillPoemStyle from "../../styles/filePoem";
 import Loading from "../../components/loading";
 import {CheckInputCommand} from "../../types/command";
@@ -29,7 +29,7 @@ type PropsType = {
   isCustom?: boolean; // 是否是自定义词牌
 };
 
-function FillPoem({route}: any): React.JSX.Element {
+function FillPoem({navigation, route}: any): React.JSX.Element {
   const {format, name, key, initValue, editId, isCustom}: PropsType =
     route.params;
   const [tunes, setTunes] = useState<Array<Array<CiTuneItem>>>([]);
@@ -58,6 +58,22 @@ function FillPoem({route}: any): React.JSX.Element {
     });
     setTunes(res);
   }, [format.tunes]);
+  /** 阻止退出 */
+  useEffect(() => {
+    navigation.addListener("beforeRemove", (e: any) => {
+      e.preventDefault();
+      Modal.alert("保存更改", "离开之前请确认所有的更改都已经保存哦~", [
+        {
+          text: "取消",
+          style: "cancle",
+        },
+        {
+          text: "确认",
+          onPress: () => navigation.dispatch(e.data.action),
+        },
+      ]);
+    });
+  }, [navigation]);
   /** 如果传入initValue，则进行处理 */
   useEffect(() => {
     if (initValue) {
