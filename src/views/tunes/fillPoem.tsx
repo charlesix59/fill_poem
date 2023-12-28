@@ -25,10 +25,13 @@ type PropsType = {
   name: string; // 词牌名
   key: number; // 第几词格
   initValue?: string; // 初始值（从编辑界面进入）
+  editId?: Realm.BSON.ObjectId;
+  isCustom?: boolean; // 是否是自定义词牌
 };
 
 function FillPoem({route}: any): React.JSX.Element {
-  const {format, name, key, initValue}: PropsType = route.params;
+  const {format, name, key, initValue, editId, isCustom}: PropsType =
+    route.params;
   const [tunes, setTunes] = useState<Array<Array<CiTuneItem>>>([]);
   const [command, setCommand] = useState<CheckInputCommand>();
   const [foucsElement, setFoucsElement] = useState(0);
@@ -37,7 +40,9 @@ function FillPoem({route}: any): React.JSX.Element {
   const [content, setContent] = useState<Array<string>>([]); // 保存真正的内容
   const {useRealm} = useContext(RealmContext);
   const realm = useRealm();
-  const writeContentId = useRef<Realm.BSON.ObjectId>(new Realm.BSON.ObjectId());
+  const writeContentId = useRef<Realm.BSON.ObjectId>(
+    editId || new Realm.BSON.ObjectId(),
+  );
 
   /** 提供可换行的词韵数组 */
   useEffect(() => {
@@ -112,6 +117,7 @@ function FillPoem({route}: any): React.JSX.Element {
       });
     }
   }, [command, format.tunes, format.tunes.length]);
+  /** 保存草稿 */
   const saveDarft = () => {
     realm.write(() => {
       realm.create(
@@ -165,6 +171,10 @@ function FillPoem({route}: any): React.JSX.Element {
             type="primary"
             style={fillPoemStyle.submitBtn}
             onPress={() => {
+              if (isCustom) {
+                Toast.info({content: "自定义韵律暂不支持保存哦", duration: 1});
+                return;
+              }
               Toast.info({content: "保存成功喵~", duration: 0.5});
               saveDarft();
             }}>

@@ -23,4 +23,6 @@ export const settingOrder = {
   DARK_MODE: 3,
   NO_SIGNATURE: 5,
   AUTHOR: 6,
+  CUSTOM_NAME: 16,
+  CUSTOM_FORMAT: 17,
 };

@@ -21,8 +21,9 @@ interface CiFormat {
 
 interface CiTuneItem {
   tune: string;
-  rhythm?: string;
-  index?: number;
+  rhythm?: string; // {句|韵} 是否是最后一个字，并且最后一个字是否是韵
+  index?: number; // 在填词界面给每个item编号
+  shift?: boolean; // 是否换阙
 }
 
 interface CilinWord {

@@ -40,6 +40,7 @@ function Darfts({navigation}: any): React.JSX.Element {
       key: item.ciFormat,
       format: format,
       initValue: item.content,
+      editId: item._id,
     });
   };
   const nameArr = [
