@@ -9,11 +9,16 @@ import {
 } from "@ant-design/react-native";
 import Item from "@ant-design/react-native/lib/list/ListItem";
 import React, {useContext, useState} from "react";
-import {Linking, ScrollView, TextInput} from "react-native";
+import {Linking, ScrollView, Text, TextInput} from "react-native";
 import ColorPicker from "./components/colorPicker";
 import {COLORS, colors} from "../../styles/theme";
 import {pdy16} from "../../styles";
-import {Settings, settingOrder} from "../../types/setting";
+import {
+  Settings,
+  checkUpdateResult,
+  sendFeedbackResult,
+  settingOrder,
+} from "../../types/setting";
 import {RealmContext} from "../../../App";
 import Input from "@ant-design/react-native/lib/input-item/Input";
 import settingStyles from "../../styles/setting";
@@ -25,12 +30,17 @@ function Setting({navigation}: any): React.JSX.Element {
   const data = useQuery(Settings);
   const [colorModelVisible, setColorModelVisible] = useState<boolean>(false);
   const [nameModelVisible, setNamModelVisible] = useState<boolean>(false);
+  const [feedbackModelVisiable, setFeedbackModelVisiable] =
+    useState<boolean>(false);
   const [authorInput, setAuthorInput] = useState<string>("");
   const [title, setTitle] = useState<string>("设置主颜色");
   const [selectedColor, setSelectedColor] = useState<string>();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [switchFlash, setSwitchFlash] = useState(true);
   const [customColorInput, setCustomColorInput] = useState<string>("");
+  const [feedbackContent, setFeedbackContent] = useState<string>("");
+  const [contact, setContact] = useState<string>("");
+  const version = useObject(Settings, settingOrder.VERSION);
   const signature = useObject(Settings, settingOrder.NO_SIGNATURE);
   const author = useObject(Settings, settingOrder.AUTHOR);
   /** 设置颜色dialog的footer */
@@ -85,6 +95,19 @@ function Setting({navigation}: any): React.JSX.Element {
       },
     },
   ];
+  const feedbackFooter = [
+    {
+      text: "发送反馈",
+      onPress: () => {
+        if (!feedbackContent && !contact) {
+          Toast.info("啥都不填不会发送反馈哦~", 1);
+        } else {
+          sendFeedback();
+        }
+        setFeedbackModelVisiable(false);
+      },
+    },
+  ];
   // 判断是否是自定义颜色
   const isCustom = (colorHex: string): boolean => {
     return !colors.map(item => item.colorHex).includes(colorHex);
@@ -106,12 +129,74 @@ function Setting({navigation}: any): React.JSX.Element {
     }
     setColorModelVisible(true);
   };
+  // 设置黑暗模式
   const darkChangeHandler = async (e: boolean) => {
     setSwitchFlash(status => !status);
     realm.write(() => {
       data[settingOrder.DARK_MODE].value = String(e);
     });
     Toast.info({content: "开发中~(点也没用，哼)", duration: 0.5});
+  };
+  // 检查更新
+  const checkUpdate = () => {
+    const toastKey = Toast.loading("请求中...");
+    let curVersion = "";
+    if (version) {
+      curVersion = version.value;
+    }
+    fetch(
+      "https://lovely-faun-65de4d.netlify.app/.netlify/functions/checkUpdate",
+      {
+        method: "POST",
+        body: JSON.stringify({version: curVersion}),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    )
+      .then(res => {
+        res.json().then((body: checkUpdateResult) => {
+          if (body.hasUpdate) {
+            Modal.alert(
+              `有新版本 ${body.latestVersion}`,
+              `${body.latestInfo}\n请手动前往官网下载更新`,
+              [{text: "明白啦"}],
+            );
+          }
+        });
+      })
+      .catch(err => {
+        Toast.info({content: `获取版本信息失败:${err}`, duration: 1});
+      })
+      .finally(() => {
+        Toast.remove(toastKey);
+      });
+  };
+  // 发送反馈
+  const sendFeedback = () => {
+    const toastKey = Toast.loading("请求中...");
+    fetch(
+      "https://lovely-faun-65de4d.netlify.app/.netlify/functions/sendMail",
+      {
+        method: "POST",
+        body: JSON.stringify({content: feedbackContent, connectWay: contact}),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    )
+      .then(res => {
+        res.json().then((body: sendFeedbackResult) => {
+          console.log(body);
+          Toast.info({content: body.msg, duration: 1});
+        });
+      })
+      .catch(err => {
+        Toast.info({content: `发送失败:${err}`, duration: 1});
+      })
+      .finally(() => {
+        Toast.remove(toastKey);
+      });
   };
   return (
     <Provider>
@@ -179,7 +264,7 @@ function Setting({navigation}: any): React.JSX.Element {
             }>
             关闭图片分享标识
           </Item>
-          <Item>检查更新</Item>
+          <Item onPress={checkUpdate}>检查更新</Item>
           <Item
             onPress={() => {
               Modal.alert(
@@ -208,7 +293,12 @@ function Setting({navigation}: any): React.JSX.Element {
             }}>
             署名信息
           </Item>
-          <Item>意见与反馈</Item>
+          <Item
+            onPress={() => {
+              setFeedbackModelVisiable(true);
+            }}>
+            意见与反馈
+          </Item>
           <Item
             onPress={() => {
               Linking.openURL("https://github.com/charlesix59/fill_poem").catch(
@@ -274,6 +364,31 @@ function Setting({navigation}: any): React.JSX.Element {
                 setAuthorInput(e.nativeEvent.text);
               }}
               defaultValue={author?.value}
+            />
+          </View>
+        </Modal>
+        <Modal
+          title="发送反馈"
+          transparent
+          maskClosable
+          visible={feedbackModelVisiable}
+          footer={feedbackFooter}>
+          <View style={pdy16}>
+            <Text>您想反馈的内容</Text>
+            <TextInput
+              multiline={true}
+              numberOfLines={2}
+              placeholder="反馈内容"
+              style={settingStyles.settingInput}
+              onChange={e => setFeedbackContent(e.nativeEvent.text)}
+              textAlignVertical="top"
+            />
+            <Text>可以的话留下您的联系方式w</Text>
+            <TextInput
+              placeholder="联系方式"
+              style={settingStyles.settingInput}
+              onChange={e => setContact(e.nativeEvent.text)}
+              textAlignVertical="top"
             />
           </View>
         </Modal>

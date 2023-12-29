@@ -21,8 +21,22 @@ export const settingOrder = {
   PRIMARY_COLOR: 1,
   SIDE_COLOR: 2,
   DARK_MODE: 3,
+  VERSION: 4,
   NO_SIGNATURE: 5,
   AUTHOR: 6,
   CUSTOM_NAME: 16,
   CUSTOM_FORMAT: 17,
 };
+
+export interface checkUpdateResult {
+  hasUpdate: boolean;
+  latestInfo?: string;
+  latestVersion?: string;
+}
+
+export interface sendFeedbackResult {
+  status: number;
+  msg: string;
+  info?: any;
+  error?: string;
+}
