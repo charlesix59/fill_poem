@@ -135,7 +135,7 @@ const verifyCi = async (
 };
 
 const transIntoPureString = (str: string): string => {
-  const pureContent = str.replaceAll(/[，。,. ]/g, "");
+  const pureContent = str.replaceAll(/[，。,.\s]/g, "");
   return pureContent;
 };
 
