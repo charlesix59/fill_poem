@@ -2,14 +2,17 @@ import catalog from "../data/Pingshui_Catalog.json";
 import tunes from "../data/Ci_Tunes.json";
 import {CiFormat, CiTuneType, TunesCatalog} from "../types/main";
 
+/** 获取词谱目录 */
 const getTunesCatalog = async (): Promise<TunesCatalog> => {
   return catalog as TunesCatalog;
 };
 
+/** 根据词牌名获取详细信息 */
 const getTuneByName = (name: string): CiTuneType => {
   return (tunes as any)[name] as CiTuneType;
 };
 
+/** 搜索词牌名 */
 const searchTuneName = (text: string | undefined): TunesCatalog => {
   const tuneNames = catalog as TunesCatalog;
   if (!text) {
@@ -31,6 +34,7 @@ const searchTuneName = (text: string | undefined): TunesCatalog => {
   return res;
 };
 
+/** 根据词牌名字和对应格的下标获取对应词谱格式信息 */
 const getCiFormat = async (
   name: string,
   formatkey: number,

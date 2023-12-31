@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import {CiFormat} from "../types/main";
 import {number2Chinese} from "../utils/comman";
-import {formatStyles} from "../styles";
+import {WFull, formatStyles} from "../styles";
 import {ColorsContext} from "../../App";
 import {Text, View} from "@ant-design/react-native";
 
@@ -49,10 +49,15 @@ function TuneCard({
         {format.tunes.map((item, key) => {
           if (item.rhythm) {
             return (
-              <View key={`tune-${key}`} style={formatStyles.inline}>
-                <Text>{item.tune}</Text>
-                <Text style={{color: COLORS.PRIMARY_COLOR}}>{item.rhythm}</Text>
-              </View>
+              <>
+                <View key={`tune-${key}`} style={formatStyles.inline}>
+                  <Text>{item.tune}</Text>
+                  <Text style={{color: COLORS.PRIMARY_COLOR}}>
+                    {item.rhythm}
+                  </Text>
+                </View>
+                {item.shift ? <View style={WFull} /> : ""}
+              </>
             );
           } else {
             return <Text key={`tune-${key}`}>{item.tune}</Text>;

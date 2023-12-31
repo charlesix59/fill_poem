@@ -89,15 +89,19 @@ function FillPoem({navigation, route}: any): React.JSX.Element {
   useEffect(() => {
     /** 为添加内容添加后缀 */
     const addContentChar = (word: string, index: number): string => {
-      const {rhythm} = format.tunes[index];
+      const {rhythm, shift} = format.tunes[index];
+      let res = word;
       if (rhythm) {
         if (rhythm === "韵") {
-          return `${word} `;
+          res = `${res} `;
         } else {
-          return `${word}，`;
+          res = `${res}，`;
         }
       }
-      return word;
+      if (shift) {
+        res += "\n";
+      }
+      return res;
     };
     if (command && command.name === "input") {
       // 添加到内容

@@ -31,6 +31,7 @@ function Darfts({navigation}: any): React.JSX.Element {
       createTime: item.createTime,
     });
   };
+  /** 编辑草稿 */
   const editDarft = async (index: number) => {
     Toast.loading("加载中，请等待");
     const item = darfts[index];
