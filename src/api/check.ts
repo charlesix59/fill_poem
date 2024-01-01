@@ -13,6 +13,9 @@ const getWord = async (char: string): Promise<CilinWord> => {
  */
 const checkTune = async (char: string, tar: string): Promise<string> => {
   const wordInfo = await getWord(char);
+  if (tar === "中") {
+    return ReturnType.SUCCESS;
+  }
   if (!wordInfo) {
     return ReturnType.INFO;
   }
