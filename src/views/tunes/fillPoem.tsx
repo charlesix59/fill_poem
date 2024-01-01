@@ -41,7 +41,9 @@ function FillPoem({navigation, route}: any): React.JSX.Element {
   // 这个状态本体不应该被使用，只应该使用设置状态时提供的快照
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [firstRhymeWord, setFirstRhymeWord] = useState<number>(); // 保存第一个韵的下标
+  const [modelVisibale, setModelVisible] = useState(false);
   const {useRealm} = useContext(RealmContext);
+  const removeEventRef = useRef<any>(null);
   const realm = useRealm();
   const writeContentId = useRef<Realm.BSON.ObjectId>(
     editId || new Realm.BSON.ObjectId(),
@@ -65,6 +67,12 @@ function FillPoem({navigation, route}: any): React.JSX.Element {
   useEffect(() => {
     navigation.addListener("beforeRemove", (e: any) => {
       e.preventDefault();
+      removeEventRef.current = e;
+      setModelVisible(true);
+    });
+  }, [navigation]);
+  useEffect(() => {
+    if (modelVisibale) {
       Modal.alert("保存更改", "离开之前请确认所有的更改都已经保存哦~", [
         {
           text: "取消",
@@ -72,11 +80,12 @@ function FillPoem({navigation, route}: any): React.JSX.Element {
         },
         {
           text: "确认",
-          onPress: () => navigation.dispatch(e.data.action),
+          onPress: () =>
+            navigation.dispatch(removeEventRef.current.data.action),
         },
       ]);
-    });
-  }, [navigation]);
+    }
+  }, [modelVisibale, navigation]);
   /** 如果传入initValue，则进行处理 */
   useEffect(() => {
     if (initValue) {

@@ -7,7 +7,13 @@ import {
   Toast,
   View,
 } from "@ant-design/react-native";
-import React, {useCallback, useContext, useEffect, useState} from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Container from "../../components/container";
 import editStyle from "../../styles/edit";
 import {inline} from "../../styles";
@@ -24,6 +30,8 @@ function Custom({navigation}: any): React.JSX.Element {
   const defaultFormat = useObject(Settings, settingOrder.CUSTOM_FORMAT);
   const [name, setName] = useState<string>("");
   const [formatInput, setFormatInput] = useState<string>("");
+  const [modelVisible, setModelVisible] = useState(false);
+  const removeEventRef = useRef<any>(null);
   useEffect(() => {
     console.log(defaultFormat, defaultName);
     setName(defaultName?.value || "");
@@ -63,22 +71,29 @@ function Custom({navigation}: any): React.JSX.Element {
   useEffect(() => {
     navigation.addListener("beforeRemove", (e: any) => {
       e.preventDefault();
+      removeEventRef.current = e;
+      setModelVisible(true);
+    });
+  }, [navigation, writeData]);
+  useEffect(() => {
+    if (modelVisible) {
       Modal.alert("保存更改", "您的更改需要保存嘛？", [
         {
           text: "放弃",
           style: "destructive",
-          onPress: () => navigation.dispatch(e.data.action),
+          onPress: () =>
+            navigation.dispatch(removeEventRef.current.data.action),
         },
         {
           text: "保存",
           onPress: () => {
             writeData();
-            navigation.dispatch(e.data.action);
+            navigation.dispatch(removeEventRef.current.data.action);
           },
         },
       ]);
-    });
-  }, [navigation, writeData]);
+    }
+  }, [modelVisible, navigation, writeData]);
   /** 处理自定义韵律并跳转到填词界面 */
   const startFillPoem = () => {
     const tunes: CiTuneItem[] = [];
