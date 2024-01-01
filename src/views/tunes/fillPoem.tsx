@@ -38,6 +38,9 @@ function FillPoem({navigation, route}: any): React.JSX.Element {
   const [chars, setChars] = useState(""); // 多出的文字，自动填充到下一个block
   const [rhymeWord, setRhymeWord] = useState(""); // 韵脚
   const [content, setContent] = useState<Array<string>>([]); // 保存真正的内容
+  // 这个状态本体不应该被使用，只应该使用设置状态时提供的快照
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [firstRhymeWord, setFirstRhymeWord] = useState<number>(); // 保存第一个韵的下标
   const {useRealm} = useContext(RealmContext);
   const realm = useRealm();
   const writeContentId = useRef<Realm.BSON.ObjectId>(
@@ -103,6 +106,7 @@ function FillPoem({navigation, route}: any): React.JSX.Element {
       }
       return res;
     };
+    /** 接收子组件发送的命令 */
     if (command && command.name === "input") {
       // 添加到内容
       if (command.callarIndex >= 0) {
@@ -119,11 +123,21 @@ function FillPoem({navigation, route}: any): React.JSX.Element {
       }
       setFoucsElement(command.callarIndex + 1);
       setChars(command.value || "");
-    } else if (command && command.name === "back") {
+    } else if (command && command.name === "delete") {
       setContent(e => {
         e[command.callarIndex] = "";
         return [...e];
       });
+      // 如果将韵字删除了，韵字应该重新设置为undefinded
+      setFirstRhymeWord(e => {
+        console.log(e, command.callarIndex);
+        if (e === command.callarIndex) {
+          setRhymeWord("");
+          return;
+        }
+        return e;
+      });
+    } else if (command && command.name === "back") {
       if (command.callarIndex === 0) {
         return;
       }
@@ -131,6 +145,7 @@ function FillPoem({navigation, route}: any): React.JSX.Element {
     } else if (command && command.name === "rhythm") {
       setRhymeWord(e => {
         if (!e) {
+          setFirstRhymeWord(command.callarIndex);
           return command.value || "";
         }
         return e;

@@ -70,6 +70,7 @@ function CheckedInput({
     (str: string) => {
       if (!str) {
         setChar("");
+        sendCommand("delete");
         return;
       }
       if (!verifyCharIsChinese(str)) {
