@@ -7,6 +7,7 @@ import CheckedInput from "./checkedInput";
 import {checkRhyme} from "../api/check";
 import {mx8} from "../styles";
 import StateIcon from "./stateIcon";
+import {isRhythmWord} from "../utils/comman";
 
 type propsType = {
   tune: string;
@@ -18,7 +19,6 @@ type propsType = {
   rhymeWord?: string;
 };
 
-// TODO: 优化一下样式，可以不用flex 的 space around
 function InputCheck({
   tune,
   rhythm,
@@ -27,10 +27,11 @@ function InputCheck({
   focus,
   rhymeWord,
 }: propsType): React.JSX.Element {
-  const [rhymeChar, setRhymeChar] = useState("");
+  const [rhymeChar, setRhymeChar] = useState(""); // 用于向上传输的韵字
   const [rhymeState, setRhtmeState] = useState("");
+  /** 如果是韵并且存在韵则检查韵 */
   useEffect(() => {
-    if (!rhymeWord) {
+    if (!rhymeWord || !isRhythmWord(rhythm) || !rhymeChar) {
       return;
     }
     async function check() {
@@ -38,7 +39,7 @@ function InputCheck({
       setRhtmeState(state);
     }
     check();
-  }, [rhymeChar, rhymeWord]);
+  }, [rhymeChar, rhymeWord, rhythm]);
   if (rhythm) {
     return (
       <View style={fillPoemStyle.inline}>
@@ -54,11 +55,7 @@ function InputCheck({
           />
         </View>
         <Text style={mx8}>{rhythm}</Text>
-        {rhythm === "韵" && rhymeChar ? (
-          <StateIcon state={rhymeState} />
-        ) : (
-          <></>
-        )}
+        {rhymeState ? <StateIcon state={rhymeState} /> : <></>}
       </View>
     );
   }

@@ -134,9 +134,18 @@ const verifyCi = async (
   return maxMatchResult;
 };
 
+/** 转化为无标点空格的字符串 */
 const transIntoPureString = (str: string): string => {
   const pureContent = str.replaceAll(/[，。,.\s]/g, "");
   return pureContent;
+};
+
+/** 判断是不是韵字 */
+const isRhythmWord = (rhythm?: string) => {
+  if (rhythm === "韵" || rhythm === "重") {
+    return true;
+  }
+  return false;
 };
 
 export {
@@ -147,4 +156,5 @@ export {
   hasAndroidPermission,
   verifyCi,
   transIntoPureString,
+  isRhythmWord,
 };
