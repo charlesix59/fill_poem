@@ -14,7 +14,7 @@ function Common({navigation}: {navigation: any}): React.JSX.Element {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [switchFlash, setSwitchFlash] = useState(true);
   const [nameModelVisible, setNamModelVisible] = useState<boolean>(false);
-  const [feedbackModelVisiable, setFeedbackModelVisiable] =
+  const [feedbackModelvisible, setFeedbackModelvisible] =
     useState<boolean>(false);
   const [authorInput, setAuthorInput] = useState<string>("");
   const [feedbackContent, setFeedbackContent] = useState<string>("");
@@ -56,7 +56,7 @@ function Common({navigation}: {navigation: any}): React.JSX.Element {
         } else {
           sendFeedback();
         }
-        setFeedbackModelVisiable(false);
+        setFeedbackModelvisible(false);
       },
     },
   ];
@@ -97,7 +97,7 @@ function Common({navigation}: {navigation: any}): React.JSX.Element {
         </Item>
         <Item
           onPress={() => {
-            setFeedbackModelVisiable(true);
+            setFeedbackModelvisible(true);
           }}>
           意见与反馈
         </Item>
@@ -139,7 +139,7 @@ function Common({navigation}: {navigation: any}): React.JSX.Element {
         title="发送反馈"
         transparent
         maskClosable
-        visible={feedbackModelVisiable}
+        visible={feedbackModelvisible}
         footer={feedbackFooter}>
         <View style={pdy16}>
           <Text>您想反馈的内容</Text>
