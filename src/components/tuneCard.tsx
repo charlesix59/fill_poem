@@ -48,9 +48,10 @@ function TuneCard({
         }}>
         {format.tunes.map((item, key) => {
           if (item.rhythm) {
+            // 不能也不需要设置key，因为不会改变
             return (
               <>
-                <View key={`tune-${key}`} style={formatStyles.inline}>
+                <View style={formatStyles.inline}>
                   <Text>{item.tune}</Text>
                   <Text style={{color: COLORS.PRIMARY_COLOR}}>
                     {item.rhythm}

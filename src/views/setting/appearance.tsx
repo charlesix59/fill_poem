@@ -135,7 +135,6 @@ function Appearance(): React.JSX.Element {
                 placeholder="HEX值"
                 onChange={e => {
                   setCustomColorInput(e.nativeEvent.text);
-                  console.log(e.nativeEvent.text);
                 }}
                 value={customColorInput}
               />

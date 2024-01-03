@@ -75,7 +75,6 @@ function Common({navigation}: {navigation: any}): React.JSX.Element {
     )
       .then(res => {
         res.json().then((body: sendFeedbackResult) => {
-          console.log(body);
           Toast.info({content: body.msg, duration: 1});
         });
       })

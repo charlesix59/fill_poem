@@ -8,6 +8,7 @@ import Layout from "./src/layout";
 import {Settings, settingOrder} from "./src/types/setting";
 import {createRealmContext} from "@realm/react";
 import {DarftSchema} from "./src/types/edit";
+import Realm from "realm";
 
 const config: Realm.Configuration = {
   schema: [Settings, DarftSchema],

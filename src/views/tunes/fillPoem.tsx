@@ -17,6 +17,7 @@ import {CheckInputCommand} from "../../types/command";
 import {HCenter, Title} from "../../styles";
 import {RealmContext} from "../../../App";
 import {transIntoPureString} from "../../utils/comman";
+import Realm from "realm";
 
 export const StrContext: Context<string> = createContext("");
 
@@ -139,7 +140,6 @@ function FillPoem({navigation, route}: any): React.JSX.Element {
       });
       // 如果将韵字删除了，韵字应该重新设置为undefinded
       setFirstRhymeWord(e => {
-        console.log(e, command.callarIndex);
         if (e === command.callarIndex) {
           setRhymeWord("");
           return;

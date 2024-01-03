@@ -1,4 +1,4 @@
-import {ObjectSchema} from "realm";
+import Realm, {ObjectSchema} from "realm";
 
 interface DarftType {
   name: string;

@@ -33,7 +33,6 @@ function Custom({navigation}: any): React.JSX.Element {
   const [modelVisible, setModelVisible] = useState(false);
   const removeEventRef = useRef<any>(null);
   useEffect(() => {
-    console.log(defaultFormat, defaultName);
     setName(defaultName?.value || "");
     setFormatInput(defaultFormat?.value || "");
   }, [defaultFormat, defaultFormat?.value, defaultName, defaultName?.value]);
