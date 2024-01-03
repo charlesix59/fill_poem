@@ -29,9 +29,11 @@ function Inspect(): React.JSX.Element {
   const [inputName, setInputName] = useState("");
   const [inputText, setInputText] = useState("");
   const questionPressHandler = () => {
-    Modal.alert("关于词牌名", "目前只支持词律检查，诗律检查开发中", [
-      {text: "明白啦"},
-    ]);
+    Modal.alert(
+      "关于词牌名",
+      "目前只支持词律检查，诗律检查开发中\n作品内容请用【，】或【。】隔开",
+      [{text: "明白啦"}],
+    );
   };
   const verifyContent = async () => {
     const result = await verifyCi(inputName, inputText);
