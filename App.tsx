@@ -63,24 +63,29 @@ function LayoutWarp(): React.JSX.Element {
     if (data.length === 0) {
       realm.write(() => {
         realm.create("Settings", {
-          _id: 1,
+          _id: 0,
           name: "rainbowExplain",
           value: "true",
         });
         realm.create("Settings", {
-          _id: 2,
+          _id: 1,
           name: "primaryColor",
           value: "#FFA07A",
         });
         realm.create("Settings", {
-          _id: 3,
+          _id: 2,
           name: "sideColor",
           value: "#1CA2E1",
         });
         realm.create("Settings", {
-          _id: 4,
+          _id: 3,
           name: "darkMode",
           value: "false",
+        });
+        realm.create("Settings", {
+          _id: 4,
+          name: "version",
+          value: "0.0.2-alpha",
         });
       });
     }

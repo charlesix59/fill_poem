@@ -1,4 +1,4 @@
-import {List, Modal, Switch, Toast} from "@ant-design/react-native";
+import {List, Modal, Switch, Text, Toast} from "@ant-design/react-native";
 import Item from "@ant-design/react-native/lib/list/ListItem";
 import React, {useContext, useState} from "react";
 import {Settings, checkUpdateResult, settingOrder} from "../../types/setting";
@@ -88,7 +88,9 @@ function System(): React.JSX.Element {
           }>
           关闭图片分享标识
         </Item>
-        <Item onPress={checkUpdate}>检查更新</Item>
+        <Item onPress={checkUpdate} extra={<Text>{version?.value}</Text>}>
+          检查更新
+        </Item>
         <Item
           onPress={() => {
             Modal.alert(
