@@ -1,4 +1,4 @@
-import {Text, View, WhiteSpace} from "@ant-design/react-native";
+import {Text, Toast, View, WhiteSpace} from "@ant-design/react-native";
 import React from "react";
 import Container from "../../components/container";
 import {Image, Linking, ScrollView} from "react-native";
@@ -18,14 +18,38 @@ function About(): React.JSX.Element {
           没有搞懂如何使用？本软件的使用说明可能会帮到你：
         </Text>
         <View style={editStyle.ml16}>
-          <Text style={{...my8, ...settingStyles.colorLink}}>
+          <Text
+            style={{...my8, ...settingStyles.colorLink}}
+            onPress={() => {
+              Linking.openURL("https://github.com/charlesix59/fill_poem")
+                .catch()
+                .catch(() => {
+                  Toast.info("打开外部浏览器失败了TAT", 1);
+                });
+            }}>
             软件文档 —— GitHub
           </Text>
-          <Text style={{...my8, ...settingStyles.colorLink}}>
+          <Text
+            style={{...my8, ...settingStyles.colorLink}}
+            onPress={() => {
+              Linking.openURL(
+                "https://charlesix59.github.io/2024/01/07/readme/fill_poem/",
+              ).catch(() => {
+                Toast.info("打开外部浏览器失败了TAT", 1);
+              });
+            }}>
             软件文档 —— 博客
           </Text>
-          <Text style={{...my8, ...settingStyles.colorLink}}>
-            软件文档 —— bilibili
+          <Text
+            style={{...my8, ...settingStyles.colorLink}}
+            onPress={() => {
+              Linking.openURL(
+                "https://docs.qq.com/doc/DTGxiR1NTR1JpVHhl",
+              ).catch(() => {
+                Toast.info("打开外部浏览器失败了TAT", 1);
+              });
+            }}>
+            软件文档 —— 腾讯文档
           </Text>
         </View>
         <Text style={{...colorBlack, ...my8}}>
