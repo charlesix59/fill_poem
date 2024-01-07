@@ -38,13 +38,6 @@
 
 ![intro2](./images/intro2.jpg)
 
-![intro3](./images/intro3.jpg)
-
-![intro4](./images/intro4.jpg)
-
-![intro5](./images/intro5.jpg)
-
-
 ## 如何使用 👀
 
 1. 将下载好的APK安装到手机
@@ -140,3 +133,9 @@
 - realm
 
 部分库需要下载native文件，如果上述依赖出现问题还请您检查依赖是否正确下载、安装与链接
+
+## 外链
+
+[数据仓库 -- yoyo project](https://github.com/charlesix59/chinese_word_rhyme)
+
+[项目企划书](https://charlesix59.github.io/2024/01/07/readme/fp_schedule/)
