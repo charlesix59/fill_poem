@@ -1,20 +1,24 @@
 # fill poem 奉旨填词
 
-一款填词app，基于React Native开发的移动端app，选择词牌名并让这款APP帮助你开始创作
+一款填词App，基于`React Native`开发的移动端App，选择词牌名并让这款APP帮助你开始创作
+
+引流：A mobile app based on `React Native` that help you to create your own poem.
 
 ![yoyo project](./yoyo.png)
 
 ## 下载
 
-[通过github release下载](https://github.com/charlesix59/fill_poem/releases)
+⚡[通过github release下载](https://github.com/charlesix59/fill_poem/releases)
 
-[通过百度云盘下载](https://pan.baidu.com/s/18kJGedL4la8FpQW1myi0ig?pwd=vine) 提取码：vine
+⚡[通过百度云盘下载](https://pan.baidu.com/s/18kJGedL4la8FpQW1myi0ig?pwd=vine) 提取码：vine
+
+⚡[通过永硕网盘下载](http://charlesix59.ysepan.com/) (每年花我48💴，我哭死 TAT)
 
 除此之外我还在寻找其他简单快速（~~并且免费~~）的下载服务
 
 ## 为什么选择奉纸填词
 
-我们有一个功能非常强大的网站：搜韵！
+我们有一个功能非常强大的网站：*搜韵*！
 
 但是这个网站对移动端的适配并不算太友好，因此我做出了这个app并且加入了一些独特的功能。
 
@@ -41,7 +45,7 @@
 ![intro5](./images/intro5.jpg)
 
 
-## 如何使用
+## 如何使用 👀
 
 1. 将下载好的APK安装到手机
 
@@ -74,7 +78,7 @@
 
 ## 贡献
 
-### 反馈与意见
+### ✨反馈与意见
 
 您的反馈是一种非常重要的贡献！
 
@@ -82,13 +86,13 @@
 
 除此之外您也可以通过软件内的【意见与反馈】功能来联系我，或者直接发送邮件到我的邮箱`CharlesMin2001@outlook.com`
 
-### PR
+### ✨PR
 
 非常欢迎大家修改我的代码，并提交Pull Request，我会尽快审核并通过您的代码。
 
 具体开发有关的内容可以查看下面的【开发指南】条目
 
-### 我需要帮助！
+### 我需要帮助！🥺
 
 如果你觉得这个项目还不错，希望能够参与其中并且您拥有以下的技能之一，那么我非常希望您能与我联系！（联系方式见上文）
 
