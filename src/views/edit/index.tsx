@@ -12,12 +12,36 @@ const Stack = createNativeStackNavigator();
 function Edit(): React.JSX.Element {
   return (
     <Stack.Navigator initialRouteName="Menu">
-      <Stack.Screen name="Menu" component={EditMenu} />
-      <Stack.Screen name="Inspect" component={Inspect} />
-      <Stack.Screen name="Darfts" component={Darfts} />
-      <Stack.Screen name="Preview" component={Preview} />
-      <Stack.Screen name="Custom" component={Custom} />
-      <Stack.Screen name="editPoem" component={FillPoem} />
+      <Stack.Screen
+        name="Menu"
+        component={EditMenu}
+        options={{title: "创作"}}
+      />
+      <Stack.Screen
+        name="Inspect"
+        component={Inspect}
+        options={{title: "韵律检查"}}
+      />
+      <Stack.Screen
+        name="Darfts"
+        component={Darfts}
+        options={{title: "草稿箱"}}
+      />
+      <Stack.Screen
+        name="Preview"
+        component={Preview}
+        options={{title: "预览"}}
+      />
+      <Stack.Screen
+        name="Custom"
+        component={Custom}
+        options={{title: "自定义格律"}}
+      />
+      <Stack.Screen
+        name="editPoem"
+        component={FillPoem}
+        options={{title: "填词"}}
+      />
     </Stack.Navigator>
   );
 }

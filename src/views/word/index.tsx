@@ -10,10 +10,26 @@ const Stack = createNativeStackNavigator();
 function Word(): React.JSX.Element {
   return (
     <Stack.Navigator initialRouteName="Menu">
-      <Stack.Screen name="Menu" component={WordMenu} />
-      <Stack.Screen name="WordCatalog" component={WordCatalog} />
-      <Stack.Screen name="TuneWords" component={TuneWords} />
-      <Stack.Screen name="WordSearch" component={WordSearch} />
+      <Stack.Screen
+        name="Menu"
+        component={WordMenu}
+        options={{title: "字典"}}
+      />
+      <Stack.Screen
+        name="WordCatalog"
+        component={WordCatalog}
+        options={{title: "字典索引"}}
+      />
+      <Stack.Screen
+        name="TuneWords"
+        component={TuneWords}
+        options={{title: "字典"}}
+      />
+      <Stack.Screen
+        name="WordSearch"
+        component={WordSearch}
+        options={{title: "搜索"}}
+      />
     </Stack.Navigator>
   );
 }

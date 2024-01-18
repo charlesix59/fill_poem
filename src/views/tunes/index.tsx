@@ -9,9 +9,17 @@ const Stack = createNativeStackNavigator();
 function Tunes(): React.JSX.Element {
   return (
     <Stack.Navigator initialRouteName="Catalog">
-      <Stack.Screen name="Catalog" component={Catalog} />
-      <Stack.Screen name="Tune" component={Tune} />
-      <Stack.Screen name="FillPoem" component={FillPoem} />
+      <Stack.Screen
+        name="Catalog"
+        component={Catalog}
+        options={{title: "词谱"}}
+      />
+      <Stack.Screen name="Tune" component={Tune} options={{title: "词谱"}} />
+      <Stack.Screen
+        name="FillPoem"
+        component={FillPoem}
+        options={{title: "填词"}}
+      />
     </Stack.Navigator>
   );
 }
