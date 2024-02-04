@@ -96,7 +96,7 @@ function CheckedInput({
   useEffect(() => {
     if (focus) {
       inputRef.current.focus();
-      inputRef.current.setNativeProps({selection: {start: 1, end: 1}});
+      inputRef.current.setSelection(1, 1);
       if (value) {
         setInputValue(value);
       }
