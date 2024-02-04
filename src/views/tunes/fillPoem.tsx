@@ -78,11 +78,14 @@ function FillPoem({navigation, route}: any): React.JSX.Element {
         {
           text: "取消",
           style: "cancle",
+          onPress: () => setModelVisible(false),
         },
         {
           text: "确认",
-          onPress: () =>
-            navigation.dispatch(removeEventRef.current.data.action),
+          onPress: () => {
+            navigation.dispatch(removeEventRef.current.data.action);
+            setModelVisible(false);
+          },
         },
       ]);
     }
@@ -192,7 +195,7 @@ function FillPoem({navigation, route}: any): React.JSX.Element {
             {tunes.map((arr, index) => {
               return (
                 <StrContext.Provider key={index} value={chars}>
-                  <View style={fillPoemStyle.inlineContainer} key={index}>
+                  <View style={fillPoemStyle.inlineContainer}>
                     {arr.map((item, keyIndex) => {
                       return (
                         <InputCheck
