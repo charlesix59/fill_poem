@@ -1,7 +1,11 @@
 import React, {useContext, useEffect, useState} from "react";
 import {WordCatalogType} from "../../types/main";
 import Loading from "../../components/loading";
-import {getCilinCatalog, getPingshuiCatalog} from "../../api/word";
+import {
+  getCilinCatalog,
+  getPingshuiCatalog,
+  getXinyunCatalog,
+} from "../../api/word";
 import Container from "../../components/container";
 import {ScrollView, Text} from "react-native";
 import {Button, Icon, View} from "@ant-design/react-native";
@@ -20,8 +24,10 @@ function WordCatalog({route, navigation}: any): React.JSX.Element {
       let data: WordCatalogType;
       if (type === "shi") {
         data = await getPingshuiCatalog();
-      } else {
+      } else if (type === "ci") {
         data = await getCilinCatalog();
+      } else {
+        data = await getXinyunCatalog();
       }
       setCatalog(data);
     };

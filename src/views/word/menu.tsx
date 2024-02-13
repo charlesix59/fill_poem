@@ -1,7 +1,7 @@
 import React from "react";
 import Container from "../../components/container";
 import ButtonItem from "../../components/buttonItem";
-import {Provider, Toast} from "@ant-design/react-native";
+import {Provider} from "@ant-design/react-native";
 
 function WordMenu({navigation}: any): React.JSX.Element {
   return (
@@ -21,10 +21,7 @@ function WordMenu({navigation}: any): React.JSX.Element {
         </ButtonItem>
         <ButtonItem
           onPress={() => {
-            Toast.info({
-              content: "中华新韵支持开发中，请等待更新",
-              duration: 1,
-            });
+            navigation.navigate("WordCatalog", {type: "xinyun"});
           }}>
           中华新韵
         </ButtonItem>

@@ -1,7 +1,9 @@
 import pingshui from "../data/Pingshui_Rhyme.json";
 import cilin from "../data/Cilin_Rhyme.json";
 import words from "../data/Word_Explain.json";
+import xinyun from "../data/Xinyun_Rhyme.json";
 import {WordCatalogType, WordMeaning} from "../types/main";
+// TODO: 或许以后能够改成动态导入，会不会快一点？不过现在这个地方暂时没有性能瓶颈，问题不大
 
 const getPingshuiCatalog = async (): Promise<WordCatalogType> => {
   const res: WordCatalogType = {};
@@ -27,6 +29,19 @@ const getCilinCatalog = async (): Promise<WordCatalogType> => {
   return res;
 };
 
+// 获取中华新韵目录
+const getXinyunCatalog = async (): Promise<WordCatalogType> => {
+  const res: WordCatalogType = {};
+  for (let i in xinyun) {
+    const arr = [];
+    for (let j in (xinyun as any)[i]) {
+      arr.push(j);
+    }
+    res[i] = arr;
+  }
+  return res;
+};
+
 const getWordsByPart = (
   type: string,
   part1: string,
@@ -34,8 +49,10 @@ const getWordsByPart = (
 ): Array<string> => {
   if (type === "shi") {
     return (pingshui as any)[part1][part2];
-  } else {
+  } else if (type === "ci") {
     return (cilin as any)[part1][part2];
+  } else {
+    return (xinyun as any)[part1][part2];
   }
 };
 
@@ -44,7 +61,14 @@ const getWordMeanings = async (word: string): Promise<WordMeaning[]> => {
 };
 
 const searchWord = async (type: string, word: string): Promise<string[][]> => {
-  const wordSet = type === "shi" ? pingshui : cilin;
+  let wordSet;
+  if (type === "shi") {
+    wordSet = pingshui;
+  } else if (type === "ci") {
+    wordSet = cilin;
+  } else {
+    wordSet = xinyun;
+  }
   const res: Array<Array<string>> = [];
   for (let part1 in wordSet) {
     for (let part2 in (wordSet as any)[part1]) {
@@ -61,6 +85,7 @@ const searchWord = async (type: string, word: string): Promise<string[][]> => {
 export {
   getPingshuiCatalog,
   getCilinCatalog,
+  getXinyunCatalog,
   getWordsByPart,
   getWordMeanings,
   searchWord,
