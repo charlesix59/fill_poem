@@ -82,14 +82,23 @@ function LayoutWarp(): React.JSX.Element {
           name: "darkMode",
           value: "false",
         });
-        realm.create("Settings", {
-          _id: 4,
-          name: "version",
-          value: "0.0.2-alpha",
-        });
       });
     }
   }, [data.length, realm]);
+  // 版本信息
+  useEffect(() => {
+    realm.write(() => {
+      realm.create(
+        "Settings",
+        {
+          _id: 4,
+          name: "version",
+          value: "0.0.3",
+        },
+        true,
+      );
+    });
+  });
   useLayoutEffect(() => {
     if (!data || data.length === 0) {
       return;
