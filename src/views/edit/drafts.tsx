@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import Container from "../../components/container";
 import {Easing, ScrollView, Text} from "react-native";
-import {Card, Popover, Provider, Toast, View} from "@ant-design/react-native";
+import {Card, Popover, Toast, View} from "@ant-design/react-native";
 import {DarftSchema} from "../../types/edit";
 import {extractDate} from "../../utils/comman";
 import {ColorsContext, RealmContext} from "../../../App";
@@ -58,55 +58,51 @@ function Darfts({navigation}: any): React.JSX.Element {
     return <Empty />;
   }
   return (
-    <Provider>
-      <Container>
-        <ScrollView style={WFull}>
-          {darfts.map((item, index) => {
-            return (
-              <Card style={editStyle.mb12} key={index}>
-                <Card.Header
-                  title={
-                    <Text style={{color: COLORS.PRIMARY_COLOR}}>
-                      {item.name}
-                    </Text>
-                  }
-                  extra={extractDate(item.createTime)}
-                />
-                <Card.Body>
-                  <View style={editStyle.pd12}>
-                    <Text>{item.content}</Text>
+    <Container>
+      <ScrollView style={WFull}>
+        {darfts.map((item, index) => {
+          return (
+            <Card style={editStyle.mb12} key={index}>
+              <Card.Header
+                title={
+                  <Text style={{color: COLORS.PRIMARY_COLOR}}>{item.name}</Text>
+                }
+                extra={extractDate(item.createTime)}
+              />
+              <Card.Body>
+                <View style={editStyle.pd12}>
+                  <Text>{item.content}</Text>
+                </View>
+              </Card.Body>
+              <Card.Footer
+                content={
+                  <View style={editStyle.w48}>
+                    <Popover
+                      overlay={overlay}
+                      useNativeDriver
+                      duration={200}
+                      onSelect={e => {
+                        if (e === "preview") {
+                          toPerview(index);
+                        } else if (e === "edit") {
+                          editDarft(index);
+                        } else if (e === "delete") {
+                          deleteDarft(index);
+                        }
+                      }}
+                      easing={show =>
+                        show ? Easing.in(Easing.ease) : Easing.step0
+                      }>
+                      <Text style={pd8}>操作</Text>
+                    </Popover>
                   </View>
-                </Card.Body>
-                <Card.Footer
-                  content={
-                    <View style={editStyle.w48}>
-                      <Popover
-                        overlay={overlay}
-                        useNativeDriver
-                        duration={200}
-                        onSelect={e => {
-                          if (e === "preview") {
-                            toPerview(index);
-                          } else if (e === "edit") {
-                            editDarft(index);
-                          } else if (e === "delete") {
-                            deleteDarft(index);
-                          }
-                        }}
-                        easing={show =>
-                          show ? Easing.in(Easing.ease) : Easing.step0
-                        }>
-                        <Text style={pd8}>操作</Text>
-                      </Popover>
-                    </View>
-                  }
-                />
-              </Card>
-            );
-          })}
-        </ScrollView>
-      </Container>
-    </Provider>
+                }
+              />
+            </Card>
+          );
+        })}
+      </ScrollView>
+    </Container>
   );
 }
 

@@ -9,17 +9,19 @@ import {Settings, settingOrder} from "./src/types/setting";
 import {createRealmContext} from "@realm/react";
 import {DarftSchema} from "./src/types/edit";
 import Realm from "realm";
+import {checkUpdate} from "./src/api/common";
+import {Provider} from "@ant-design/react-native";
 
 const config: Realm.Configuration = {
   schema: [Settings, DarftSchema],
-  schemaVersion: 1,
+  schemaVersion: 1, // if the version change, the onMigration method will be called
   onMigration: (oldRealm, newRealm) => {
     newRealm.deleteAll();
   },
 };
 
 const {RealmProvider, useRealm, useObject, useQuery} =
-  createRealmContext(config);
+  createRealmContext(config); // get used hook from new realm context
 
 export const ColorsContext = createContext({
   PRIMARY_COLOR: "#FFA07A",
@@ -31,6 +33,7 @@ export const ColorsContext = createContext({
   INFO: "#1888d8",
 });
 
+// make children can get realm from react context
 export const RealmContext = createContext({
   useRealm,
   useObject,
@@ -59,8 +62,9 @@ function LayoutWarp(): React.JSX.Element {
     SUCCESS: "#19d929",
     INFO: "#1888d8",
   });
+  // if there are no data in realm, set init data
   useEffect(() => {
-    if (data.length === 0) {
+    if (data?.length === 0) {
       realm.write(() => {
         realm.create("Settings", {
           _id: 0,
@@ -85,7 +89,8 @@ function LayoutWarp(): React.JSX.Element {
       });
     }
   }, [data.length, realm]);
-  // 版本信息
+  // TODO: if it's neccessary?
+  // overwrite version data every launch
   useEffect(() => {
     realm.write(() => {
       realm.create(
@@ -98,7 +103,11 @@ function LayoutWarp(): React.JSX.Element {
         true,
       );
     });
-  });
+  }, [realm]);
+  // TODO: need toast container
+  useLayoutEffect(() => {
+    checkUpdate("0.0.3", true);
+  }, []);
   useLayoutEffect(() => {
     if (!data || data.length === 0) {
       return;
@@ -113,9 +122,12 @@ function LayoutWarp(): React.JSX.Element {
       INFO: "#1888d8",
     });
   }, [data, realm]);
+  // transmit color as a property of component to make it change once the color state is changed
   return (
     <ColorsContext.Provider value={colors}>
-      <Layout />
+      <Provider>
+        <Layout />
+      </Provider>
     </ColorsContext.Provider>
   );
 }

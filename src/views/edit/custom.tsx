@@ -1,12 +1,4 @@
-import {
-  Button,
-  Icon,
-  Modal,
-  Provider,
-  Text,
-  Toast,
-  View,
-} from "@ant-design/react-native";
+import {Button, Icon, Modal, Text, Toast, View} from "@ant-design/react-native";
 import React, {
   useCallback,
   useContext,
@@ -129,45 +121,43 @@ function Custom({navigation}: any): React.JSX.Element {
     });
   };
   return (
-    <Provider>
-      <Container>
-        <View style={inline}>
-          <Text style={editStyle.alignLeft}>自定义韵律</Text>
-          <Icon
-            name="question-circle"
-            color={COLORS.SIDE_COLOR}
-            onPress={() => {
-              questionPressHandler();
-            }}
-          />
-        </View>
-        <TextInput
-          style={editStyle.lineInput}
-          placeholder="自定义名称"
-          onChange={e => {
-            setName(e.nativeEvent.text);
-          }}
-          value={name}
-        />
-        <TextInput
-          multiline={true}
-          textAlignVertical="top"
-          numberOfLines={5}
-          placeholder="输入韵律"
-          style={editStyle.textAreaInput}
-          onChange={e => {
-            setFormatInput(e.nativeEvent.text);
-          }}
-          value={formatInput}
-        />
-        <Button
+    <Container>
+      <View style={inline}>
+        <Text style={editStyle.alignLeft}>自定义韵律</Text>
+        <Icon
+          name="question-circle"
+          color={COLORS.SIDE_COLOR}
           onPress={() => {
-            startFillPoem();
-          }}>
-          开始填词！
-        </Button>
-      </Container>
-    </Provider>
+            questionPressHandler();
+          }}
+        />
+      </View>
+      <TextInput
+        style={editStyle.lineInput}
+        placeholder="自定义名称"
+        onChange={e => {
+          setName(e.nativeEvent.text);
+        }}
+        value={name}
+      />
+      <TextInput
+        multiline={true}
+        textAlignVertical="top"
+        numberOfLines={5}
+        placeholder="输入韵律"
+        style={editStyle.textAreaInput}
+        onChange={e => {
+          setFormatInput(e.nativeEvent.text);
+        }}
+        value={formatInput}
+      />
+      <Button
+        onPress={() => {
+          startFillPoem();
+        }}>
+        开始填词！
+      </Button>
+    </Container>
   );
 }
 

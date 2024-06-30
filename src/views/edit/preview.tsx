@@ -2,7 +2,7 @@ import React, {useContext, useRef, useState} from "react";
 import Container from "../../components/container";
 import {Platform, ScrollView, Text, TextInput} from "react-native";
 import {extractDateTime, hasAndroidPermission} from "../../utils/comman";
-import {Button, Modal, Provider, Toast, View} from "@ant-design/react-native";
+import {Button, Modal, Toast, View} from "@ant-design/react-native";
 import {ColorsContext, RealmContext} from "../../../App";
 import {Settings, settingOrder} from "../../types/setting";
 import fillPoemStyle from "../../styles/filePoem";
@@ -55,85 +55,83 @@ function Preview({route}: any): React.JSX.Element {
   ];
 
   return (
-    <Provider>
-      <Container>
-        <ScrollView style={WFull}>
-          <ViewShot
-            style={WFull}
-            ref={shotRef}
-            options={{
-              fileName: createTime.getTime().toString(),
-              format: "png",
-              quality: 0.9,
-            }}>
-            <View style={editStyle.previewContainer}>
-              <View
-                style={{
-                  ...editStyle.previewBorder,
-                  borderColor: colors.SIDE_COLOR,
-                }}>
-                <Text style={editStyle.previewTitle}>{title}</Text>
-                <View>{splitedContent}</View>
-                <View style={editStyle.inlineRight}>
-                  <Text>{AuthorName?.value}</Text>
-                  <Text style={editStyle.ml16}>
-                    {extractDateTime(createTime)}
-                  </Text>
-                </View>
-              </View>
-              {noSignature?.value === "false" ? (
-                <Text
-                  style={{...editStyle.appSignature, color: colors.SIDE_COLOR}}>
-                  来自 奉纸填词APP
+    <Container>
+      <ScrollView style={WFull}>
+        <ViewShot
+          style={WFull}
+          ref={shotRef}
+          options={{
+            fileName: createTime.getTime().toString(),
+            format: "png",
+            quality: 0.9,
+          }}>
+          <View style={editStyle.previewContainer}>
+            <View
+              style={{
+                ...editStyle.previewBorder,
+                borderColor: colors.SIDE_COLOR,
+              }}>
+              <Text style={editStyle.previewTitle}>{title}</Text>
+              <View>{splitedContent}</View>
+              <View style={editStyle.inlineRight}>
+                <Text>{AuthorName?.value}</Text>
+                <Text style={editStyle.ml16}>
+                  {extractDateTime(createTime)}
                 </Text>
-              ) : (
-                <></>
-              )}
+              </View>
             </View>
-          </ViewShot>
-          <View>
-            <Button
-              onPress={takeShotHandler}
-              type="primary"
-              style={fillPoemStyle.submitBtn}>
-              保存图片
-            </Button>
-            <Button
-              onPress={writeClipBoard}
-              type="primary"
-              style={fillPoemStyle.submitBtn}>
-              复制文字
-            </Button>
-            <Button
-              onPress={() => {
-                setModalVisible(true);
-              }}
-              type="ghost"
-              style={fillPoemStyle.submitBtn}>
-              自定格式
-            </Button>
+            {noSignature?.value === "false" ? (
+              <Text
+                style={{...editStyle.appSignature, color: colors.SIDE_COLOR}}>
+                来自 奉纸填词APP
+              </Text>
+            ) : (
+              <></>
+            )}
           </View>
-          <Modal
-            title="手动调整"
-            transparent
-            maskClosable
-            visible={modalVisible}
-            footer={footerButtons}>
-            <View style={pdy16}>
-              <TextInput
-                multiline={true}
-                numberOfLines={4}
-                placeholder="反馈内容"
-                style={settingStyles.settingInput}
-                onChange={e => setSplitedContent(e.nativeEvent.text)}
-                textAlignVertical="top"
-                value={splitedContent}
-              />
-            </View>
-          </Modal>
-        </ScrollView>
-      </Container>
-    </Provider>
+        </ViewShot>
+        <View>
+          <Button
+            onPress={takeShotHandler}
+            type="primary"
+            style={fillPoemStyle.submitBtn}>
+            保存图片
+          </Button>
+          <Button
+            onPress={writeClipBoard}
+            type="primary"
+            style={fillPoemStyle.submitBtn}>
+            复制文字
+          </Button>
+          <Button
+            onPress={() => {
+              setModalVisible(true);
+            }}
+            type="ghost"
+            style={fillPoemStyle.submitBtn}>
+            自定格式
+          </Button>
+        </View>
+        <Modal
+          title="手动调整"
+          transparent
+          maskClosable
+          visible={modalVisible}
+          footer={footerButtons}>
+          <View style={pdy16}>
+            <TextInput
+              multiline={true}
+              numberOfLines={4}
+              placeholder="反馈内容"
+              style={settingStyles.settingInput}
+              onChange={e => setSplitedContent(e.nativeEvent.text)}
+              textAlignVertical="top"
+              value={splitedContent}
+            />
+          </View>
+        </Modal>
+      </ScrollView>
+    </Container>
   );
 }
 

@@ -10,7 +10,7 @@ import {ScrollView, Text} from "react-native";
 import {CiFormat, CiTuneItem} from "../../types/main";
 import Container from "../../components/container";
 import InputCheck from "../../components/inputCheck";
-import {Button, Modal, Provider, Toast, View} from "@ant-design/react-native";
+import {Button, Modal, Toast, View} from "@ant-design/react-native";
 import fillPoemStyle from "../../styles/filePoem";
 import Loading from "../../components/loading";
 import {CheckInputCommand} from "../../types/command";
@@ -186,50 +186,48 @@ function FillPoem({navigation, route}: any): React.JSX.Element {
     return <Loading />;
   }
   return (
-    <Provider>
-      <Container>
-        <ScrollView style={fillPoemStyle.container}>
-          <Text style={Title}>{name}</Text>
-          <Text style={HCenter}>{format.sketch}</Text>
-          <View>
-            {tunes.map((arr, index) => {
-              return (
-                <StrContext.Provider key={index} value={chars}>
-                  <View style={fillPoemStyle.inlineContainer}>
-                    {arr.map((item, keyIndex) => {
-                      return (
-                        <InputCheck
-                          tune={item.tune}
-                          rhythm={item.rhythm}
-                          key={`${index}-${keyIndex}`}
-                          setCommand={setCommand}
-                          index={item.index as number}
-                          focus={foucsElement === item.index}
-                          rhymeWord={rhymeWord}
-                        />
-                      );
-                    })}
-                  </View>
-                </StrContext.Provider>
-              );
-            })}
-          </View>
-          <Button
-            type="primary"
-            style={fillPoemStyle.submitBtn}
-            onPress={() => {
-              if (isCustom) {
-                Toast.info({content: "自定义韵律暂不支持保存哦", duration: 1});
-                return;
-              }
-              Toast.info({content: "保存成功喵~", duration: 0.5});
-              saveDarft();
-            }}>
-            保存草稿
-          </Button>
-        </ScrollView>
-      </Container>
-    </Provider>
+    <Container>
+      <ScrollView style={fillPoemStyle.container}>
+        <Text style={Title}>{name}</Text>
+        <Text style={HCenter}>{format.sketch}</Text>
+        <View>
+          {tunes.map((arr, index) => {
+            return (
+              <StrContext.Provider key={index} value={chars}>
+                <View style={fillPoemStyle.inlineContainer}>
+                  {arr.map((item, keyIndex) => {
+                    return (
+                      <InputCheck
+                        tune={item.tune}
+                        rhythm={item.rhythm}
+                        key={`${index}-${keyIndex}`}
+                        setCommand={setCommand}
+                        index={item.index as number}
+                        focus={foucsElement === item.index}
+                        rhymeWord={rhymeWord}
+                      />
+                    );
+                  })}
+                </View>
+              </StrContext.Provider>
+            );
+          })}
+        </View>
+        <Button
+          type="primary"
+          style={fillPoemStyle.submitBtn}
+          onPress={() => {
+            if (isCustom) {
+              Toast.info({content: "自定义韵律暂不支持保存哦", duration: 1});
+              return;
+            }
+            Toast.info({content: "保存成功喵~", duration: 0.5});
+            saveDarft();
+          }}>
+          保存草稿
+        </Button>
+      </ScrollView>
+    </Container>
   );
 }
 
