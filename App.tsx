@@ -98,7 +98,7 @@ function LayoutWarp(): React.JSX.Element {
         {
           _id: 4,
           name: "version",
-          value: "0.0.3",
+          value: "0.0.4",
         },
         true,
       );
@@ -106,7 +106,7 @@ function LayoutWarp(): React.JSX.Element {
   }, [realm]);
   // TODO: need toast container
   useLayoutEffect(() => {
-    checkUpdate("0.0.3", true);
+    checkUpdate("0.0.4", true);
   }, []);
   useLayoutEffect(() => {
     if (!data || data.length === 0) {
