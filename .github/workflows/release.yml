@@ -1,0 +1,48 @@
+name: CI,
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  APP_NAME: FillPoem-${{ github.ref_name }}-release.apk
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+       - name: Checkout repository
+         uses: actions/checkout@v2
+
+       - name: Set up Node.js
+         uses: actions/setup-node@v2
+         with:
+           node-version: '18'
+
+       - name: Cache NPM dependencies
+         uses: actions/cache@v2
+         with:
+           path: ~/.npm
+           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+           restore-keys: |
+             ${{ runner.os }}-node-
+
+       - name: Install dependencies
+         run: npm install
+
+       - name: Build release apk
+         run: |
+           cd android
+           echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+           bash gradlew assembleRelease
+
+       - name: Rename APK file
+         run: mv android/app/build/outputs/apk/release/app-release.apk android/app/build/outputs/apk/release/${{env.APK_FILE_NAME}}
+
+       - name: Upload apk to artifact
+         uses: actions/upload-artifact@v1
+         with:
+           name: ${{env.APK_FILE_NAME}}
+           path: android/app/build/outputs/apk/release/${{env.APK_FILE_NAME}}
+
+       
+    
