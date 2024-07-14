@@ -42,13 +42,13 @@ jobs:
            bash gradlew assembleRelease
 
        - name: Rename APK file
-         run: mv android/app/build/outputs/apk/release/app-release.apk android/app/build/outputs/apk/release/${{env.APK_FILE_NAME}}
+         run: mv android/app/build/outputs/apk/release/app-release.apk android/app/build/outputs/apk/release/${{env.APP_NAME}}
 
        - name: Upload apk to artifact
          uses: actions/upload-artifact@v1
          with:
-           name: ${{env.APK_FILE_NAME}}
-           path: android/app/build/outputs/apk/release/${{env.APK_FILE_NAME}}
+           name: ${{env.APP_NAME}}
+           path: android/app/build/outputs/apk/release/${{env.APP_NAME}}
 
        
     
