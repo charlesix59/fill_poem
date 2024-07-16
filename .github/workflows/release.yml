@@ -1,8 +1,7 @@
 name: CI,
 on:
-  push:
-    tags:
-      - 'v*'
+  release:
+    types: [published]
 
 env:
   APP_NAME: FillPoem-${{ github.ref_name }}-release.apk
@@ -43,12 +42,9 @@ jobs:
 
        - name: Rename APK file
          run: mv android/app/build/outputs/apk/release/app-release.apk android/app/build/outputs/apk/release/${{env.APP_NAME}}
-
-       - name: Upload apk to artifact
-         uses: actions/upload-artifact@v1
+       - name: Upload to release
+         uses: JasonEtco/upload-to-release@master
          with:
-           name: ${{env.APP_NAME}}
-           path: android/app/build/outputs/apk/release/${{env.APP_NAME}}
-
-       
-    
+           args: android/app/build/outputs/apk/release/${{env.APP_NAME}}
+         env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
