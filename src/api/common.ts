@@ -1,10 +1,11 @@
 import {Modal, Toast} from "@ant-design/react-native";
 import {apiCheckUpdate} from "../api/request";
+import {Linking} from "react-native";
 
 /**
- * get update result and show info
- * @param version current version
- * @param silence don't show any info expect has new version if it's true
+ * 获取版本更细信息
+ * @param version 当前版本
+ * @param silence 是否静默处理，如果静默处理则不会提示除发现新版本外的其他信息
  */
 const checkUpdate = async (version: string, silence: boolean = false) => {
   let toastKey: number = -1;
@@ -18,7 +19,22 @@ const checkUpdate = async (version: string, silence: boolean = false) => {
       Modal.alert(
         `有新版本 ${res.latestVersion}`,
         `${res.latestInfo}\n请手动前往官网下载更新`,
-        [{text: "明白啦"}],
+        [
+          {
+            text: "下次再说",
+            style: "destructive",
+          },
+          {
+            text: "前往更新",
+            onPress: () => {
+              Linking.openURL(
+                "https://github.com/charlesix59/fill_poem/releases",
+              ).catch(() => {
+                Toast.info("打开外部浏览器失败了TAT", 1);
+              });
+            },
+          },
+        ],
       );
     } else if (!silence) {
       Modal.alert("版本检查", "已经是最新版本");
