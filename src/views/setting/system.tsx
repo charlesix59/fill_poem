@@ -5,7 +5,8 @@ import {Settings, settingOrder} from "../../types/setting";
 import {checkUpdate} from "../../api/common";
 import {RealmContext} from "../../../App";
 
-function System(): React.JSX.Element {
+function System(props: {setSecondConfirmVisible: Function}): React.JSX.Element {
+  const {setSecondConfirmVisible} = props;
   const {useRealm, useQuery, useObject} = useContext(RealmContext);
   const realm = useRealm();
   const data = useQuery(Settings);
@@ -71,9 +72,7 @@ function System(): React.JSX.Element {
                 {
                   text: "确认",
                   onPress: () => {
-                    realm.write(() => {
-                      realm.deleteAll();
-                    });
+                    setSecondConfirmVisible(true);
                   },
                 },
               ],

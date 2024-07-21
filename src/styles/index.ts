@@ -62,6 +62,14 @@ const container: StyleProp<any> = {
   alignItems: "center",
 };
 
+const stdInput: StyleProp<any> = {
+  borderColor: COLORS.IGNORE_COLOR,
+  borderStyle: "solid",
+  borderWidth: 1,
+  borderRadius: 3,
+  margin: 20,
+};
+
 const catalogStyles = StyleSheet.create({
   container: {
     display: "flex",
@@ -115,4 +123,5 @@ export {
   my8,
   colorBlack,
   container,
+  stdInput,
 };
