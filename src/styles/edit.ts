@@ -4,7 +4,7 @@ import {inline} from ".";
 
 const editStyle = StyleSheet.create({
   bottonLine: {
-    marginBottom: 8,
+    marginTop: 8,
     width: 200,
     color: COLORS.SIDE_COLOR,
   },

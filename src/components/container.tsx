@@ -10,8 +10,6 @@ function Container(props: {
     width: "100%",
     alignItems: "center",
     backgroundColor: "white",
-    paddingTop: 24,
-    paddingBottom: 12,
     paddingLeft: 12,
     paddingRight: 12,
   };

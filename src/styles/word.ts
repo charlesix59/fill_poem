@@ -20,6 +20,7 @@ const wordStyles = StyleSheet.create({
     marginLeft: "10%",
     marginBottom: 8,
     width: "80%",
+    marginTop: 24,
   },
   searchInput: {
     width: 48,
