@@ -44,12 +44,11 @@ jobs:
          run: mv android/app/build/outputs/apk/release/app-release.apk android/app/build/outputs/apk/release/${{env.APP_NAME}}
          
        - name: Upload to release
-         uses: gh action/upload-release-asset@v1
+         uses: shogo82148/actions-upload-release-asset@v1.7.5
          if: github.event_name == 'release' && github.event.action == 'published'
          with:
+           github_token: ${{ secrets.GITHUB_TOKEN }}
            upload_url:  ${{ github.event.release.upload_url }}
            asset_path: android/app/build/outputs/apk/release/${{env.APP_NAME}}
            asset_name: app-release.apk
            asset_content_type: application/vnd.android.package-archive
-         env:
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
