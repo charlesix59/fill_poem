@@ -22,7 +22,7 @@ type PropsType = {
 function Preview({route}: any): React.JSX.Element {
   const {title, content, createTime}: PropsType = route.params;
   const [splitedContent, setSplitedContent] = useState(
-    content.trimEnd().replaceAll(" ", "\n"),
+    JSON.parse(content).join("").trimEnd().replaceAll(" ", "\n"),
   );
   const [modalVisible, setModalVisible] = useState(false);
   const {useObject} = useContext(RealmContext);

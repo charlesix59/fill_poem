@@ -3,7 +3,6 @@ import React, {
   Dispatch,
   SetStateAction,
   useCallback,
-  useContext,
   useEffect,
   useRef,
   useState,
@@ -11,7 +10,6 @@ import React, {
 import fillPoemStyle from "../styles/filePoem";
 import {CheckInputCommand} from "../types/command";
 import {verifyCharIsChinese} from "../utils/comman";
-import {StrContext} from "../views/tunes/fillPoem";
 import {checkTune} from "../api/check";
 
 const str2styleName = {
@@ -25,6 +23,7 @@ type propsType = {
   setCommand: Dispatch<SetStateAction<CheckInputCommand | undefined>>;
   index: number;
   focus: boolean;
+  value?: string;
   rhythm?: string;
   setRhymeChar?: Dispatch<SetStateAction<string>>;
 };
@@ -34,13 +33,13 @@ function CheckedInput({
   setCommand,
   index,
   focus,
+  value,
   rhythm,
   setRhymeChar,
 }: propsType): React.JSX.Element {
-  const [char, setChar] = useState("");
+  const [char, setChar] = useState(value ?? "");
   const [TuneStyle, setTuneStyle] = useState(fillPoemStyle.textInput);
   const inputRef = useRef<any>();
-  const value = useContext(StrContext);
   const sendCommand = useCallback(
     (name: string, commandValue?: string, additionalValue?: string) => {
       const command: CheckInputCommand = {

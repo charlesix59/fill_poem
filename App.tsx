@@ -11,12 +11,13 @@ import {DarftSchema} from "./src/types/edit";
 import Realm from "realm";
 import {checkUpdate} from "./src/api/common";
 import {Provider} from "@ant-design/react-native";
+import migration from "./src/services/realmMigration";
 
 const config: Realm.Configuration = {
   schema: [Settings, DarftSchema],
-  schemaVersion: 1, // if the version change, the onMigration method will be called
+  schemaVersion: 2, // if the version change, the onMigration method will be called
   onMigration: (oldRealm, newRealm) => {
-    newRealm.deleteAll();
+    migration(oldRealm, newRealm);
   },
 };
 

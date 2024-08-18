@@ -25,6 +25,7 @@ function InputCheck({
   setCommand,
   index,
   focus,
+  value,
   rhymeWord,
 }: propsType): React.JSX.Element {
   const [rhymeChar, setRhymeChar] = useState(""); // 用于向上传输的韵字
@@ -50,6 +51,7 @@ function InputCheck({
             setCommand={setCommand}
             index={index}
             focus={focus}
+            value={value}
             rhythm={rhythm}
             setRhymeChar={setRhymeChar}
           />
@@ -67,6 +69,7 @@ function InputCheck({
         setCommand={setCommand}
         index={index}
         focus={focus}
+        value={value}
       />
     </View>
   );

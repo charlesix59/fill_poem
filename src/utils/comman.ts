@@ -136,8 +136,23 @@ const verifyCi = async (
 
 /** 转化为无标点空格的字符串 */
 const transIntoPureString = (str: string): string => {
+  if (!str) {
+    return str;
+  }
   const pureContent = str.replaceAll(/[，。,.\s]/g, "");
   return pureContent;
+};
+
+const transArrNullItemIntoSpace = (arr: Array<string>): string => {
+  let res = "";
+  arr.forEach(str => {
+    if (!str) {
+      res += "";
+    } else {
+      res += str;
+    }
+  });
+  return res;
 };
 
 /** 判断是不是韵字 */
@@ -146,6 +161,23 @@ const isRhythmWord = (rhythm?: string) => {
     return true;
   }
   return false;
+};
+
+const isJson = (str: string) => {
+  if (typeof str === "string") {
+    try {
+      const obj = JSON.parse(str);
+      if (typeof obj === "object" && obj) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      console.error("isJson: json解析错误" + str, e);
+      return false;
+    }
+  }
+  throw new Error("isJson: 输入不是字符串");
 };
 
 export {
@@ -157,4 +189,6 @@ export {
   verifyCi,
   transIntoPureString,
   isRhythmWord,
+  isJson,
+  transArrNullItemIntoSpace,
 };
