@@ -38,6 +38,9 @@ function CheckedInput({
   setRhymeChar,
 }: propsType): React.JSX.Element {
   const [char, setChar] = useState(value ?? "");
+  useEffect(() => {
+    setChar(value ?? "");
+  }, [index, value]);
   const [TuneStyle, setTuneStyle] = useState(fillPoemStyle.textInput);
   const inputRef = useRef<any>();
   const sendCommand = useCallback(
@@ -96,9 +99,6 @@ function CheckedInput({
     if (focus) {
       inputRef.current.focus();
       inputRef.current.setSelection(1, 1);
-      if (value) {
-        setInputValue(value);
-      }
     }
   }, [focus, setInputValue, value]);
   /** 处理输入 */

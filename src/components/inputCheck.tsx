@@ -45,7 +45,10 @@ function InputCheck({
     return (
       <View style={fillPoemStyle.inline}>
         <View style={fillPoemStyle.centerContainer}>
-          <Text>{tune}</Text>
+          <Text>
+            {tune}
+            {value}
+          </Text>
           <CheckedInput
             tune={tune}
             setCommand={setCommand}
@@ -63,7 +66,10 @@ function InputCheck({
   }
   return (
     <View style={fillPoemStyle.centerContainer}>
-      <Text>{tune}</Text>
+      <Text>
+        {tune}
+        {value}
+      </Text>
       <CheckedInput
         tune={tune}
         setCommand={setCommand}

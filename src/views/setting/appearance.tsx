@@ -122,7 +122,6 @@ function Appearance(): React.JSX.Element {
               setSelectedColor(e.target.value as string);
             }}
             value={selectedColor}>
-            {/* TODO: 自定义颜色，想想咋实现捏 */}
             {colors.map((item, index) => (
               <Radio value={item.colorHex} key={index}>
                 <ColorPicker colorHex={item.colorHex} text={item.text} />

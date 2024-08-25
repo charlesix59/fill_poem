@@ -54,7 +54,7 @@ const addContentChar = (
   shift: boolean,
 ): string => {
   let res = word;
-  // TODO: 这里有问题，要判断是否为空。否则会设置字符串为undefined
+  res = res ?? "";
   if (rhythm) {
     if (rhythm === "韵") {
       res = `${res} `;
@@ -150,14 +150,16 @@ function FillPoem({navigation, route}: any): React.JSX.Element {
       if (command.callarIndex === format.tunes.length - 1) {
         return;
       }
-      // TODO: 多文字适配？
-      setFoucsElement(command.callarIndex + 1);
       setChars(e => {
         e[command.callarIndex] = command.additionalValue || "";
-        console.log("新chars数组", e);
-        return [...e];
+        for (let i = 0; i < (command.value?.length ?? 0); i++) {
+          e[command.callarIndex + i + 1] = command.value?.[i] || "";
+        }
+        return JSON.parse(JSON.stringify(e));
       });
+      setFoucsElement(command.callarIndex + 1 + (command.value?.length ?? 0));
     } else if (command && command.name === "delete") {
+      // TODO: 删除事件
       setChars(e => {
         e[command.callarIndex] = "";
         return [...e];
