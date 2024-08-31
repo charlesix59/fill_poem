@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import Container from "../../components/container";
 import {ScrollView, Text} from "react-native";
-import {Card, Toast, View} from "@ant-design/react-native";
+import {Card, Modal, Toast, View} from "@ant-design/react-native";
 import {DarftSchema} from "../../types/edit";
 import {extractDate} from "../../utils/comman";
 import {ColorsContext, RealmContext} from "../../../App";
@@ -19,10 +19,22 @@ function Darfts({navigation}: any): React.JSX.Element {
   const realm = useRealm();
   /** 删除草稿 */
   const deleteDarft = (index: number) => {
-    realm.write(() => {
-      realm.delete(darfts[index]);
-    });
-    Toast.info({content: "删除成功喵~", duration: 0.5});
+    Modal.alert("提示", "确定要删除嘛？", [
+      {
+        text: "点错了~",
+        style: "cancle",
+      },
+      {
+        text: "是的",
+        style: "destructive",
+        onPress: () => {
+          realm.write(() => {
+            realm.delete(darfts[index]);
+          });
+          Toast.info({content: "删除成功喵~", duration: 0.5});
+        },
+      },
+    ]);
   };
   /** 跳转预览界面 */
   const toPerview = (index: number) => {
