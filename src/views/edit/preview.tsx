@@ -21,7 +21,6 @@ type PropsType = {
 
 function Preview({route}: any): React.JSX.Element {
   const {title, content, createTime}: PropsType = route.params;
-  // TODO: 修改预览效果
   const [splitedContent, setSplitedContent] = useState(
     JSON.parse(content).join("").trimEnd().replaceAll(" ", "\n"),
   );
@@ -92,6 +91,10 @@ function Preview({route}: any): React.JSX.Element {
           </View>
         </ViewShot>
         <View>
+          {/* TODO: 暂时不做，看需要
+          <Button type="primary" style={editStyle.editButton}>
+            前往编辑
+          </Button> */}
           <Button
             onPress={takeShotHandler}
             type="primary"

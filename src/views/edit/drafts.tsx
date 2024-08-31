@@ -12,7 +12,9 @@ import {getCiFormat} from "../../api/tunes";
 
 function Darfts({navigation}: any): React.JSX.Element {
   const {useQuery, useRealm} = useContext(RealmContext);
-  const darfts = useQuery(DarftSchema);
+  const darfts = useQuery(DarftSchema, tasks => {
+    return tasks.sorted("createTime", true);
+  });
   const COLORS = useContext(ColorsContext);
   const realm = useRealm();
   /** 删除草稿 */
@@ -67,7 +69,6 @@ function Darfts({navigation}: any): React.JSX.Element {
                 <View style={editStyle.pd12}>
                   <Text
                     onPress={() => {
-                      console.log("tap");
                       toPerview(index);
                     }}>
                     {JSON.parse(item.content).join("").trim()}

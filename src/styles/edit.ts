@@ -1,6 +1,7 @@
 import {StyleSheet} from "react-native";
 import {COLORS} from "./theme";
 import {inline} from ".";
+import fillPoemStyle from "./filePoem";
 
 const editStyle = StyleSheet.create({
   bottonLine: {
@@ -53,17 +54,24 @@ const editStyle = StyleSheet.create({
     alignSelf: "center",
     marginTop: 8,
   },
-  // 草稿箱预览操作
+  // 草稿箱预览操作容器
   opratorContainer: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "flex-end",
   },
+  // 草稿箱预览操作文字
   opratorText: {
     marginVertical: 16,
     color: "#6688ff",
     textDecorationLine: "underline",
     width: 48,
+  },
+  // 预览页编辑按钮
+  editButton: {
+    backgroundColor: "#66cdaa",
+    borderColor: "#0dbf8c",
+    ...fillPoemStyle.submitBtn,
   },
 });
 
