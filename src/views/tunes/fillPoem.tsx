@@ -159,7 +159,6 @@ function FillPoem({navigation, route}: any): React.JSX.Element {
       });
       setFoucsElement(command.callarIndex + 1 + (command.value?.length ?? 0));
     } else if (command && command.name === "delete") {
-      // TODO: 删除事件
       setChars(e => {
         e[command.callarIndex] = "";
         return [...e];

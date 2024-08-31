@@ -17,7 +17,7 @@ const editStyle = StyleSheet.create({
     margin: 20,
   },
   alignLeft: {alignSelf: "flex-start"},
-  mb12: {marginBottom: 12},
+  mt12: {marginTop: 12},
   pd12: {padding: 12},
   w48: {width: 48},
   textAreaInput: {
@@ -29,6 +29,7 @@ const editStyle = StyleSheet.create({
     margin: 24,
   },
   previewContainer: {
+    marginTop: 12,
     marginLeft: "10%",
     width: "80%",
     backgroundColor: COLORS.BACKGROUND_COLOR,
@@ -51,6 +52,18 @@ const editStyle = StyleSheet.create({
   appSignature: {
     alignSelf: "center",
     marginTop: 8,
+  },
+  // 草稿箱预览操作
+  opratorContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+  },
+  opratorText: {
+    marginVertical: 16,
+    color: "#6688ff",
+    textDecorationLine: "underline",
+    width: 48,
   },
 });
 

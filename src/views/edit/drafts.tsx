@@ -1,12 +1,12 @@
 import React, {useContext} from "react";
 import Container from "../../components/container";
-import {Easing, ScrollView, Text} from "react-native";
-import {Card, Popover, Toast, View} from "@ant-design/react-native";
+import {ScrollView, Text} from "react-native";
+import {Card, Toast, View} from "@ant-design/react-native";
 import {DarftSchema} from "../../types/edit";
 import {extractDate} from "../../utils/comman";
 import {ColorsContext, RealmContext} from "../../../App";
 import editStyle from "../../styles/edit";
-import {WFull, pd8} from "../../styles";
+import {WFull} from "../../styles";
 import Empty from "../../components/empty";
 import {getCiFormat} from "../../api/tunes";
 
@@ -44,16 +44,6 @@ function Darfts({navigation}: any): React.JSX.Element {
       editId: item._id,
     });
   };
-  const nameArr = [
-    {value: "preview", name: "预览"},
-    {value: "edit", name: "编辑"},
-    {value: "delete", name: "删除"},
-  ];
-  const overlay = nameArr.map((item, index) => (
-    <Popover.Item key={index} value={item.value}>
-      <Text>{item.name}</Text>
-    </Popover.Item>
-  ));
   if (!darfts || darfts.length === 0) {
     return <Empty />;
   }
@@ -62,39 +52,45 @@ function Darfts({navigation}: any): React.JSX.Element {
       <ScrollView style={WFull}>
         {darfts.map((item, index) => {
           return (
-            <Card style={editStyle.mb12} key={index}>
+            <Card style={editStyle.mt12} key={index}>
               <Card.Header
                 title={
-                  <Text style={{color: COLORS.PRIMARY_COLOR}}>{item.name}</Text>
+                  <Text
+                    style={{color: COLORS.PRIMARY_COLOR}}
+                    onPress={() => toPerview(index)}>
+                    {item.name}
+                  </Text>
                 }
                 extra={extractDate(item.createTime)}
               />
               <Card.Body>
                 <View style={editStyle.pd12}>
-                  <Text>{item.content}</Text>
+                  <Text
+                    onPress={() => {
+                      console.log("tap");
+                      toPerview(index);
+                    }}>
+                    {JSON.parse(item.content).join("").trim()}
+                  </Text>
                 </View>
               </Card.Body>
               <Card.Footer
                 content={
-                  <View style={editStyle.w48}>
-                    <Popover
-                      overlay={overlay}
-                      useNativeDriver
-                      duration={200}
-                      onSelect={e => {
-                        if (e === "preview") {
-                          toPerview(index);
-                        } else if (e === "edit") {
-                          editDarft(index);
-                        } else if (e === "delete") {
-                          deleteDarft(index);
-                        }
-                      }}
-                      easing={show =>
-                        show ? Easing.in(Easing.ease) : Easing.step0
-                      }>
-                      <Text style={pd8}>操作</Text>
-                    </Popover>
+                  <View style={editStyle.opratorContainer}>
+                    <Text
+                      style={editStyle.opratorText}
+                      onPress={() => {
+                        editDarft(index);
+                      }}>
+                      编辑
+                    </Text>
+                    <Text
+                      style={editStyle.opratorText}
+                      onPress={() => {
+                        deleteDarft(index);
+                      }}>
+                      删除
+                    </Text>
                   </View>
                 }
               />

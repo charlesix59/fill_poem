@@ -21,6 +21,7 @@ type PropsType = {
 
 function Preview({route}: any): React.JSX.Element {
   const {title, content, createTime}: PropsType = route.params;
+  // TODO: 修改预览效果
   const [splitedContent, setSplitedContent] = useState(
     JSON.parse(content).join("").trimEnd().replaceAll(" ", "\n"),
   );
