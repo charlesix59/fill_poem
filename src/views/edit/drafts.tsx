@@ -19,22 +19,27 @@ function Darfts({navigation}: any): React.JSX.Element {
   const realm = useRealm();
   /** 删除草稿 */
   const deleteDarft = (index: number) => {
-    Modal.alert("提示", "确定要删除嘛？", [
-      {
-        text: "点错了~",
-        style: "cancle",
-      },
-      {
-        text: "是的",
-        style: "destructive",
-        onPress: () => {
-          realm.write(() => {
-            realm.delete(darfts[index]);
-          });
-          Toast.info({content: "删除成功喵~", duration: 0.5});
+    Modal.alert(
+      "提示",
+      "确定要删除嘛？",
+      [
+        {
+          text: "点错了~",
+          style: "cancle",
         },
-      },
-    ]);
+        {
+          text: "是的",
+          style: "destructive",
+          onPress: () => {
+            realm.write(() => {
+              realm.delete(darfts[index]);
+            });
+            Toast.info({content: "删除成功喵~", duration: 0.5});
+          },
+        },
+      ],
+      () => true,
+    );
   };
   /** 跳转预览界面 */
   const toPerview = (index: number) => {

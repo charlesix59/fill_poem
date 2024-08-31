@@ -26,6 +26,7 @@ function Inspect(): React.JSX.Element {
       "关于词牌名",
       "目前只支持词律检查，诗律检查开发中\n作品内容请用【，】或【。】隔开",
       [{text: "明白啦"}],
+      () => true,
     );
   };
   const verifyContent = async () => {

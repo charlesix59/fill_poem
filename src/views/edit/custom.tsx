@@ -34,6 +34,7 @@ function Custom({navigation}: any): React.JSX.Element {
       "关于自定义韵律",
       "诗词的律支持【平】，【仄】，【多】三种，停顿处用【，】隔开，一句结束时请用【。】隔开，换阙请用回车换行",
       [{text: "明白啦"}],
+      () => true,
     );
   };
   const writeData = useCallback(() => {

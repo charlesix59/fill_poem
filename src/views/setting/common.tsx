@@ -122,6 +122,10 @@ function Common({navigation}: {navigation: any}): React.JSX.Element {
         title={"设置作者署名"}
         transparent
         maskClosable
+        closable
+        onClose={() => {
+          setNamModelVisible(false);
+        }}
         visible={nameModelVisible}
         footer={authorFooter}>
         <View style={pdy16}>
@@ -138,6 +142,10 @@ function Common({navigation}: {navigation: any}): React.JSX.Element {
         title="发送反馈"
         transparent
         maskClosable
+        closable
+        onClose={() => {
+          setFeedbackModelvisible(false);
+        }}
         visible={feedbackModelvisible}
         footer={feedbackFooter}>
         <View style={pdy16}>

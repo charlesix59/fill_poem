@@ -121,6 +121,10 @@ function Preview({route}: any): React.JSX.Element {
           transparent
           maskClosable
           visible={modalVisible}
+          closable
+          onClose={() => {
+            setModalVisible(false);
+          }}
           footer={footerButtons}>
           <View style={pdy16}>
             <TextInput

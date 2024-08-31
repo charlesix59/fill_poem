@@ -76,6 +76,7 @@ function System(props: {setSecondConfirmVisible: Function}): React.JSX.Element {
                   },
                 },
               ],
+              () => true,
             );
           }}>
           清除缓存

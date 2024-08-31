@@ -114,6 +114,10 @@ function Appearance(): React.JSX.Element {
         title={title}
         transparent
         maskClosable
+        closable
+        onClose={() => {
+          setColorModelVisible(false);
+        }}
         visible={colorModelVisible}
         footer={footerButtons}>
         <View style={pdy16}>
