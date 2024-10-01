@@ -135,27 +135,26 @@ function FillPoem({navigation, route}: any): React.JSX.Element {
       );
       console.log(initArr);
       setChars(initArr);
-      // setCommand({
-      //   name: "input",
-      //   callarIndex: -1,
-      //   value: transArrNullItemIntoSpace(initArr),
-      //   additionalValue: "",
-      // });
     }
   }, [initValue]);
   /** 监听command变化 */
   useEffect(() => {
     /** 接收子组件发送的命令 */
     if (command && command.name === "input") {
-      if (command.callarIndex === format.tunes.length - 1) {
+      // 如果超出一阙词的字数则不继续前进
+      if (command.callarIndex >= format.tunes.length) {
         return;
       }
       setChars(e => {
         e[command.callarIndex] = command.additionalValue || "";
+        // 因为可能一次输入不只一个字符，所以要循环
         for (let i = 0; i < (command.value?.length ?? 0); i++) {
+          if (command.callarIndex + i >= format.tunes.length - 1) {
+            break; // 如果一次性输入的文字超过词牌的长度，多余的要省略
+          }
           e[command.callarIndex + i + 1] = command.value?.[i] || "";
         }
-        return JSON.parse(JSON.stringify(e));
+        return JSON.parse(JSON.stringify(e)); // 深拷贝确保更新
       });
       setFoucsElement(command.callarIndex + 1 + (command.value?.length ?? 0));
     } else if (command && command.name === "delete") {
