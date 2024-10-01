@@ -10,11 +10,11 @@ const number2Chinese = (num: number): string => {
 };
 
 // 中文匹配正则
-const reg = /^[\u4E00-\u9FA5]+$/;
+const regCN = /^[\u4E00-\u9FA5]+$/;
 
 /** 检查是否是中文 */
 const verifyCharIsChinese = (char: string) => {
-  if (reg.test(char)) {
+  if (regCN.test(char)) {
     return true;
   }
   return false;
@@ -163,6 +163,11 @@ const isRhythmWord = (rhythm?: string) => {
   return false;
 };
 
+/**
+ * 判断是否是json字符串
+ * @param str 待判断的字符串
+ * @returns 如果是json则返回true，否则返回false
+ */
 const isJson = (str: string) => {
   if (typeof str === "string") {
     try {

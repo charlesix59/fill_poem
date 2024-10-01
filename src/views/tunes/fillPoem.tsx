@@ -43,7 +43,7 @@ const genContentString = (ciFormat: CiFormat, content: Array<string>) => {
     const {rhythm, shift} = ciFormat.tunes[index];
     res[index] = addContentChar(content[index], rhythm ?? "", shift ?? false);
   }
-  console.log(res);
+  console.log("保存结果", res);
   return JSON.stringify(res);
 };
 

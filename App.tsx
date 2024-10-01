@@ -15,7 +15,7 @@ import migration from "./src/services/realmMigration";
 
 const config: Realm.Configuration = {
   schema: [Settings, DarftSchema],
-  schemaVersion: 2, // if the version change, the onMigration method will be called
+  schemaVersion: 2, // 如果version字段改变，将会触发onMigration方法
   onMigration: (oldRealm, newRealm) => {
     migration(oldRealm, newRealm);
   },
