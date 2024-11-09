@@ -72,6 +72,9 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 def versionCode = project.hasProperty('versionCode') ? project.versionCode : 1  // 默认值 1
 def versionName = project.hasProperty('versionName') ? project.versionName : '1.0.0'  // 默认版本号
 
+println "Version Name: ${project.hasProperty('versionName') ? project.versionName : 'not provided'}"
+println "Version Code: ${project.hasProperty('versionCode') ? project.versionCode : 'not provided'}"
+
 android {
     ndkVersion rootProject.ext.ndkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion

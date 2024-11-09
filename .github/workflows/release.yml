@@ -47,7 +47,7 @@ jobs:
         run: |
           cd android
           echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
-          bash gradlew assembleRelease -PversionName=${{ env.VERSION_NAME }} -PversionCode=${{ env.VERSION_CODE }} --stacktrace
+          bash gradlew assembleRelease -PversionName=${{ env.VERSION_NAME }} -PversionCode=${{ env.VERSION_CODE }} --debug
 
       - name: Rename APK file
         run: mv android/app/build/outputs/apk/release/app-release.apk android/app/build/outputs/apk/release/${{env.APP_NAME}}
