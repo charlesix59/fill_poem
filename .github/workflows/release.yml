@@ -33,7 +33,7 @@ jobs:
         id: get_version
         run: |
           VERSION=$(node -p "require('./package.json').version")
-          echo "VERSION_Name=$VERSION" >> $GITHUB_ENV
+          echo "VERSION_NAME=$VERSION" >> $GITHUB_ENV
           VERSION_CODE=$(node -p "require('./package.json').version.split('.').map(Number).reduce((a, b) => a * 1000 + b, 0)")
           echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
 
