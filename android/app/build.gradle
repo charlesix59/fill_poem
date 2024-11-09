@@ -69,8 +69,8 @@ def enableProguardInReleaseBuilds = false
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
 
-def projectVersion = project.hasProperty('versionCode') ? project.versionCode : 1
-def versionName = project.hasProperty('versionName') ? project.versionName : '1.0.0'
+def versionCode = project.hasProperty('versionCode') ? project.versionCode : 1  // 默认值 1
+def versionName = project.hasProperty('versionName') ? project.versionName : '1.0.0'  // 默认版本号
 
 android {
     ndkVersion rootProject.ext.ndkVersion
@@ -82,7 +82,7 @@ android {
         applicationId "com.fillpoem"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode projectVersion
+        versionCode versionCode
         versionName versionName
     }
     signingConfigs {
