@@ -69,6 +69,9 @@ def enableProguardInReleaseBuilds = false
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
 
+def projectVersion = project.hasProperty('versionCode') ? project.versionCode : 1
+def versionName = project.hasProperty('versionName') ? project.versionName : '1.0.0'
+
 android {
     ndkVersion rootProject.ext.ndkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -79,8 +82,8 @@ android {
         applicationId "com.fillpoem"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode projectVersion
+        versionName versionName
     }
     signingConfigs {
         debug {
