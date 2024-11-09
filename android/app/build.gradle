@@ -69,11 +69,11 @@ def enableProguardInReleaseBuilds = false
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
 
-def versionCodeInput = (project.hasProperty('versionCode') ? project.versionCode : 1).toInteger()  // 默认值 1
+def versionCodeInput = project.hasProperty('versionCode') ? project.versionCode : 1  // 默认值 1
 def versionNameInput = project.hasProperty('versionName') ? project.versionName : '1.0.0'  // 默认版本号
 
-println "Version Name: ${project.hasProperty('versionName') ? project.versionName : 'not provided'}"
-println "Version Code: ${project.hasProperty('versionCode') ? project.versionCode : 'not provided'}"
+println "Version Name: ${versionNameInput}"
+println "Version Code: ${versionCodeInput}"
 
 android {
     ndkVersion rootProject.ext.ndkVersion
